@@ -1,0 +1,55 @@
+<h2 mat-dialog-title class="dialog-title">
+
+  <div class="icon-container">
+
+    <mat-icon color="warn">
+      {{ data.icono ?? 'delete' }}
+    </mat-icon>
+
+  </div>
+
+  <span>{{ data.titulo }}</span>
+
+</h2>
+
+<mat-dialog-content>
+
+  <p
+    class="mensaje"
+    [innerHTML]="data.mensaje">
+  </p>
+
+  @if (data.advertencia) {
+
+  <div class="advertencia">
+
+    <mat-icon>warning</mat-icon>
+
+    <span>{{ data.advertencia }}</span>
+
+  </div>
+
+  }
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-button
+    (click)="cancelar()">
+
+    {{ data.textoCancelar ?? 'Cancelar' }}
+
+  </button>
+
+  <button
+    mat-flat-button
+    [color]="data.color ?? 'warn'"
+    (click)="confirmar()">
+
+    {{ data.textoConfirmar ?? 'Aceptar' }}
+
+  </button>
+
+</mat-dialog-actions>

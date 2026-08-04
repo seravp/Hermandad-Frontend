@@ -1,0 +1,33 @@
+<div class="login-container">
+
+  <h1>Gestión Hermandad</h1>
+
+  <form (ngSubmit)="login()">
+
+    <input
+      type="text"
+      placeholder="Usuario"
+      [(ngModel)]="username"
+      name="username">
+
+    <input
+      type="password"
+      placeholder="Contraseña"
+      [(ngModel)]="password"
+      name="password">
+
+    <button type="submit">
+
+      Entrar
+
+    </button>
+
+  </form>
+
+  @if(error){
+
+    <p>{{error}}</p>
+
+  }
+
+</div>

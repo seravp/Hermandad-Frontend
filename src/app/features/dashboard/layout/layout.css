@@ -1,0 +1,23 @@
+.layout {
+  height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+}
+
+.content {
+  padding: 24px;
+}
+
+.logout {
+  position: absolute;
+  bottom: 20px;
+  left: 16px;
+  right: 16px;
+}
+
+.active {
+  background-color: rgba(25, 118, 210, 0.12);
+  border-radius: 8px;
+}

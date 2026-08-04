@@ -1,1 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+.mat-mdc-snack-bar-container.snackbar-error .mdc-snackbar__surface {
+  background-color: #c62828 !important;
+}
+
+.mat-mdc-snack-bar-container.snackbar-success .mdc-snackbar__surface {
+  background-color: #2e7d32 !important;
+}
+
+.mat-mdc-snack-bar-container.snackbar-error .mat-mdc-snack-bar-label,
+.mat-mdc-snack-bar-container.snackbar-success .mat-mdc-snack-bar-label {
+  color: white !important;
+}
+
+.mat-mdc-snack-bar-container.snackbar-error .mat-mdc-button,
+.mat-mdc-snack-bar-container.snackbar-success .mat-mdc-button {
+  color: white !important;
+}
+
+.mat-mdc-snack-bar-container.snackbar-success .mdc-snackbar__surface {
+  background-color: #2e7d32 !important;
+}
+
+.mat-mdc-snack-bar-container.snackbar-error .mdc-snackbar__surface {
+  background-color: #c62828 !important;
+}
+
+.mat-mdc-snack-bar-container.snackbar-info .mdc-snackbar__surface {
+  background-color: #1976d2 !important;
+}
+
+.mat-mdc-snack-bar-container.snackbar-warning .mdc-snackbar__surface {
+  background-color: #ed6c02 !important;
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-snack-bar-label,
+.mat-mdc-snack-bar-container .mat-mdc-button {
+  color: white !important;
+}

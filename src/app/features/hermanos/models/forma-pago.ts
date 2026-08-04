@@ -1,0 +1,4 @@
+export enum FormaPago {
+  DOMICILIACION = 'DOMICILIACION',
+  EFECTIVO = 'EFECTIVO',
+}

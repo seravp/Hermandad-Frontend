@@ -1,0 +1,57 @@
+.dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 8px;
+}
+
+.icon-container {
+  width: 52px;
+  height: 52px;
+
+  border-radius: 50%;
+
+  background: #ffebee;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-shrink: 0;
+}
+
+.icon-container mat-icon {
+  color: #d32f2f;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.mensaje {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 10px 0 6px;
+  color: rgba(0,0,0,.75);
+}
+
+mat-dialog-actions {
+  padding-top: 20px;
+}
+
+.advertencia {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 18px;
+  padding: 12px;
+
+  border-radius: 8px;
+
+  background: #fff8e1;
+  color: #8a6d3b;
+}
+
+.advertencia mat-icon {
+  color: #f9a825;
+}

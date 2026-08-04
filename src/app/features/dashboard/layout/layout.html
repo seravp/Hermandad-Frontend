@@ -1,0 +1,74 @@
+<mat-sidenav-container class="layout">
+
+  <mat-sidenav mode="side" opened class="sidebar">
+
+    <mat-toolbar color="primary">
+      Hermandad
+    </mat-toolbar>
+
+    <mat-nav-list>
+
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </a>
+
+      <a mat-list-item routerLink="/hermanos" routerLinkActive="active">
+        <mat-icon>groups</mat-icon>
+        <span>Hermanos</span>
+      </a>
+
+      <a mat-list-item routerLink="/cuotas" routerLinkActive="active">
+        <mat-icon>payments</mat-icon>
+        <span>Cuotas</span>
+      </a>
+
+      <a mat-list-item routerLink="/morosos" routerLinkActive="active">
+        <mat-icon>warning</mat-icon>
+        <span>Morosos</span>
+      </a>
+
+      <a mat-list-item routerLink="/usuarios" routerLinkActive="active">
+        <mat-icon>people</mat-icon>
+        <span>Usuarios</span>
+      </a>
+
+      <a mat-list-item routerLink="/auditoria" routerLinkActive="active">
+        <mat-icon>history</mat-icon>
+        <span>Auditoría</span>
+      </a>
+
+    </mat-nav-list>
+
+    <div class="logout">
+
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="logout()">
+
+        Cerrar sesión
+
+      </button>
+
+    </div>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <mat-toolbar color="primary">
+
+      Gestión de Hermandad
+
+    </mat-toolbar>
+
+    <div class="content">
+
+      <router-outlet></router-outlet>
+
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

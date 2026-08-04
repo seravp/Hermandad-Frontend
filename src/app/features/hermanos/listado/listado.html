@@ -1,0 +1,177 @@
+<mat-card>
+
+  <mat-card-header>
+
+    <mat-card-title>
+      Hermanos
+    </mat-card-title>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="nuevoHermano()">
+      <mat-icon>add</mat-icon>
+      Nuevo hermano
+    </button>
+
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <div class="toolbar">
+
+      <mat-form-field appearance="outline" class="buscar">
+
+        <mat-label>Buscar hermano</mat-label>
+
+        <input
+          matInput
+          [formControl]="busquedaControl"
+          placeholder="Nombre, apellidos o DNI">
+
+        <mat-icon matSuffix>search</mat-icon>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="estado">
+
+        <mat-label>Estado</mat-label>
+
+        <mat-select
+          [(ngModel)]="estadoSeleccionado"
+          (selectionChange)="buscar()">
+
+          <mat-option value="">Todos</mat-option>
+          <mat-option value="ACTIVO">Activo</mat-option>
+          <mat-option value="BAJA">Baja</mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+    </div>
+
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      (matSortChange)="ordenar($event)"
+      class="mat-elevation-z2">
+
+      <ng-container matColumnDef="numeroHermano">
+
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="numeroHermano">
+          Nº
+        </th>
+
+        <td mat-cell *matCellDef="let hermano">
+          {{ hermano.numeroHermano }}
+        </td>
+
+      </ng-container>
+
+      <ng-container matColumnDef="nombre">
+
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="nombre">
+          Nombre
+        </th>
+
+        <td mat-cell *matCellDef="let hermano">
+          {{ hermano.nombre }}
+        </td>
+
+      </ng-container>
+
+      <ng-container matColumnDef="apellidos">
+
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="apellidos">
+          Apellidos
+        </th>
+
+        <td mat-cell *matCellDef="let hermano">
+          {{ hermano.apellidos }}
+        </td>
+
+      </ng-container>
+
+      <ng-container matColumnDef="dni">
+
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="dni">
+          DNI
+        </th>
+
+        <td mat-cell *matCellDef="let hermano">
+          {{ hermano.dni }}
+        </td>
+
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+
+        <th mat-header-cell *matHeaderCellDef class="mat-column-estado">
+          Estado
+        </th>
+
+        <td mat-cell *matCellDef="let hermano" class="mat-column-estado">
+
+          <mat-chip [ngClass]="obtenerClaseEstado(hermano.estado)">
+            {{ obtenerTextoEstado(hermano.estado) }}
+          </mat-chip>
+
+        </td>
+
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+
+        <th mat-header-cell *matHeaderCellDef class="mat-column-acciones">
+          Acciones
+        </th>
+
+        <td mat-cell *matCellDef="let hermano" class="mat-column-acciones">
+
+          <div class="acciones">
+
+            <button
+              mat-icon-button
+              color="primary"
+              matTooltip="Editar hermano"
+              (click)="editar(hermano)">
+
+              <mat-icon>edit</mat-icon>
+
+            </button>
+
+            <button
+              mat-icon-button
+              color="warn"
+              matTooltip="Eliminar hermano"
+              matTooltipPosition="above"
+              (click)="eliminar(hermano)">
+              <mat-icon>delete</mat-icon>
+            </button>
+
+          </div>
+
+        </td>
+
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+
+    </table>
+
+    <mat-paginator
+      [length]="totalElements"
+      [pageSize]="size"
+      [pageSizeOptions]="[5,10,20,50]"
+      (page)="cambiarPagina($event)">
+    </mat-paginator>
+
+  </mat-card-content>
+
+</mat-card>
+

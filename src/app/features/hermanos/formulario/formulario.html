@@ -1,0 +1,288 @@
+<h2 mat-dialog-title>
+
+  <mat-icon>person_add</mat-icon>
+
+  {{ esEdicion ? 'Editar hermano' : 'Nuevo hermano' }}
+
+</h2>
+
+<mat-dialog-content class="dialog-content">
+
+  <form [formGroup]="form" class="formulario">
+    <h3 class="seccion">
+
+      Datos personales
+
+    </h3>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre </mat-label>
+      <input matInput formControlName="nombre">
+
+      @if (form.controls.nombre.hasError('required') && form.controls.nombre.touched) {
+      <mat-error>
+        El nombre es obligatorio
+      </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Apellidos </mat-label>
+      <input matInput formControlName="apellidos">
+      @if (form.controls.apellidos.hasError('required') &&
+      form.controls.apellidos.touched) {
+
+      <mat-error>
+        Los apellidos son obligatorios.
+      </mat-error>
+
+      }
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>DNI </mat-label>
+      <input
+        matInput
+        formControlName="dni"
+        (blur)="convertirDniMayusculas()">
+
+        @if (form.controls.dni.hasError('required') && form.controls.dni.touched){
+      <mat-error>
+        El DNI es obligatorio
+      </mat-error>
+      }
+
+
+        @if (form.controls.dni.hasError('pattern') && form.controls.dni.touched){
+      <mat-error>
+        Formato incorrecto
+      </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Fecha nacimiento</mat-label>
+
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [max]="maxFechaNacimiento"
+        formControlName="fechaNacimiento">
+
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker">
+      </mat-datepicker-toggle>
+
+      <mat-datepicker #picker></mat-datepicker>
+
+      @if (form.controls.fechaNacimiento.hasError('matDatepickerParse')
+      && form.controls.fechaNacimiento.touched) {
+
+      <mat-error>
+        La fecha no tiene un formato válido.
+      </mat-error>
+
+      }
+
+      @if (form.controls.fechaNacimiento.hasError('fechaFutura')
+      && form.controls.fechaNacimiento.touched) {
+
+      <mat-error>
+        La fecha no puede ser posterior a hoy.
+      </mat-error>
+
+      }
+
+    </mat-form-field>
+
+    <h3 class="seccion">
+
+      Contacto
+
+    </h3>
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Teléfono</mat-label>
+
+      <input
+        matInput
+        formControlName="telefono">
+
+      @if (form.controls.telefono.hasError('pattern')
+      && form.controls.telefono.touched) {
+      <mat-error>
+        Introduce un teléfono válido.
+      </mat-error>
+      }
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+
+      @if (form.controls.email.hasError('email') && form.controls.email.touched){
+        <mat-error>
+          Email no válido
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full">
+
+      <mat-label>Dirección</mat-label>
+
+      <textarea
+        matInput
+        rows="2"
+        formControlName="direccion">
+    </textarea>
+
+    </mat-form-field>
+
+    <h3 class="seccion">
+
+      Información de la hermandad
+
+    </h3>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+
+      <mat-select formControlName="estado">
+
+        <mat-option [value]="EstadoHermano.ACTIVO">
+          Activo
+        </mat-option>
+
+        <mat-option [value]="EstadoHermano.BAJA">
+          Baja
+        </mat-option>
+
+      </mat-select>
+
+      @if (form.controls.estado.hasError('required')
+      && form.controls.estado.touched) {
+
+      <mat-error>
+
+        Selecciona un estado.
+
+      </mat-error>
+
+      }
+
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Forma de pago</mat-label>
+
+      <mat-select formControlName="formaPago">
+
+        <mat-option [value]="FormaPago.DOMICILIACION">
+          Domiciliación
+        </mat-option>
+
+        <mat-option [value]="FormaPago.EFECTIVO">
+          Efectivo
+        </mat-option>
+
+      </mat-select>
+
+      @if (form.controls.formaPago.hasError('required')
+      && form.controls.formaPago.touched) {
+
+      <mat-error>
+
+        Selecciona una forma de pago.
+
+      </mat-error>
+
+      }
+
+    </mat-form-field>
+
+    @if(form.value.formaPago === 'DOMICILIACION') {
+
+    <mat-form-field appearance="outline" class="full">
+
+      <mat-label>IBAN</mat-label>
+
+      <input
+        matInput
+        formControlName="iban"
+        placeholder="ES12 3456 7890 1234 5678 9012"
+        style="text-transform: uppercase">
+
+      @if (form.controls.iban.hasError('required')
+      && form.controls.iban.touched) {
+
+      <mat-error>
+        El IBAN es obligatorio.
+      </mat-error>
+
+      @if (form.controls.iban.hasError('pattern')
+      && form.controls.iban.touched) {
+
+      <mat-error>
+        El formato del IBAN no es válido.
+      </mat-error>
+
+      }
+
+      }
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full">
+
+      <mat-label>Titular de la cuenta</mat-label>
+
+      <input
+        matInput
+        formControlName="titularCuenta">
+
+      @if (form.controls.titularCuenta.hasError('required')
+      && form.controls.titularCuenta.touched) {
+
+      <mat-error>
+        El titular de la cuenta es obligatorio.
+      </mat-error>
+
+      }
+
+    </mat-form-field>
+
+    }
+
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-button
+    (click)="cancelar()">
+
+    Cancelar
+
+  </button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="form.invalid"
+    (click)="guardar()">
+
+    {{ esEdicion ? 'Actualizar' : 'Guardar' }}
+
+  </button>
+
+</mat-dialog-actions>

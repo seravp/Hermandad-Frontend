@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+}
+
+mat-card {
+  padding: 20px;
+}
+
+.mat-column-acciones {
+  width: 90px;
+  text-align: center;
+}
+
+th {
+  font-weight: 600;
+}
+
+.mat-column-acciones {
+  background: red;
+  width: 150px;
+}
