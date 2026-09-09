@@ -1,4 +1,4 @@
-import { EstadoHermano } from './estado-hermano';
+import { EstadoHermano } from '../../../core/models/estados/estado-hermano';
 import { FormaPago } from './forma-pago';
 
 export interface HermanoRequest {

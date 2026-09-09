@@ -8,6 +8,8 @@ import { DashboardComponent } from './features/dashboard/dashboard/dashboard';
 
 import { ListadoComponent } from './features/hermanos/listado/listado';
 
+import { ListadoComponent as ListadoCuotasComponent } from './features/cuotas/listado/listado';
+
 export const routes: Routes = [
   {
     path: '',
@@ -32,6 +34,11 @@ export const routes: Routes = [
       {
         path: 'hermanos',
         component: ListadoComponent,
+      },
+
+      {
+        path: 'cuotas',
+        component: ListadoCuotasComponent,
       },
     ],
   },

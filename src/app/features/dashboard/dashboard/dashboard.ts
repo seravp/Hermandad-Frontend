@@ -1,7 +1,7 @@
 import { Component,  OnInit } from '@angular/core';
 
 import { DashboardService } from '../../../core/services/dashboard';
-import { DashboardTesoreria } from '../../../core/models/dashboard-tesoreria';
+import { DashboardTesoreria } from '../../../core/models/dashboard/dashboard-tesoreria';
 import { JsonPipe } from '@angular/common';
 
 import { isPlatformBrowser } from '@angular/common';

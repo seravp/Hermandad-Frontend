@@ -13,12 +13,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { HermanoService } from '../../../core/services/hermano';
 import { HermanoRequest } from '../models/hermano-request';
-import { EstadoHermano } from '../models/estado-hermano';
+import { EstadoHermano } from '../../../core/models/estados/estado-hermano';
 import { FormaPago } from '../models/forma-pago';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotificationService } from '../../../shared/services/notification';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HermanoDetalle } from '../../../core/models/hermano-detalle';
+import { HermanoDetalle } from '../../../core/models/hermanos/hermano-detalle';
 
 
 @Component({

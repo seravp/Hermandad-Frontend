@@ -1,1 +1,260 @@
-<p>listado works!</p>
+<mat-card>
+
+  <mat-card-header>
+
+    <mat-card-title>
+      Cuotas
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <div class="toolbar">
+      <div class="filtros">
+        <mat-form-field appearance="outline" class="buscar">
+
+          <mat-label>Nombre del hermano</mat-label>
+
+          <input
+            matInput
+            [formControl]="busquedaControl"
+            placeholder="Nombre, apellidos o nº de hermano">
+
+          <mat-icon matSuffix>search</mat-icon>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="estado">
+
+          <mat-label>Estado</mat-label>
+
+          <mat-select
+            [(ngModel)]="estadoSeleccionado"
+            (selectionChange)="buscar()">
+
+            <mat-option value="">Todos</mat-option>
+            <mat-option value="PENDIENTE">Pendiente</mat-option>
+            <mat-option value="PAGADA">Pagada</mat-option>
+            <mat-option value="ANULADA">Anulada</mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="anio">
+
+          <mat-label>Año</mat-label>
+
+          <mat-select
+            [(ngModel)]="anioSeleccionado"
+            (selectionChange)="buscar()">
+
+            <mat-option [value]="undefined">
+              Todos
+            </mat-option>
+
+            @for (anio of anios; track anio) {
+
+            <mat-option [value]="anio">
+              {{ anio }}
+            </mat-option>
+
+            }
+
+          </mat-select>
+
+        </mat-form-field>
+
+
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="boton-generar"
+          matTooltip="Genera las cuotas del año para los hermanos activos"
+          (click)="generarCuotas()">
+
+          <mat-icon>payments</mat-icon>
+          Generar cuotas
+
+        </button>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="ordenar($event)"
+        class="mat-elevation-z2">
+
+        <ng-container matColumnDef="numeroHermano">
+
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="numeroHermano">
+            Nº Hermano
+          </th>
+
+          <td mat-cell *matCellDef="let hermano">
+            {{ hermano.numeroHermano }}
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="nombreHermano">
+
+          <th
+            mat-header-cell
+            *matHeaderCellDef>
+
+            Hermano
+
+          </th>
+
+          <td mat-cell *matCellDef="let cuota">
+
+            {{ cuota.nombreHermano }}
+
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="anio">
+
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="anio">
+
+            Año
+
+          </th>
+
+          <td mat-cell *matCellDef="let cuota" >
+
+            {{ cuota.anio }}
+
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="importe">
+
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="importe">
+
+            Importe
+
+          </th>
+
+          <td mat-cell *matCellDef="let cuota" >
+
+            {{ cuota.importe | currency:'EUR' }}
+
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="estado">
+
+          <th mat-header-cell *matHeaderCellDef class="mat-column-estado">
+            Estado
+          </th>
+
+          <td mat-cell *matCellDef="let hermano" class="mat-column-estado">
+
+            <mat-chip [ngClass]="obtenerClaseEstado(hermano.estado)">
+              {{ obtenerTextoEstado(hermano.estado) }}
+            </mat-chip>
+
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="fechaPago">
+
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="fechaPago">
+
+            Fecha pago
+
+          </th>
+
+          <td mat-cell *matCellDef="let cuota">
+            {{ obtenerTextoFechaPago(cuota) }}
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="acciones" class="acciones">
+
+          <th mat-header-cell *matHeaderCellDef>
+            Acciones
+          </th>
+
+          <td mat-cell *matCellDef="let cuota">
+
+            <button
+              mat-icon-button
+              matTooltip="Marcar como pagada"
+              class="btn-pagar"
+              (click)="pagar(cuota)"
+              *ngIf="puedePagar(cuota.estado)">
+              <mat-icon>paid</mat-icon>
+            </button>
+
+            <button
+              mat-icon-button
+              matTooltip="Anular pago"
+              class="btn-anular"
+              (click)="anular(cuota)"
+              *ngIf="puedeAnular(cuota.estado)">
+              <mat-icon>undo</mat-icon>
+            </button>
+
+            <button
+              mat-icon-button
+              matTooltip="Editar cuota"
+              class="btn-editar"
+              (click)="editar(cuota)"
+              *ngIf="puedeEditar(cuota.estado)">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button
+              mat-icon-button
+              matTooltip="Eliminar cuota"
+              class="btn-eliminar"
+              (click)="eliminar(cuota)"
+              *ngIf="puedeEliminar(cuota.estado)">
+              <mat-icon>delete</mat-icon>
+            </button>
+
+          </td>
+
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+
+      </table>
+    </div>
+
+
+    <mat-paginator
+      [length]="totalElements"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5,10,20,50]"
+      (page)="cambiarPagina($event)">
+    </mat-paginator>
+
+  </mat-card-content>
+
+</mat-card>
+

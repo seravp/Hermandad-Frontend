@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { HermanoService } from '../../../core/services/hermano';
-import { Hermano } from '../../../core/models/hermano';
+import { Hermano } from '../../../core/models/hermanos/hermano';
 
 @Component({
   selector: 'app-listado',

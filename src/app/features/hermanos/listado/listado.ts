@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { HermanoService } from '../../../core/services/hermano';
-import { Hermano } from '../../../core/models/hermano';
+import { Hermano } from '../../../core/models/hermanos/hermano';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { FormsModule } from '@angular/forms';
@@ -25,6 +25,7 @@ import { FormularioComponent } from '../formulario/formulario';
 import { NotificationService } from '../../../shared/services/notification';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -47,6 +48,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
     ReactiveFormsModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatTooltipModule,
   ],
   templateUrl: './listado.html',
   styleUrl: './listado.css',
@@ -156,14 +158,14 @@ export class ListadoComponent implements OnInit {
       width: '420px',
       disableClose: true,
       data: {
-          titulo: 'Eliminar hermano',
-          mensaje: `¿Deseas eliminar definitivamente al hermano
+        titulo: 'Eliminar hermano',
+        mensaje: `¿Deseas eliminar definitivamente al hermano
              <strong>${hermano.nombre} ${hermano.apellidos}</strong>?`,
-          advertencia: 'Esta acción no se puede deshacer.',
-          textoConfirmar: 'Eliminar',
-          textoCancelar: 'Cancelar',
-          icono: 'delete',
-          color: 'warn',
+        advertencia: 'Esta acción no se puede deshacer.',
+        textoConfirmar: 'Eliminar',
+        textoCancelar: 'Cancelar',
+        icono: 'delete',
+        color: 'warn',
       },
     });
 

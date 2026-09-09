@@ -3,11 +3,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { Hermano } from '../models/hermano';
+import { Hermano } from '../models/hermanos/hermano';
 import { Page } from '../models/page';
 import { HermanoRequest } from '../../features/hermanos/models/hermano-request';
 import { HermanoResponse } from '../../features/hermanos/models/hermano-response';
-import { HermanoDetalle } from '../models/hermano-detalle';
+import { HermanoDetalle } from '../models/hermanos/hermano-detalle';
 
 @Injectable({
   providedIn: 'root',

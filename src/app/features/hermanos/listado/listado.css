@@ -41,27 +41,22 @@ table {
   font-weight: 600;
 }
 
-.estado-activo {
-  background-color: #2e7d32 !important;
-  color: #ffffff !important;
-  font-weight: 600;
-}
-
-.estado-activo * {
-  color: white !important;
-}
-
-.estado-activo {
-  --mdc-chip-elevated-container-color: #2e7d32;
-  --mdc-chip-label-text-color: white;
-
-  font-size: 11px;
-  font-weight: 700;
+.estado-activo.mat-mdc-chip {
+  background: #c8e6c9 !important;
+  color: #1b5e20 !important;
+  border: 1px solid #66bb6a !important;
 }
 
 .estado-baja {
-  --mdc-chip-elevated-container-color: #c62828;
-  --mdc-chip-label-text-color: white;
+  background: #ffcdd2 !important;
+  color: #b71c1c !important;
+  border: 1px solid #ef5350 !important;
+}
+
+.mat-mdc-chip {
+  font-weight: 600;
+  min-height: 28px;
+  border-radius: 14px;
 }
 
 .estado-desconocido {
@@ -143,6 +138,14 @@ button[mat-icon-button] {
 
 .mat-mdc-row:hover {
   background-color: #f7f9fc;
+}
+
+.btn-editar mat-icon {
+  color: #1976d2;
+}
+
+.btn-eliminar mat-icon {
+  color: #d32f2f;
 }
 
 

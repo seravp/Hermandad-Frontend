@@ -1,0 +1,168 @@
+/* ---------- TOOLBAR ---------- */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.filtros {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.buscar {
+  width: 340px;
+}
+
+.estado {
+  width: 180px;
+}
+
+.anio {
+  width: 140px;
+}
+
+.boton-generar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 20px;
+}
+
+/* ---------- TABLA ---------- */
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.mat-column-numeroHermano {
+  width: 90px;
+}
+
+.mat-column-nombreHermano {
+  width: 260px;
+}
+
+.mat-column-anio {
+  width: 90px;
+}
+
+.mat-column-importe {
+  width: 120px;
+}
+
+.mat-column-estado {
+  width: 150px;
+}
+
+.mat-column-fechaPago {
+  width: 140px;
+}
+
+.mat-column-acciones {
+  width: 100px;
+}
+
+/* ---------- ALINEACIÓN ---------- */
+
+.mat-column-anio,
+.mat-column-anio .mat-sort-header-container,
+.mat-column-fechaPago,
+.mat-column-fechaPago .mat-sort-header-container {
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-column-importe,
+.mat-column-importe .mat-sort-header-container {
+  text-align: right;
+  justify-content: flex-end;
+}
+
+td.mat-column-importe {
+  padding-right: 16px;
+}
+
+th.mat-column-acciones,
+td.mat-column-acciones {
+  text-align: center;
+  padding-right: 16px;
+}
+
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.mat-mdc-row:hover {
+  background-color: #f8f9fa;
+}
+
+/* ---------- ACCIONES ---------- */
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.mat-column-acciones button {
+  margin: 0 3px;
+}
+
+button[mat-icon-button] {
+  cursor: pointer;
+}
+
+/* ---------- CHIPS ---------- */
+
+.estado-pendiente.mat-mdc-chip {
+  background: #ffefb3 !important;
+  color: #8d6e00 !important;
+  border: 1px solid #fbc02d !important;
+}
+
+.estado-pagada.mat-mdc-chip {
+  background: #c8e6c9 !important;
+  color: #1b5e20 !important;
+  border: 1px solid #66bb6a !important;
+}
+
+.estado-anulada.mat-mdc-chip {
+  background: #ffcdd2 !important;
+  color: #b71c1c !important;
+  border: 1px solid #ef5350 !important;
+}
+
+.mat-mdc-chip {
+  font-weight: 600;
+  min-height: 28px;
+  border-radius: 14px;
+}
+
+/* ---------- ICONOS ---------- */
+
+.btn-pagar mat-icon {
+  color: #2e7d32;
+}
+
+.btn-anular mat-icon {
+  color: #ef6c00;
+}
+
+.btn-editar mat-icon {
+  color: #1976d2;
+}
+
+.btn-eliminar mat-icon {
+  color: #d32f2f;
+}

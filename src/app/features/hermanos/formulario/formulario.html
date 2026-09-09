@@ -227,14 +227,14 @@
         El IBAN es obligatorio.
       </mat-error>
 
+      }
+
       @if (form.controls.iban.hasError('pattern')
       && form.controls.iban.touched) {
 
       <mat-error>
         El formato del IBAN no es válido.
       </mat-error>
-
-      }
 
       }
 

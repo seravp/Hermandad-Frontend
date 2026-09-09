@@ -1,5 +1,5 @@
-import { EstadoHermano } from '../../features/hermanos/models/estado-hermano';
-import { FormaPago } from '../../features/hermanos/models/forma-pago';
+import { EstadoHermano } from '../estados/estado-hermano';
+import { FormaPago } from '../../../features/hermanos/models/forma-pago';
 
 export interface HermanoDetalle {
   id: number;
