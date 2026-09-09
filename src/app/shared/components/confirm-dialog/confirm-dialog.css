@@ -8,9 +8,7 @@
 .icon-container {
   width: 52px;
   height: 52px;
-
   border-radius: 50%;
-
   background: #ffebee;
 
   display: flex;
@@ -21,11 +19,11 @@
 }
 
 .icon-container mat-icon {
-  color: #d32f2f;
   font-size: 28px;
   width: 28px;
   height: 28px;
 }
+
 
 .mensaje {
   font-size: 15px;

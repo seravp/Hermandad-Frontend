@@ -159,6 +159,10 @@ button[mat-icon-button] {
   color: #ef6c00;
 }
 
+.btn-deshacerPago mat-icon {
+  color: #ef6c00;
+}
+
 .btn-editar mat-icon {
   color: #1976d2;
 }

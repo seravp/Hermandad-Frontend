@@ -1,0 +1,27 @@
+.dialog-content {
+  min-width: 420px;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.full {
+  width: 100%;
+}
+
+.seccion {
+  margin: 8px 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+}
+
+.info-cuota {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}

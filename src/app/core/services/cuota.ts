@@ -79,6 +79,10 @@ export class CuotaService {
     return this.http.put<CuotaDetalle>(`${this.apiUrl}/${id}/anular`, {});
   }
 
+  deshacerPago(id: number): Observable<CuotaDetalle> {
+    return this.http.put<CuotaDetalle>(`${this.apiUrl}/${id}/deshacerPago`, {});
+  }
+
   generarCuotas(anio: number, importe: number): Observable<string> {
     return this.http.post(
       `${this.apiUrl}/generar/${anio}?importe=${importe}`,

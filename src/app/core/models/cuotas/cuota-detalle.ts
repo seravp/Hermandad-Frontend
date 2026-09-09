@@ -17,4 +17,6 @@ export interface CuotaDetalle {
   hermanoId: number;
 
   numeroHermano: number;
+
+  nombreHermano: string;
 }

@@ -2,7 +2,7 @@
 
   <div class="icon-container">
 
-    <mat-icon color="warn">
+    <mat-icon [color]="data.colorIcono ?? 'warn'">
       {{ data.icono ?? 'delete' }}
     </mat-icon>
 

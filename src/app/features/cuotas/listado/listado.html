@@ -209,11 +209,20 @@
 
             <button
               mat-icon-button
-              matTooltip="Anular pago"
+              matTooltip="Deshacer pago"
+              class="btn-deshacerPago"
+              (click)="deshacerPago(cuota)"
+              *ngIf="puedeDeshacer(cuota.estado)">
+              <mat-icon>undo</mat-icon>
+            </button>
+
+            <button
+              mat-icon-button
+              matTooltip="Anular cuota"
               class="btn-anular"
               (click)="anular(cuota)"
               *ngIf="puedeAnular(cuota.estado)">
-              <mat-icon>undo</mat-icon>
+              <mat-icon>block</mat-icon>
             </button>
 
             <button

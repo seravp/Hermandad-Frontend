@@ -5,11 +5,13 @@ export interface ConfirmDialogData {
 
   advertencia?: string;
 
-  textoConfirmar?: string;
-
-  textoCancelar?: string;
-
   icono?: string;
 
   color?: 'primary' | 'accent' | 'warn';
+
+  colorIcono?: 'primary' | 'accent' | 'warn';
+
+  textoConfirmar?: string;
+
+  textoCancelar?: string;
 }
