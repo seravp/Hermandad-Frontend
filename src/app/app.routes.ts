@@ -12,6 +12,8 @@ import { ListadoComponent as ListadoCuotasComponent } from './features/cuotas/li
 
 import { ConfiguracionComponent } from './features/configuracion/configuracion/configuracion';
 
+import { ListadoComponent as ListadoMorososComponent } from './features/morosos/listado/listado';
+
 export const routes: Routes = [
   {
     path: '',
@@ -45,6 +47,10 @@ export const routes: Routes = [
       {
         path: 'configuracion',
         component: ConfiguracionComponent,
+      },
+      {
+        path: 'morosos',
+        component: ListadoMorososComponent,
       },
     ],
   },

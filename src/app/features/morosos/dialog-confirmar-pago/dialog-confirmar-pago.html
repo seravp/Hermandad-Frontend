@@ -1,0 +1,80 @@
+<h2 mat-dialog-title>
+
+  <div class="titulo">
+
+    <mat-icon>
+      payments
+    </mat-icon>
+
+    <span>
+      Confirmar pago
+    </span>
+
+  </div>
+
+</h2>
+
+
+<mat-dialog-content>
+
+  <p>
+    ¿Quieres marcar esta cuota como pagada?
+  </p>
+
+  <div class="datos-cuota">
+
+    <div class="dato">
+
+      <span class="label">
+        Ejercicio
+      </span>
+
+      <strong>
+        {{ data.anio }}
+      </strong>
+
+    </div>
+
+
+    <div class="dato">
+
+      <span class="label">
+        Importe
+      </span>
+
+      <strong class="importe">
+        {{ data.importe | currency:'EUR' }}
+      </strong>
+
+    </div>
+
+  </div>
+
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-stroked-button
+    (click)="cancelar()">
+
+    Cancelar
+
+  </button>
+
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="confirmar()">
+
+    <mat-icon>
+      check
+    </mat-icon>
+
+    Confirmar pago
+
+  </button>
+
+</mat-dialog-actions>

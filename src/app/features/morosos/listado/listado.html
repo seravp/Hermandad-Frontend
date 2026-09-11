@@ -1,1 +1,293 @@
-<p>listado works!</p>
+<mat-card class="morosos-card">
+
+  <mat-card-header>
+
+    <div class="header-info">
+
+      <mat-card-title>
+        Morosos
+      </mat-card-title>
+
+      <mat-card-subtitle>
+        Hermanos con cuotas pendientes
+      </mat-card-subtitle>
+
+    </div>
+
+  </mat-card-header>
+
+
+  <mat-card-content>
+
+    <!-- INDICADORES -->
+
+    <div class="resumen-grid">
+
+      <div class="resumen-item">
+
+        <mat-icon class="icon-morosos">
+          person_off
+        </mat-icon>
+
+        <div>
+          <span class="resumen-valor">
+            {{ morososFiltrados.length }}
+          </span>
+
+          <span class="resumen-label">
+            Morosos
+          </span>
+        </div>
+
+      </div>
+
+
+      <div class="resumen-item">
+
+        <mat-icon class="icon-cuotas">
+          receipt_long
+        </mat-icon>
+
+        <div>
+          <span class="resumen-valor">
+            {{ totalCuotasPendientes() }}
+          </span>
+
+          <span class="resumen-label">
+            Cuotas pendientes
+          </span>
+        </div>
+
+      </div>
+
+
+      <div class="resumen-item">
+
+        <mat-icon class="icon-importe">
+          euro
+        </mat-icon>
+
+        <div>
+          <span class="resumen-valor">
+            {{ totalImportePendiente() | currency:'EUR' }}
+          </span>
+
+          <span class="resumen-label">
+            Importe pendiente
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- BUSCADOR -->
+
+    <div class="toolbar">
+
+      <mat-form-field
+        appearance="outline"
+        class="buscar">
+
+        <mat-icon matPrefix>
+          search
+        </mat-icon>
+
+        <input
+          matInput
+          [(ngModel)]="textoBusqueda"
+          (ngModelChange)="buscar()"
+          placeholder="Buscar por nombre o nº de hermano">
+
+      </mat-form-field>
+
+      <mat-form-field
+        appearance="outline"
+        class="anio">
+
+        <mat-label>Año</mat-label>
+
+        <mat-select
+          [(ngModel)]="anioSeleccionado"
+          (selectionChange)="cambiarAnio()">
+
+          <mat-option [value]="undefined">
+            Todos
+          </mat-option>
+
+          @for (anio of anios; track anio) {
+
+          <mat-option [value]="anio">
+            {{ anio }}
+          </mat-option>
+
+          }
+
+        </mat-select>
+
+      </mat-form-field>
+
+    </div>
+
+
+    <!-- TABLA -->
+
+    <div class="table-container">
+
+      <table
+        mat-table
+        [dataSource]="morososFiltrados"
+        class="tabla-morosos mat-elevation-z1">
+
+
+        <!-- Nº HERMANO -->
+
+        <ng-container matColumnDef="numeroHermano">
+
+          <th mat-header-cell *matHeaderCellDef>
+            Nº Hermano
+          </th>
+
+          <td mat-cell *matCellDef="let moroso">
+            {{ moroso.numeroHermano }}
+          </td>
+
+        </ng-container>
+
+
+        <!-- HERMANO -->
+
+        <ng-container matColumnDef="nombreCompleto">
+
+          <th mat-header-cell *matHeaderCellDef>
+            Hermano
+          </th>
+
+          <td mat-cell *matCellDef="let moroso">
+            {{ moroso.nombreCompleto }}
+          </td>
+
+        </ng-container>
+
+
+        <!-- CUOTAS -->
+
+        <ng-container matColumnDef="cuotasPendientes">
+
+          <th mat-header-cell *matHeaderCellDef>
+            Cuotas pendientes
+          </th>
+
+          <td mat-cell *matCellDef="let moroso">
+
+            <span class="badge-cuotas">
+              {{ moroso.cuotasPendientes }}
+            </span>
+
+          </td>
+
+        </ng-container>
+
+
+        <!-- IMPORTE -->
+
+        <ng-container matColumnDef="importePendiente">
+
+          <th mat-header-cell *matHeaderCellDef>
+            Importe pendiente
+          </th>
+
+          <td
+            mat-cell
+            *matCellDef="let moroso"
+            class="importe">
+
+            {{ moroso.importePendiente | currency:'EUR' }}
+
+          </td>
+
+        </ng-container>
+
+
+        <!-- ACCIONES -->
+
+        <ng-container matColumnDef="acciones">
+
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="col-acciones">
+
+            Acciones
+
+          </th>
+
+          <td
+            mat-cell
+            *matCellDef="let moroso"
+            class="col-acciones">
+
+            <button
+              mat-icon-button
+              matTooltip="Ver cuotas pendientes"
+              (click)="verCuotas(moroso)">
+
+              <mat-icon>
+                visibility
+              </mat-icon>
+
+            </button>
+
+            <button
+              mat-icon-button
+              class="btn-carta"
+              matTooltip="Generar aviso de morosidad"
+              (click)="generarCarta(moroso)">
+
+              <mat-icon>
+                description
+              </mat-icon>
+
+            </button>
+
+          </td>
+
+        </ng-container>
+
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns">
+        </tr>
+
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+
+
+      </table>
+
+
+      @if (morososFiltrados.length === 0) {
+
+      <div class="sin-resultados">
+
+        <mat-icon>
+          check_circle
+        </mat-icon>
+
+        <span>
+            No hay hermanos morosos
+          </span>
+
+      </div>
+
+      }
+
+    </div>
+
+  </mat-card-content>
+
+</mat-card>

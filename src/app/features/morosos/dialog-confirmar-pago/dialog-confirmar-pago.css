@@ -1,0 +1,46 @@
+.titulo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.titulo mat-icon {
+  color: #2e7d32;
+}
+
+.titulo span {
+  font-weight: 700;
+}
+
+mat-dialog-content {
+  min-width: 400px;
+}
+
+.datos-cuota {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.dato {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.label {
+  color: #666;
+  font-size: .85rem;
+}
+
+.importe {
+  color: #2e7d32;
+  font-size: 1.15rem;
+}
+
+mat-dialog-actions {
+  padding-top: 20px;
+}
