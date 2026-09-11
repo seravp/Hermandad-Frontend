@@ -10,6 +10,8 @@ import { ListadoComponent } from './features/hermanos/listado/listado';
 
 import { ListadoComponent as ListadoCuotasComponent } from './features/cuotas/listado/listado';
 
+import { ConfiguracionComponent } from './features/configuracion/configuracion/configuracion';
+
 export const routes: Routes = [
   {
     path: '',
@@ -39,6 +41,10 @@ export const routes: Routes = [
       {
         path: 'cuotas',
         component: ListadoCuotasComponent,
+      },
+      {
+        path: 'configuracion',
+        component: ConfiguracionComponent,
       },
     ],
   },

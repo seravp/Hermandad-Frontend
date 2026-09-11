@@ -5,6 +5,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 
 import { CuotaService } from '../../../core/services/cuota';
+import { ConfiguracionService } from '../../../core/services/configuracion';
 import { Cuota } from '../../../core/models/cuotas/cuota';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
@@ -27,6 +28,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogService } from '../../../shared/services/confirm-dialog';
 import { CuotaDetalle } from '../../../core/models/cuotas/cuota-detalle';
 import { DialogEditarCuotaComponent } from '../dialog-editar/dialog-editar';
+import { Configuracion } from '../../../core/models/configuracion/configuracion';
 
 
 @Component({
@@ -57,8 +59,10 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   private readonly notificationService = inject(NotificationService);
   private readonly confirmDialog = inject(ConfirmDialogService);
   private readonly dialog = inject(MatDialog);
+  private readonly configuracionService = inject(ConfiguracionService);
 
   anios: number[] = [];
+  configuracion!: Configuracion;
 
   dataSource = new MatTableDataSource<Cuota>();
 
@@ -102,6 +106,13 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     this.cuotaService.obtenerAnios().subscribe({
       next: (anios) => {
         this.anios = anios;
+      },
+      error: (error) => this.notificationService.httpError(error),
+    });
+
+    this.configuracionService.obtener().subscribe({
+      next: (configuracion) => {
+        this.configuracion = configuracion;
       },
       error: (error) => this.notificationService.httpError(error),
     });
@@ -161,7 +172,42 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   }
 
   generarCuotas(): void {
-    console.log('Generar cuotas');
+    const anio = this.configuracion.anioActivo;
+    console.log('He pulsado generar');
+    this.confirmDialog
+      .confirm({
+        titulo: 'Generar cuotas',
+
+        icono: 'payments',
+
+        color: 'primary',
+
+        colorIcono: 'primary',
+
+        mensaje: `
+      ¿Desea generar las cuotas correspondientes al año
+      <strong>${anio}</strong>?
+    `,
+
+        advertencia: 'Solo se crearán las cuotas de los hermanos activos que aún no la tengan.',
+
+        textoConfirmar: 'Generar',
+      })
+      .subscribe((confirmado) => {
+        if (!confirmado) {
+          return;
+        }
+
+        this.cuotaService.generarCuotas(anio).subscribe({
+          next: (mensaje) => {
+            this.notificationService.success(mensaje);
+
+            this.cargarCuotas();
+          },
+
+          error: (error) => this.notificationService.httpError(error),
+        });
+      });
   }
 
   editar(cuota: Cuota): void {

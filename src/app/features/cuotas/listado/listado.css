@@ -1,19 +1,64 @@
-/* ---------- TOOLBAR ---------- */
+/* ==========================================
+   CARD
+========================================== */
+
+.cuotas-card {
+  max-width: 1500px;
+  margin: auto;
+  padding: 12px;
+  border-radius: 18px;
+}
+
+/* ==========================================
+   CABECERA
+========================================== */
+
+.mat-mdc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-mdc-card-title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.mat-mdc-card-subtitle {
+  margin-top: 6px;
+  color: #666;
+  font-size: .95rem;
+}
+
+.boton-generar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+}
+
+/* ==========================================
+   TOOLBAR
+========================================== */
 
 .toolbar {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 20px;
-}
-
-.filtros {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  gap: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 
 .buscar {
-  width: 340px;
+  flex: 1;
+  min-width: 360px;
 }
 
 .estado {
@@ -24,23 +69,52 @@
   width: 140px;
 }
 
-.boton-generar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: 20px;
-}
-
-/* ---------- TABLA ---------- */
+/* ==========================================
+   TABLA
+========================================== */
 
 .table-container {
   overflow-x: auto;
+  border-radius: 12px;
 }
 
-table {
+.tabla-cuotas {
   width: 100%;
   table-layout: fixed;
 }
+
+/* Cabecera */
+
+.mat-mdc-header-row {
+  background: #f8fafc;
+}
+
+.mat-mdc-header-cell {
+  font-weight: 700;
+  color: #455a64;
+  font-size: .92rem;
+}
+
+/* Filas */
+
+.mat-mdc-row {
+  height: 64px;
+  transition: background .2s ease;
+}
+
+.mat-mdc-row:hover {
+  background: #f8fbff;
+}
+
+/* Celdas */
+
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+/* Columnas */
 
 .mat-column-numeroHermano {
   width: 90px;
@@ -52,81 +126,39 @@ table {
 
 .mat-column-anio {
   width: 90px;
+  text-align: center;
 }
 
 .mat-column-importe {
   width: 120px;
+  text-align: right;
+}
+
+.importe {
+  font-weight: 700;
 }
 
 .mat-column-estado {
   width: 150px;
+  text-align: center;
 }
 
 .mat-column-fechaPago {
   width: 140px;
+  text-align: center;
 }
 
 .mat-column-acciones {
-  width: 100px;
-}
-
-/* ---------- ALINEACIÓN ---------- */
-
-.mat-column-anio,
-.mat-column-anio .mat-sort-header-container,
-.mat-column-fechaPago,
-.mat-column-fechaPago .mat-sort-header-container {
+  width: 180px;
   text-align: center;
-  justify-content: center;
 }
 
-.mat-column-importe,
-.mat-column-importe .mat-sort-header-container {
-  text-align: right;
-  justify-content: flex-end;
-}
-
-td.mat-column-importe {
-  padding-right: 16px;
-}
-
-th.mat-column-acciones,
-td.mat-column-acciones {
-  text-align: center;
-  padding-right: 16px;
-}
-
-.mat-mdc-cell,
-.mat-mdc-header-cell {
-  padding-top: 14px;
-  padding-bottom: 14px;
-}
-
-.mat-mdc-row:hover {
-  background-color: #f8f9fa;
-}
-
-/* ---------- ACCIONES ---------- */
-
-.acciones {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.mat-column-acciones button {
-  margin: 0 3px;
-}
-
-button[mat-icon-button] {
-  cursor: pointer;
-}
-
-/* ---------- CHIPS ---------- */
+/* ==========================================
+   CHIPS DE ESTADO
+========================================== */
 
 .estado-pendiente.mat-mdc-chip {
-  background: #ffefb3 !important;
+  background: #fff3cd !important;
   color: #8d6e00 !important;
   border: 1px solid #fbc02d !important;
 }
@@ -144,29 +176,124 @@ button[mat-icon-button] {
 }
 
 .mat-mdc-chip {
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
   font-weight: 600;
-  min-height: 28px;
-  border-radius: 14px;
 }
 
-/* ---------- ICONOS ---------- */
+/* ==========================================
+   ACCIONES
+========================================== */
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.mat-column-acciones button {
+  transition: .2s ease;
+}
+
+/* Pagar */
 
 .btn-pagar mat-icon {
   color: #2e7d32;
 }
 
-.btn-anular mat-icon {
-  color: #ef6c00;
+.btn-pagar:hover {
+  background: #e8f5e9;
 }
+
+/* Deshacer */
 
 .btn-deshacerPago mat-icon {
   color: #ef6c00;
 }
 
+.btn-deshacerPago:hover {
+  background: #fff3e0;
+}
+
+/* Anular */
+
+.btn-anular mat-icon {
+  color: #d32f2f;
+}
+
+.btn-anular:hover {
+  background: #ffebee;
+}
+
+/* Editar */
+
 .btn-editar mat-icon {
   color: #1976d2;
 }
 
+.btn-editar:hover {
+  background: #e3f2fd;
+}
+
+/* Eliminar */
+
 .btn-eliminar mat-icon {
-  color: #d32f2f;
+  color: #b71c1c;
+}
+
+.btn-eliminar:hover {
+  background: #ffebee;
+}
+
+/* ==========================================
+   PAGINADOR
+========================================== */
+
+.mat-mdc-paginator {
+  margin-top: 20px;
+  border-top: 1px solid #ececec;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1100px) {
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .buscar,
+  .estado,
+  .anio {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .boton-generar {
+    width: 100%;
+    justify-content: center;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .cuotas-card {
+    padding: 8px;
+  }
+
+  .mat-mdc-card-header {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
 }

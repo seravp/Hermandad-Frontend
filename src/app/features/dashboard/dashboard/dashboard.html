@@ -1,17 +1,194 @@
-<h1>Dashboard</h1>
+<mat-card class="dashboard-card">
 
-@if (dashboard) {
+  <mat-card-header>
 
-  <p>Total hermanos: {{ dashboard.totalHermanos }}</p>
+    <mat-card-title>
+      Dashboard
+    </mat-card-title>
 
-  <p>Cuotas pagadas: {{ dashboard.cuotasPagadas }}</p>
+    <mat-card-subtitle>
+      Resumen del ejercicio {{ dashboard.anioActivo }}
+    </mat-card-subtitle>
 
-  <p>Cuotas pendientes: {{ dashboard.cuotasPendientes }}</p>
+  </mat-card-header>
 
-  <p>Importe recaudado: {{ dashboard.importeRecaudado }}</p>
+  <mat-card-content>
 
-  <p>Importe pendiente: {{ dashboard.importePendiente }}</p>
+    <!-- ================= KPIs ================= -->
 
-  <p>Morosos: {{ dashboard.morosos }}</p>
+    <div class="dashboard-grid">
 
-}
+      <mat-card class="kpi-card">
+
+        <mat-card-content>
+
+          <mat-icon class="kpi-icon icon-hermanos">
+            groups
+          </mat-icon>
+
+          <div class="kpi-valor">
+            {{ dashboard.totalHermanos }}
+          </div>
+
+          <div class="kpi-titulo">
+            Hermanos activos
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+      <mat-card class="kpi-card">
+
+        <mat-card-content>
+
+          <mat-icon class="kpi-icon icon-pagadas">
+            paid
+          </mat-icon>
+
+          <div class="kpi-valor">
+            {{ dashboard.cuotasPagadas }}
+          </div>
+
+          <div class="kpi-titulo">
+            Cuotas pagadas
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+      <mat-card class="kpi-card">
+
+        <mat-card-content>
+
+          <mat-icon class="kpi-icon icon-pendientes">
+            schedule
+          </mat-icon>
+
+          <div class="kpi-valor">
+            {{ dashboard.cuotasPendientes }}
+          </div>
+
+          <div class="kpi-titulo">
+            Cuotas pendientes
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+      <mat-card class="kpi-card">
+
+        <mat-card-content>
+
+          <mat-icon class="kpi-icon icon-morosos">
+            warning
+          </mat-icon>
+
+          <div class="kpi-valor">
+            {{ dashboard.morosos }}
+          </div>
+
+          <div class="kpi-titulo">
+            Morosos
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+      <mat-card class="kpi-card kpi-economico">
+
+        <mat-card-content>
+
+          <mat-icon class="kpi-icon icon-recaudado">
+            account_balance_wallet
+          </mat-icon>
+
+          <div class="kpi-valor">
+            {{ dashboard.importeRecaudado | currency:'EUR' }}
+          </div>
+
+          <div class="kpi-titulo">
+            Importe recaudado
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+      <mat-card class="kpi-card kpi-pendiente">
+
+        <mat-card-content>
+
+          <mat-icon class="kpi-icon icon-pendiente">
+            payments
+          </mat-icon>
+
+          <div class="kpi-valor">
+            {{ dashboard.importePendiente | currency:'EUR' }}
+          </div>
+
+          <div class="kpi-titulo">
+            Importe pendiente
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+    </div>
+
+    <!-- ================= ESTADO DE COBRO ================= -->
+
+    <mat-card class="progress-card">
+
+      <mat-card-content>
+
+        <div class="progress-title">
+          Estado de cobro · Ejercicio {{ dashboard.anioActivo }}
+        </div>
+
+        <div class="progress-header">
+
+      <span>
+        {{ dashboard.cuotasPagadas }}
+        de
+        {{ dashboard.totalCuotas }}
+        cuotas cobradas
+      </span>
+
+          <span class="progress-percent">
+          {{ dashboard.porcentajeCobrado }} %
+        </span>
+
+        </div>
+
+        <mat-progress-bar
+          class="{{ claseProgreso }}"
+          mode="determinate"
+          [value]="dashboard.porcentajeCobrado">
+        </mat-progress-bar>
+
+        <div
+          class="progress-footer"
+          [ngClass]="{
+        'estado-rojo': claseProgreso === 'progress-rojo',
+        'estado-naranja': claseProgreso === 'progress-naranja',
+        'estado-verde': claseProgreso === 'progress-verde'
+      }">
+
+          <mat-icon>{{ iconoEstado }}</mat-icon>
+
+          <span>{{ textoEstado }}</span>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </mat-card-content>
+
+</mat-card>

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
-import { DashboardTesoreria } from '../models/dashboard/dashboard-tesoreria';
+import { Dashboard } from '../models/dashboard/dashboard';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ import { DashboardTesoreria } from '../models/dashboard/dashboard-tesoreria';
 export class DashboardService {
   private http = inject(HttpClient);
 
-  obtenerDashboard(): Observable<DashboardTesoreria> {
-    return this.http.get<DashboardTesoreria>(`${environment.apiUrl}/cuotas/dashboard`);
+  obtenerDashboard(): Observable<Dashboard> {
+    return this.http.get<Dashboard>(`${environment.apiUrl}/dashboard`);
   }
 }

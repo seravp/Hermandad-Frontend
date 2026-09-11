@@ -1,4 +1,4 @@
-export interface DashboardTesoreria {
+export interface Dashboard {
   totalHermanos: number;
 
   cuotasPagadas: number;
@@ -10,4 +10,10 @@ export interface DashboardTesoreria {
   importePendiente: number;
 
   morosos: number;
+
+  anioActivo: number;
+
+  totalCuotas: number;
+
+  porcentajeCobrado: number;
 }

@@ -1,0 +1,141 @@
+<mat-card>
+
+  <mat-card-header>
+
+    <mat-card-title>
+      Configuración
+    </mat-card-title>
+
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <form [formGroup]="form" class="formulario">
+
+      <h3 class="seccion">
+        <mat-icon>church</mat-icon>
+        Datos de la hermandad
+      </h3>
+
+      <mat-form-field appearance="outline" class="full">
+
+        <mat-label>Nombre de la hermandad</mat-label>
+
+        <input
+          matInput
+          formControlName="nombreHermandad">
+
+      </mat-form-field>
+
+      <div class="fila">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>CIF</mat-label>
+
+          <input
+            matInput
+            formControlName="cif">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>Teléfono</mat-label>
+
+          <input
+            matInput
+            formControlName="telefono">
+
+        </mat-form-field>
+
+      </div>
+
+      <mat-form-field appearance="outline" class="full">
+
+        <mat-label>Email</mat-label>
+
+        <input
+          matInput
+          formControlName="email">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full">
+
+        <mat-label>Dirección</mat-label>
+
+        <textarea
+          matInput
+          rows="2"
+          formControlName="direccion">
+  </textarea>
+
+      </mat-form-field>
+
+      <h3 class="seccion">
+        <mat-icon>account_balance_wallet</mat-icon>
+        Tesorería
+      </h3>
+
+      <div class="fila">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>Importe anual</mat-label>
+
+          <input
+            matInput
+            type="number"
+            step="0.01"
+            formControlName="importeCuota">
+
+          <span matTextSuffix> €</span>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>Año activo</mat-label>
+
+          <input
+            matInput
+            type="number"
+            formControlName="anioActivo">
+
+        </mat-form-field>
+
+      </div>
+
+      <mat-form-field appearance="outline" class="full">
+
+        <mat-label>IBAN</mat-label>
+
+        <input
+          matInput
+          formControlName="iban"
+          placeholder="ES12 3456 7890 1234 5678 9012"
+          (blur)="convertirIbanMayusculas()">
+
+      </mat-form-field>
+
+      <div class="acciones">
+
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid"
+          (click)="guardar()">
+
+          <mat-icon>save</mat-icon>
+          Guardar cambios
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </mat-card-content>
+
+</mat-card>

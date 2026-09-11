@@ -1,105 +1,139 @@
-<mat-card>
+<mat-card class="cuotas-card">
 
   <mat-card-header>
 
-    <mat-card-title>
-      Cuotas
-    </mat-card-title>
+    <div class="header-info">
+
+      <mat-card-title>
+        Cuotas
+      </mat-card-title>
+
+      <mat-card-subtitle>
+        Gestión de las cuotas de la Hermandad
+      </mat-card-subtitle>
+
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      class="boton-generar"
+      matTooltip="Genera las cuotas del año para los hermanos activos"
+      (click)="generarCuotas()">
+
+      <mat-icon>payments</mat-icon>
+      Generar cuotas
+
+    </button>
+
   </mat-card-header>
 
   <mat-card-content>
 
     <div class="toolbar">
-      <div class="filtros">
-        <mat-form-field appearance="outline" class="buscar">
 
-          <mat-label>Nombre del hermano</mat-label>
+      <mat-form-field
+        appearance="outline"
+        class="buscar">
 
-          <input
-            matInput
-            [formControl]="busquedaControl"
-            placeholder="Nombre, apellidos o nº de hermano">
+        <mat-icon matPrefix>search</mat-icon>
 
-          <mat-icon matSuffix>search</mat-icon>
+        <input
+          matInput
+          [formControl]="busquedaControl"
+          placeholder="Buscar por nombre, apellidos o nº de hermano">
 
-        </mat-form-field>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline" class="estado">
+      <mat-form-field
+        appearance="outline"
+        class="estado">
 
-          <mat-label>Estado</mat-label>
+        <mat-label>Estado</mat-label>
 
-          <mat-select
-            [(ngModel)]="estadoSeleccionado"
-            (selectionChange)="buscar()">
+        <mat-select
+          [(ngModel)]="estadoSeleccionado"
+          (selectionChange)="buscar()">
 
-            <mat-option value="">Todos</mat-option>
-            <mat-option value="PENDIENTE">Pendiente</mat-option>
-            <mat-option value="PAGADA">Pagada</mat-option>
-            <mat-option value="ANULADA">Anulada</mat-option>
+          <mat-option value="">
+            Todos
+          </mat-option>
 
-          </mat-select>
+          <mat-option value="PENDIENTE">
+            Pendiente
+          </mat-option>
 
-        </mat-form-field>
+          <mat-option value="PAGADA">
+            Pagada
+          </mat-option>
 
-        <mat-form-field appearance="outline" class="anio">
+          <mat-option value="ANULADA">
+            Anulada
+          </mat-option>
 
-          <mat-label>Año</mat-label>
+        </mat-select>
 
-          <mat-select
-            [(ngModel)]="anioSeleccionado"
-            (selectionChange)="buscar()">
+      </mat-form-field>
 
-            <mat-option [value]="undefined">
-              Todos
-            </mat-option>
+      <mat-form-field
+        appearance="outline"
+        class="anio">
 
-            @for (anio of anios; track anio) {
+        <mat-label>Año</mat-label>
 
-            <mat-option [value]="anio">
-              {{ anio }}
-            </mat-option>
+        <mat-select
+          [(ngModel)]="anioSeleccionado"
+          (selectionChange)="buscar()">
 
-            }
+          <mat-option [value]="undefined">
+            Todos
+          </mat-option>
 
-          </mat-select>
+          @for (anio of anios; track anio) {
 
-        </mat-form-field>
+          <mat-option [value]="anio">
+            {{ anio }}
+          </mat-option>
 
+          }
 
+        </mat-select>
 
-        <button
-          mat-raised-button
-          color="primary"
-          class="boton-generar"
-          matTooltip="Genera las cuotas del año para los hermanos activos"
-          (click)="generarCuotas()">
+      </mat-form-field>
 
-          <mat-icon>payments</mat-icon>
-          Generar cuotas
-
-        </button>
-      </div>
     </div>
 
     <div class="table-container">
+
       <table
         mat-table
         [dataSource]="dataSource"
         matSort
         (matSortChange)="ordenar($event)"
-        class="mat-elevation-z2">
+        class="tabla-cuotas mat-elevation-z1">
+
+        <!-- Nº Hermano -->
 
         <ng-container matColumnDef="numeroHermano">
 
-          <th mat-header-cell *matHeaderCellDef mat-sort-header="numeroHermano">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="numeroHermano">
+
             Nº Hermano
+
           </th>
 
-          <td mat-cell *matCellDef="let hermano">
-            {{ hermano.numeroHermano }}
+          <td mat-cell *matCellDef="let cuota">
+
+            {{ cuota.numeroHermano }}
+
           </td>
 
         </ng-container>
+
+        <!-- Hermano -->
 
         <ng-container matColumnDef="nombreHermano">
 
@@ -119,6 +153,8 @@
 
         </ng-container>
 
+        <!-- Año -->
+
         <ng-container matColumnDef="anio">
 
           <th
@@ -130,13 +166,15 @@
 
           </th>
 
-          <td mat-cell *matCellDef="let cuota" >
+          <td mat-cell *matCellDef="let cuota">
 
             {{ cuota.anio }}
 
           </td>
 
         </ng-container>
+
+        <!-- Importe -->
 
         <ng-container matColumnDef="importe">
 
@@ -149,7 +187,10 @@
 
           </th>
 
-          <td mat-cell *matCellDef="let cuota" >
+          <td
+            mat-cell
+            *matCellDef="let cuota"
+            class="importe">
 
             {{ cuota.importe | currency:'EUR' }}
 
@@ -157,21 +198,35 @@
 
         </ng-container>
 
+        <!-- Estado -->
+
         <ng-container matColumnDef="estado">
 
-          <th mat-header-cell *matHeaderCellDef class="mat-column-estado">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="mat-column-estado">
+
             Estado
+
           </th>
 
-          <td mat-cell *matCellDef="let hermano" class="mat-column-estado">
+          <td
+            mat-cell
+            *matCellDef="let cuota"
+            class="mat-column-estado">
 
-            <mat-chip [ngClass]="obtenerClaseEstado(hermano.estado)">
-              {{ obtenerTextoEstado(hermano.estado) }}
+            <mat-chip [ngClass]="obtenerClaseEstado(cuota.estado)">
+
+              {{ obtenerTextoEstado(cuota.estado) }}
+
             </mat-chip>
 
           </td>
 
         </ng-container>
+
+        <!-- Fecha de pago -->
 
         <ng-container matColumnDef="fechaPago">
 
@@ -184,86 +239,120 @@
 
           </th>
 
-          <td mat-cell *matCellDef="let cuota">
+          <td
+            mat-cell
+            *matCellDef="let cuota">
+
             {{ obtenerTextoFechaPago(cuota) }}
+
           </td>
 
         </ng-container>
 
-        <ng-container matColumnDef="acciones" class="acciones">
+        <!-- Acciones -->
 
-          <th mat-header-cell *matHeaderCellDef>
+        <ng-container matColumnDef="acciones">
+
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="mat-column-acciones">
+
             Acciones
+
           </th>
 
-          <td mat-cell *matCellDef="let cuota">
+          <td
+            mat-cell
+            *matCellDef="let cuota"
+            class="mat-column-acciones">
 
-            <button
-              mat-icon-button
-              matTooltip="Marcar como pagada"
-              class="btn-pagar"
-              (click)="pagar(cuota)"
-              *ngIf="puedePagar(cuota.estado)">
-              <mat-icon>paid</mat-icon>
-            </button>
+            <div class="acciones">
 
-            <button
-              mat-icon-button
-              matTooltip="Deshacer pago"
-              class="btn-deshacerPago"
-              (click)="deshacerPago(cuota)"
-              *ngIf="puedeDeshacer(cuota.estado)">
-              <mat-icon>undo</mat-icon>
-            </button>
+              <button
+                mat-icon-button
+                class="btn-pagar"
+                matTooltip="Marcar como pagada"
+                (click)="pagar(cuota)"
+                *ngIf="puedePagar(cuota.estado)">
 
-            <button
-              mat-icon-button
-              matTooltip="Anular cuota"
-              class="btn-anular"
-              (click)="anular(cuota)"
-              *ngIf="puedeAnular(cuota.estado)">
-              <mat-icon>block</mat-icon>
-            </button>
+                <mat-icon>paid</mat-icon>
 
-            <button
-              mat-icon-button
-              matTooltip="Editar cuota"
-              class="btn-editar"
-              (click)="editar(cuota)"
-              *ngIf="puedeEditar(cuota.estado)">
-              <mat-icon>edit</mat-icon>
-            </button>
+              </button>
 
-            <button
-              mat-icon-button
-              matTooltip="Eliminar cuota"
-              class="btn-eliminar"
-              (click)="eliminar(cuota)"
-              *ngIf="puedeEliminar(cuota.estado)">
-              <mat-icon>delete</mat-icon>
-            </button>
+              <button
+                mat-icon-button
+                class="btn-deshacerPago"
+                matTooltip="Deshacer pago"
+                (click)="deshacerPago(cuota)"
+                *ngIf="puedeDeshacer(cuota.estado)">
+
+                <mat-icon>undo</mat-icon>
+
+              </button>
+
+              <button
+                mat-icon-button
+                class="btn-anular"
+                matTooltip="Anular cuota"
+                (click)="anular(cuota)"
+                *ngIf="puedeAnular(cuota.estado)">
+
+                <mat-icon>block</mat-icon>
+
+              </button>
+
+              <button
+                mat-icon-button
+                class="btn-editar"
+                matTooltip="Editar cuota"
+                (click)="editar(cuota)"
+                *ngIf="puedeEditar(cuota.estado)">
+
+                <mat-icon>edit</mat-icon>
+
+              </button>
+
+              <button
+                mat-icon-button
+                class="btn-eliminar"
+                matTooltip="Eliminar cuota"
+                (click)="eliminar(cuota)"
+                *ngIf="puedeEliminar(cuota.estado)">
+
+                <mat-icon>delete</mat-icon>
+
+              </button>
+
+            </div>
 
           </td>
 
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns">
+        </tr>
 
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns">
+        </tr>
 
       </table>
-    </div>
 
+    </div>
 
     <mat-paginator
       [length]="totalElements"
       [pageSize]="pageSize"
-      [pageSizeOptions]="[5,10,20,50]"
+      [pageSizeOptions]="[5, 10, 20, 50]"
+      showFirstLastButtons
       (page)="cambiarPagina($event)">
+
     </mat-paginator>
 
   </mat-card-content>
 
 </mat-card>
-
