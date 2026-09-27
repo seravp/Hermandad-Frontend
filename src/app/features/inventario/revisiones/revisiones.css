@@ -8,6 +8,9 @@ mat-card {
   margin: 0 0 24px;
   padding: 12px;
   border-radius: 18px;
+  background: #fff;
+  border: 1px solid #e1e8f0;
+  box-shadow: 0 8px 24px rgba(22, 58, 95, .07);
 }
 
 .cabecera { display: flex; justify-content: space-between; align-items: center; gap: 16px; }

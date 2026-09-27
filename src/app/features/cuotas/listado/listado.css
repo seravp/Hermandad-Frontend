@@ -5,7 +5,7 @@
 .cuotas-card {
   max-width: 1500px;
   margin: auto;
-  padding: 12px;
+  padding: 0;
   border-radius: 18px;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .mat-mdc-card-title {
-  font-size: 2rem;
+  font-size: 2.45rem;
   font-weight: 700;
 }
 
@@ -55,7 +55,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 0;
   flex-wrap: wrap;
 }
 
@@ -78,12 +78,13 @@
 
 .table-container {
   overflow-x: auto;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
 .tabla-cuotas {
   width: 100%;
   table-layout: fixed;
+  box-shadow: none !important;
 }
 
 /* Cabecera */
@@ -101,7 +102,7 @@
 /* Filas */
 
 .mat-mdc-row {
-  height: 64px;
+  height: 58px;
   transition: background .2s ease;
 }
 

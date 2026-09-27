@@ -4,6 +4,7 @@
   margin-bottom: 32px;
   padding: 12px;
   border-radius: 18px;
+  background: #fff;
 }
 
 /* CABECERA: mismo patrón visual que Socios y Cuotas. */
@@ -42,9 +43,9 @@
 }
 
 .dashboard-section {
-  padding: 22px;
+  padding: 24px;
   margin-bottom: 26px;
-  border: 1px solid #e2eaf2;
+  border: 1px solid #e5edf4;
   border-radius: 16px;
   background: #fbfcfe;
 }
@@ -59,6 +60,9 @@
 
 .section-title mat-icon {
   color: #1769aa;
+  background: #eaf3ff;
+  padding: 8px;
+  border-radius: 10px;
 }
 
 .section-title h2 {
@@ -72,7 +76,10 @@
 ========================== */
 
 .kpi-card {
-  height: 170px;
+  height: 164px;
+  border: 1px solid #e2eaf2;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(22, 58, 95, .05);
   transition:
     transform .25s ease,
     box-shadow .25s ease;
@@ -107,9 +114,12 @@
 ========================== */
 
 .kpi-icon {
-  width: 30px;
-  height: 30px;
-  font-size: 30px;
+  width: 28px;
+  height: 28px;
+  font-size: 28px;
+  padding: 10px;
+  border-radius: 10px;
+  background: #eaf3ff;
 }
 
 .icon-socios {
@@ -118,30 +128,37 @@
 
 .icon-hermanos {
   color: #6a4c93;
+  background: #f0eafa;
 }
 
 .icon-costaleros {
   color: #00838f;
+  background: #e4f5f6;
 }
 
 .icon-pagadas {
   color: #2e7d32;
+  background: #e2f4e6;
 }
 
 .icon-pendientes {
   color: #ed6c02;
+  background: #fff2db;
 }
 
 .icon-morosos {
   color: #d32f2f;
+  background: #fde8e7;
 }
 
 .icon-recaudado {
   color: #388e3c;
+  background: #e2f4e6;
 }
 
 .icon-pendiente {
   color: #f9a825;
+  background: #fff2db;
 }
 
 /* ==========================
@@ -150,6 +167,9 @@
 
 .progress-card {
   margin-top: 0;
+  border: 1px solid #e2eaf2;
+  border-radius: 14px;
+  box-shadow: none;
 }
 
 .progress-title{

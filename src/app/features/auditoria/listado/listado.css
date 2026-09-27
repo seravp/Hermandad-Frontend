@@ -1,7 +1,7 @@
 .auditoria-card {
   max-width: 1500px;
   margin: auto;
-  padding: 12px;
+  padding: 0;
   border-radius: 18px;
 }
 
@@ -10,7 +10,7 @@
 }
 
 .mat-mdc-card-title {
-  font-size: 2rem;
+  font-size: 2.45rem;
   font-weight: 700;
 }
 
@@ -24,7 +24,7 @@
   display: flex;
   gap: 20px;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 0;
   flex-wrap: wrap;
 }
 
@@ -45,6 +45,7 @@
 .tabla-auditoria {
   width: 100%;
   min-width: 780px;
+  box-shadow: none !important;
 }
 
 .mat-mdc-header-row {
@@ -58,7 +59,7 @@
 }
 
 .mat-mdc-row {
-  height: 62px;
+  height: 58px;
 }
 
 .mat-mdc-row:hover {

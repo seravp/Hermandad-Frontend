@@ -1,7 +1,7 @@
 .morosos-card {
   max-width: 1500px;
   margin: auto;
-  padding: 12px;
+  padding: 0;
   border-radius: 18px;
 }
 
@@ -12,7 +12,7 @@
 }
 
 .mat-mdc-card-title {
-  font-size: 2rem;
+  font-size: 2.45rem;
   font-weight: 700;
 }
 
@@ -37,9 +37,9 @@
   align-items: center;
   gap: 16px;
   padding: 20px;
-  border: 1px solid #eeeeee;
+  border: 1px solid #e1e8f0;
   border-radius: 14px;
-  background: #fafafa;
+  background: #fff;
   transition: transform .2s ease, box-shadow .2s ease;
 }
 
@@ -86,7 +86,7 @@
 /* BUSCADOR */
 
 .toolbar {
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .buscar {
@@ -105,6 +105,7 @@
 .tabla-morosos {
   width: 100%;
   table-layout: fixed;
+  box-shadow: none !important;
 }
 
 .mat-mdc-header-row {
@@ -118,7 +119,7 @@
 }
 
 .mat-mdc-row {
-  height: 64px;
+  height: 58px;
   transition: background .2s ease;
 }
 

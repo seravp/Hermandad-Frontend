@@ -5,6 +5,12 @@
   border-radius: 18px;
 }
 
+.inventario-card .cabecera h1 {
+  color: #172b45;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
 .cabecera, .filtros { display: flex; gap: 16px; align-items: center; }
 .cabecera { justify-content: space-between; }
 .cabecera h1 { margin: 0; }

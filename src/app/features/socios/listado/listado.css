@@ -8,7 +8,7 @@
 
   border-radius:18px;
 
-  padding:10px;
+  padding:0;
 
 }
 
@@ -43,7 +43,7 @@
 
 .mat-mdc-card-title{
 
-  font-size:32px;
+  font-size:2.45rem;
 
   font-weight:700;
 
@@ -51,7 +51,7 @@
 
 .mat-mdc-card-subtitle{
 
-  color:#666;
+  color:#65758b;
 
   margin-top:4px;
 
@@ -70,7 +70,7 @@
 
   align-items:center;
 
-  margin-bottom:24px;
+  margin-bottom:0;
 
   flex-wrap:wrap;
 
@@ -97,9 +97,7 @@
 
   width:100%;
 
-  border-radius:12px;
-
-  overflow:hidden;
+  box-shadow:none !important;
 
 }
 
@@ -121,7 +119,7 @@
 
 .mat-mdc-row{
 
-  height:64px;
+  height:58px;
 
   transition:.2s;
 

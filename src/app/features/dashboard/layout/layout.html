@@ -2,8 +2,8 @@
 
   <mat-sidenav mode="side" opened class="sidebar">
 
-    <mat-toolbar color="primary">
-      Hermandad
+    <mat-toolbar color="primary" class="sidebar-title">
+      Hermandad<br>de Alfacar
     </mat-toolbar>
 
     <mat-nav-list>
@@ -76,27 +76,47 @@
       <img src="/images/escudo-hermandad.png" alt="Escudo de la Hermandad de Alfacar">
     </div>
 
-    <div class="logout">
-
-      <button
-        mat-raised-button
-        color="warn"
-        (click)="logout()">
-
-        Cerrar sesión
-
-      </button>
-
-    </div>
-
   </mat-sidenav>
 
   <mat-sidenav-content>
 
     <mat-toolbar class="topbar">
+      <span class="topbar-brand">Hermandad de Alfacar</span>
 
-      Gestión de Hermandad
+      <span class="topbar-spacer"></span>
 
+      <div class="topbar-date">
+        <mat-icon>calendar_month</mat-icon>
+        <span>{{ fechaActual }}</span>
+      </div>
+
+      <span class="topbar-divider date-divider"></span>
+
+      <button mat-icon-button class="notification-button" aria-label="Notificaciones" title="Notificaciones">
+        <mat-icon>notifications_none</mat-icon>
+      </button>
+
+      <span class="topbar-divider profile-divider"></span>
+
+      <button class="user-profile" [matMenuTriggerFor]="userMenu" aria-label="Menú del usuario">
+        <span class="user-avatar">{{ inicialesUsuario }}</span>
+        <span class="user-data">
+          <strong>{{ nombreUsuario }}</strong>
+          <small>{{ rolUsuario }}</small>
+        </span>
+        <mat-icon>expand_more</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu" class="user-menu">
+        <div class="user-menu-header">
+          <strong>{{ nombreUsuario }}</strong>
+          <span>{{ rolUsuario }}</span>
+        </div>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Cerrar sesión</span>
+        </button>
+      </mat-menu>
     </mat-toolbar>
 
     <div class="content">

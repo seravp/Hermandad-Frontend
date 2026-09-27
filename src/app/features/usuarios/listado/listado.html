@@ -50,6 +50,8 @@
       </mat-form-field>
     </div>
 
+    <div class="table-surface">
+
     <table
       mat-table
       [dataSource]="dataSource"
@@ -113,5 +115,7 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+
+    </div>
   </mat-card-content>
 </mat-card>

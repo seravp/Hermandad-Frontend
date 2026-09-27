@@ -5,6 +5,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 
@@ -24,15 +25,42 @@ import { AuthService } from '../../../core/services/auth';
     MatListModule,
     MatIconModule,
     MatButtonModule,
+    MatMenuModule,
   ],
 })
 export class LayoutComponent {
   readonly authService = inject(AuthService);
 
+  readonly fechaActual = new Intl.DateTimeFormat('es-ES', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date());
+
   private router = inject(Router);
 
   esRutaActiva(ruta: string): boolean {
     return this.router.url === ruta;
+  }
+
+  get nombreUsuario(): string {
+    return this.authService.obtenerNombreUsuario();
+  }
+
+  get inicialesUsuario(): string {
+    return this.nombreUsuario.slice(0, 2).toUpperCase();
+  }
+
+  get rolUsuario(): string {
+    const etiquetas: Record<string, string> = {
+      ADMIN: 'Administrador',
+      TESORERO: 'Tesorero',
+      SECRETARIO: 'Secretario',
+      CONSULTA: 'Consulta',
+    };
+
+    return etiquetas[this.authService.obtenerRol() ?? ''] ?? 'Usuario';
   }
 
   logout(): void {

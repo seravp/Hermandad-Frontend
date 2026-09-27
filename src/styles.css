@@ -1,4 +1,166 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --app-navy: #163a5f;
+  --app-blue: #1769aa;
+  --app-gold: #f6c453;
+  --app-canvas: #f5f7fa;
+  --app-border: #e1e8f0;
+  --app-text: #172b45;
+  --app-muted: #65758b;
+}
+
+body {
+  background: var(--app-canvas);
+  color: var(--app-text);
+  font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+mat-icon {
+  font-family: 'Material Symbols Outlined' !important;
+  font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+.content h1,
+.content .mat-mdc-card-title,
+.content .section-title h2 {
+  font-family: Lora, Georgia, serif;
+  letter-spacing: -.02em;
+}
+
+/* Superficies principales: una misma presencia en todos los módulos. */
+.socios-card,
+.cuotas-card,
+.morosos-card,
+.usuarios-card,
+.auditoria-card,
+.informes-card,
+.inventario-card,
+.configuracion-card,
+.dashboard-card {
+  background: #fff !important;
+  border: 1px solid var(--app-border);
+  box-shadow: 0 8px 24px rgba(22, 58, 95, .07) !important;
+}
+
+/* Estructura de los listados: encabezado, filtros y resultados separados. */
+.socios-card,
+.cuotas-card,
+.morosos-card,
+.usuarios-card,
+.auditoria-card {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.socios-card .mat-mdc-card-header,
+.cuotas-card .mat-mdc-card-header,
+.morosos-card .mat-mdc-card-header,
+.usuarios-card .mat-mdc-card-header,
+.auditoria-card .mat-mdc-card-header {
+  padding: 0 4px;
+}
+
+.socios-card .toolbar,
+.cuotas-card .toolbar,
+.morosos-card .toolbar,
+.usuarios-card .toolbar,
+.auditoria-card .toolbar {
+  padding: 18px 24px 0;
+  background: #fff;
+  border: 1px solid var(--app-border);
+  border-radius: 14px;
+  box-shadow: 0 5px 16px rgba(22, 58, 95, .05);
+}
+
+.table-surface,
+.table-container {
+  margin-top: 16px;
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid var(--app-border);
+  border-radius: 14px;
+  box-shadow: 0 5px 16px rgba(22, 58, 95, .05);
+}
+
+.table-surface .mat-mdc-paginator,
+.table-container + .mat-mdc-paginator {
+  margin: 0;
+  border-top: 1px solid #e5edf4;
+  background: #fff;
+}
+
+.mat-mdc-table {
+  background: transparent !important;
+}
+
+.mat-mdc-header-row {
+  background: #f3f7fb !important;
+}
+
+.mat-mdc-header-cell {
+  color: #40566f !important;
+  font-weight: 700 !important;
+  font-size: .82rem !important;
+  letter-spacing: .015em;
+  border-bottom-color: #d6e1eb !important;
+}
+
+.mat-mdc-cell {
+  color: #243b53;
+  font-size: .92rem !important;
+  border-bottom-color: #e8eef4 !important;
+}
+
+.mat-mdc-row:hover {
+  background: #f8fbfe !important;
+}
+
+button.mat-mdc-raised-button,
+button.mat-mdc-unelevated-button {
+  min-height: 44px;
+  padding-inline: 18px;
+  border-radius: 8px;
+  box-shadow: none;
+  font-weight: 600;
+}
+
+button.mat-mdc-raised-button[color="primary"],
+button.mat-mdc-unelevated-button[color="primary"] {
+  background: #0967b3 !important;
+}
+
+button.mat-mdc-raised-button[color="primary"]:hover,
+button.mat-mdc-unelevated-button[color="primary"]:hover {
+  background: #075b9f !important;
+}
+
+button.mat-mdc-outlined-button,
+button.mat-mdc-button-base.mat-mdc-outlined-button {
+  min-height: 44px;
+  border-radius: 8px;
+  border-color: #cbd9e6;
+  color: #40566f;
+}
+
+.mat-mdc-paginator-container {
+  min-height: 62px !important;
+  padding: 0 16px !important;
+  color: #65758b;
+}
+
+.mat-mdc-paginator .mat-mdc-icon-button {
+  width: 34px;
+  height: 34px;
+  margin-inline: 2px;
+  border: 1px solid #d8e3ed;
+  border-radius: 7px;
+}
+
+.mat-mdc-paginator .mat-mdc-select-value {
+  color: #40566f;
+}
 .mat-mdc-snack-bar-container.snackbar-error .mdc-snackbar__surface {
   background-color: #c62828 !important;
 }
