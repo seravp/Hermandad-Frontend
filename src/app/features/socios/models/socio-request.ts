@@ -1,7 +1,8 @@
-import { EstadoHermano } from '../../../core/models/estados/estado-hermano';
+import { EstadoSocio } from '../../../core/models/estados/estado-socio';
 import { FormaPago } from './forma-pago';
+import { TipoSocio } from '../../../core/models/socios/tipo-socio';
 
-export interface HermanoRequest {
+export interface SocioRequest {
   nombre: string;
 
   apellidos: string;
@@ -16,7 +17,9 @@ export interface HermanoRequest {
 
   fechaNacimiento: string | null;
 
-  estado: EstadoHermano;
+  estado: EstadoSocio;
+
+  tipo: TipoSocio;
 
   iban: string | null;
 

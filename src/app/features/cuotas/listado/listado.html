@@ -22,7 +22,7 @@
         mat-stroked-button
         color="primary"
         class="boton-crear"
-        matTooltip="Crear una cuota para un hermano concreto"
+        matTooltip="Crear una cuota para un socio concreto"
         (click)="nuevaCuota()">
 
         <mat-icon>add_card</mat-icon>
@@ -34,7 +34,7 @@
         mat-raised-button
         color="primary"
         class="boton-generar"
-        matTooltip="Genera las cuotas del año para los hermanos activos"
+        matTooltip="Genera las cuotas del año para los socios activos"
         (click)="generarCuotas()">
 
         <mat-icon>payments</mat-icon>
@@ -60,7 +60,7 @@
         <input
           matInput
           [formControl]="busquedaControl"
-          placeholder="Buscar por nombre, apellidos o nº de hermano">
+          placeholder="Buscar por nombre, apellidos o nº de socio">
 
       </mat-form-field>
 
@@ -120,6 +120,22 @@
 
       </mat-form-field>
 
+      <mat-form-field appearance="outline" class="estado">
+
+        <mat-label>Tipo</mat-label>
+
+        <mat-select
+          [(ngModel)]="tipoSeleccionado"
+          (selectionChange)="buscar()">
+
+          <mat-option [value]="undefined">Todos</mat-option>
+          <mat-option [value]="TipoSocio.HERMANO">Hermano</mat-option>
+          <mat-option [value]="TipoSocio.COSTALERO">Costalero</mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
     </div>
 
     <div class="table-container">
@@ -131,43 +147,55 @@
         (matSortChange)="ordenar($event)"
         class="tabla-cuotas mat-elevation-z1">
 
-        <!-- Nº Hermano -->
+        <!-- Nº Socio -->
 
-        <ng-container matColumnDef="numeroHermano">
+        <ng-container matColumnDef="numeroSocio">
 
           <th
             mat-header-cell
             *matHeaderCellDef
-            mat-sort-header="numeroHermano">
+            mat-sort-header="numeroSocio">
 
-            Nº Hermano
+            Nº Socio
 
           </th>
 
           <td mat-cell *matCellDef="let cuota">
 
-            {{ cuota.numeroHermano }}
+            {{ cuota.numeroSocio }}
 
           </td>
 
         </ng-container>
 
-        <!-- Hermano -->
+        <!-- Socio -->
 
-        <ng-container matColumnDef="nombreHermano">
+        <ng-container matColumnDef="nombreSocio">
 
           <th
             mat-header-cell
             *matHeaderCellDef>
 
-            Hermano
+            Socio
 
           </th>
 
           <td mat-cell *matCellDef="let cuota">
 
-            {{ cuota.nombreHermano }}
+            {{ cuota.nombreSocio }}
 
+          </td>
+
+        </ng-container>
+
+        <!-- Tipo -->
+
+        <ng-container matColumnDef="tipo">
+
+          <th mat-header-cell *matHeaderCellDef>Tipo de cuota</th>
+
+          <td mat-cell *matCellDef="let cuota">
+            {{ cuota.tipo === 'HERMANO' ? 'Hermano' : 'Costalero' }}
           </td>
 
         </ng-container>
@@ -235,11 +263,11 @@
             *matCellDef="let cuota"
             class="mat-column-estado">
 
-            <mat-chip [ngClass]="obtenerClaseEstado(cuota.estado)">
+            <span class="estado-chip" [ngClass]="obtenerClaseEstado(cuota.estado)">
 
               {{ obtenerTextoEstado(cuota.estado) }}
 
-            </mat-chip>
+            </span>
 
           </td>
 

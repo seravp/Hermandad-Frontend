@@ -8,8 +8,9 @@ import { environment } from '../../../environments/environment';
 
 import { Cuota } from '../models/cuotas/cuota';
 import { CuotaDetalle } from '../models/cuotas/cuota-detalle';
-import { CuotaRequest } from '../../features/hermanos/models/cuota-request';
+import { CuotaRequest } from '../../features/socios/models/cuota-request';
 import { Page } from '../models/page';
+import { TipoSocio } from '../models/socios/tipo-socio';
 
 
 
@@ -25,6 +26,7 @@ export class CuotaService {
     texto: string,
     estado: string | undefined,
     anio: number | undefined,
+    tipo: TipoSocio | undefined,
     page: number,
     size: number,
     sort: string,
@@ -48,6 +50,10 @@ export class CuotaService {
       params = params.set('anio', anio);
     }
 
+    if (tipo) {
+      params = params.set('tipo', tipo);
+    }
+
     return this.http.get<Page<Cuota>>(`${this.apiUrl}/busqueda-paginada`, { params });
   }
 
@@ -55,8 +61,8 @@ export class CuotaService {
     return this.http.get<CuotaDetalle>(`${this.apiUrl}/${id}`);
   }
 
-  obtenerPorHermano(hermanoId: number): Observable<Cuota[]> {
-    return this.http.get<Cuota[]>(`${this.apiUrl}/hermano/${hermanoId}`);
+  obtenerPorSocio(socioId: number): Observable<Cuota[]> {
+    return this.http.get<Cuota[]>(`${this.apiUrl}/socio/${socioId}`);
   }
 
   crear(request: CuotaRequest): Observable<CuotaDetalle> {

@@ -31,7 +31,9 @@ export class DashboardComponent implements OnInit {
   }
 
   dashboard: Dashboard = {
+    totalSocios: 0,
     totalHermanos: 0,
+    totalCostaleros: 0,
     cuotasPagadas: 0,
     cuotasPendientes: 0,
     morosos: 0,
@@ -45,7 +47,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.dashboardService.obtenerDashboard().subscribe({
       next: (data) => {
-        this.dashboard = { ...data };
+        // Conserva los valores por defecto si el servidor aún no devuelve
+        // algún indicador nuevo durante una actualización.
+        this.dashboard = { ...this.dashboard, ...data };
 
         console.log('ANTES', this.dashboard);
 

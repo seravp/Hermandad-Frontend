@@ -31,6 +31,10 @@ export class LayoutComponent {
 
   private router = inject(Router);
 
+  esRutaActiva(ruta: string): boolean {
+    return this.router.url === ruta;
+  }
+
   logout(): void {
     this.authService.logout();
 

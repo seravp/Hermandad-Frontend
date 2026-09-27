@@ -30,8 +30,9 @@ import { CuotaDetalle } from '../../../core/models/cuotas/cuota-detalle';
 import { DialogEditarCuotaComponent } from '../dialog-editar/dialog-editar';
 import { Configuracion } from '../../../core/models/configuracion/configuracion';
 import { DialogCrearCuotaComponent } from '../dialog-crear/dialog-crear';
-import { CuotaRequest } from '../../hermanos/models/cuota-request';
+import { CuotaRequest } from '../../socios/models/cuota-request';
 import { AuthService } from '../../../core/services/auth';
+import { TipoSocio } from '../../../core/models/socios/tipo-socio';
 
 
 @Component({
@@ -82,6 +83,9 @@ export class ListadoComponent implements OnInit, AfterViewInit {
 
   anioSeleccionado?: number;
 
+  tipoSeleccionado?: TipoSocio;
+  readonly TipoSocio = TipoSocio;
+
   page = 0;
 
   pageSize = 10;
@@ -95,8 +99,9 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   busquedaControl = new FormControl('');
 
   displayedColumns = [
-    'numeroHermano',
-    'nombreHermano',
+    'numeroSocio',
+    'nombreSocio',
+    'tipo',
     'anio',
     'importe',
     'estado',
@@ -155,6 +160,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
         this.textoBusqueda,
         this.estadoSeleccionado || undefined,
         this.anioSeleccionado,
+        this.tipoSeleccionado,
         this.page,
         this.pageSize,
         this.sort,
@@ -194,7 +200,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
       <strong>${anio}</strong>?
     `,
 
-        advertencia: 'Solo se crearán las cuotas de los hermanos activos que aún no la tengan.',
+        advertencia: 'Solo se crearán las cuotas de los socios activos que aún no la tengan.',
 
         textoConfirmar: 'Generar',
       })
@@ -288,8 +294,8 @@ export class ListadoComponent implements OnInit, AfterViewInit {
         colorIcono: 'primary',
 
         mensaje: `
-      ¿Desea marcar como <strong>pagada</strong> la cuota del hermano
-      <strong>${cuota.nombreHermano}</strong>?
+      ¿Desea marcar como <strong>pagada</strong> la cuota del socio
+      <strong>${cuota.nombreSocio}</strong>?
     `,
 
         advertencia: 'Se registrará la fecha actual como fecha de pago.',
@@ -325,8 +331,8 @@ export class ListadoComponent implements OnInit, AfterViewInit {
         colorIcono: 'accent',
 
         mensaje: `
-      ¿Desea <strong>anular el pago</strong> de la cuota del hermano
-      <strong>${cuota.nombreHermano}</strong> correspondiente al año
+      ¿Desea <strong>anular el pago</strong> de la cuota del socio
+      <strong>${cuota.nombreSocio}</strong> correspondiente al año
       <strong>${cuota.anio}</strong>?
     `,
 
@@ -363,8 +369,8 @@ export class ListadoComponent implements OnInit, AfterViewInit {
         colorIcono: 'accent',
 
         mensaje: `
-      ¿Desea <strong>deshacer el pago</strong> de la cuota del hermano
-      <strong>${cuota.nombreHermano}</strong> correspondiente al año
+      ¿Desea <strong>deshacer el pago</strong> de la cuota del socio
+      <strong>${cuota.nombreSocio}</strong> correspondiente al año
       <strong>${cuota.anio}</strong>?
     `,
 
@@ -454,7 +460,8 @@ export class ListadoComponent implements OnInit, AfterViewInit {
       data: {
         anio: this.configuracion?.anioActivo ?? new Date().getFullYear(),
 
-        importe: this.configuracion?.importeCuota ?? 0,
+        importeCuotaHermano: this.configuracion?.importeCuotaHermano ?? 0,
+        importeCuotaCostalero: this.configuracion?.importeCuotaCostalero ?? 0,
       },
     });
 

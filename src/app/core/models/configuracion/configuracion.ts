@@ -9,7 +9,9 @@ export interface Configuracion {
 
   email: string;
 
-  importeCuota: number;
+  importeCuotaHermano: number;
+
+  importeCuotaCostalero: number;
 
   anioActivo: number;
 

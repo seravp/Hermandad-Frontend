@@ -59,7 +59,7 @@ export class ListadoComponent implements OnInit {
   textoBusqueda = '';
 
   displayedColumns = [
-    'numeroHermano',
+    'numeroSocio',
     'nombreCompleto',
     'cuotasPendientes',
     'importePendiente',
@@ -101,7 +101,7 @@ export class ListadoComponent implements OnInit {
 
     this.morososFiltrados = this.morosos.filter(
       (moroso) =>
-        moroso.numeroHermano.toString().includes(texto) ||
+        moroso.numeroSocio.toString().includes(texto) ||
         moroso.nombreCompleto.toLowerCase().includes(texto),
     );
   }
@@ -142,7 +142,7 @@ export class ListadoComponent implements OnInit {
   }
 
   generarCarta(moroso: Moroso): void {
-    this.informeService.generarCartaMoroso(moroso.hermanoId).subscribe({
+    this.informeService.generarCartaMoroso(moroso.socioId).subscribe({
       next: (blob) => {
         const url = URL.createObjectURL(blob);
 

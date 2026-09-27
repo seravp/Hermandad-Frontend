@@ -6,7 +6,7 @@ import { LayoutComponent } from './features/dashboard/layout/layout';
 
 import { DashboardComponent } from './features/dashboard/dashboard/dashboard';
 
-import { ListadoComponent } from './features/hermanos/listado/listado';
+import { ListadoComponent } from './features/socios/listado/listado';
 
 import { ListadoComponent as ListadoCuotasComponent } from './features/cuotas/listado/listado';
 
@@ -53,7 +53,7 @@ export const routes: Routes = [
       },
 
       {
-        path: 'hermanos',
+        path: 'socios',
         component: ListadoComponent,
       },
 

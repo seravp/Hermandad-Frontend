@@ -1,5 +1,9 @@
 export interface Dashboard {
+  totalSocios: number;
+
   totalHermanos: number;
+
+  totalCostaleros: number;
 
   cuotasPagadas: number;
 

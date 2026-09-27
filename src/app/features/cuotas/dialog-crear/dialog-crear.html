@@ -9,41 +9,41 @@
     <div class="espaciador-superior" aria-hidden="true"></div>
 
     <mat-form-field appearance="outline" class="full">
-      <mat-label>Buscar hermano activo</mat-label>
+      <mat-label>Buscar socio activo</mat-label>
 
       <input
         matInput
-        [formControl]="busquedaHermanoControl"
+        [formControl]="busquedaSocioControl"
         [matAutocomplete]="auto"
         placeholder="Nombre, apellidos, DNI o número">
 
       <mat-autocomplete
         #auto="matAutocomplete"
-        [displayWith]="mostrarHermano"
-        (optionSelected)="seleccionarHermano($event.option.value)">
+        [displayWith]="mostrarSocio"
+        (optionSelected)="seleccionarSocio($event.option.value)">
 
-        @for (hermano of hermanos; track hermano.id) {
-        <mat-option [value]="hermano">
-          Nº {{ hermano.numeroHermano }} —
-          {{ hermano.nombre }} {{ hermano.apellidos }}
+        @for (socio of socios; track socio.id) {
+        <mat-option [value]="socio">
+          Nº {{ socio.numeroSocio }} —
+          {{ socio.nombre }} {{ socio.apellidos }}
         </mat-option>
         }
       </mat-autocomplete>
 
-      @if (form.controls.hermanoId.invalid &&
-      form.controls.hermanoId.touched) {
-      <mat-error>Debes seleccionar un hermano.</mat-error>
+      @if (form.controls.socioId.invalid &&
+      form.controls.socioId.touched) {
+      <mat-error>Debes seleccionar un socio.</mat-error>
       }
 
-      @if (buscandoHermanos) {
-      <mat-option disabled>Buscando hermanos…</mat-option>
+      @if (buscandoSocios) {
+      <mat-option disabled>Buscando socios…</mat-option>
       }
 
       @if (busquedaRealizada &&
-      !buscandoHermanos &&
-      hermanos.length === 0) {
+      !buscandoSocios &&
+      socios.length === 0) {
       <mat-option disabled>
-        No se han encontrado hermanos activos.
+        No se han encontrado socios activos.
       </mat-option>
       }
     </mat-form-field>

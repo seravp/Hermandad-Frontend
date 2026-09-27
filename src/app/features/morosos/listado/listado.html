@@ -9,7 +9,7 @@
       </mat-card-title>
 
       <mat-card-subtitle>
-        Hermanos con cuotas pendientes
+        Socios con cuotas pendientes
       </mat-card-subtitle>
 
     </div>
@@ -98,7 +98,7 @@
           matInput
           [(ngModel)]="textoBusqueda"
           (ngModelChange)="buscar()"
-          placeholder="Buscar por nombre o nº de hermano">
+          placeholder="Buscar por nombre o nº de socio">
 
       </mat-form-field>
 
@@ -141,27 +141,27 @@
         class="tabla-morosos mat-elevation-z1">
 
 
-        <!-- Nº HERMANO -->
+        <!-- Nº SOCIO -->
 
-        <ng-container matColumnDef="numeroHermano">
+        <ng-container matColumnDef="numeroSocio">
 
           <th mat-header-cell *matHeaderCellDef>
-            Nº Hermano
+            Nº Socio
           </th>
 
           <td mat-cell *matCellDef="let moroso">
-            {{ moroso.numeroHermano }}
+            {{ moroso.numeroSocio }}
           </td>
 
         </ng-container>
 
 
-        <!-- HERMANO -->
+        <!-- SOCIO -->
 
         <ng-container matColumnDef="nombreCompleto">
 
           <th mat-header-cell *matHeaderCellDef>
-            Hermano
+            Socio
           </th>
 
           <td mat-cell *matCellDef="let moroso">
@@ -279,7 +279,7 @@
         </mat-icon>
 
         <span>
-            No hay hermanos morosos
+            No hay socios morosos
           </span>
 
       </div>

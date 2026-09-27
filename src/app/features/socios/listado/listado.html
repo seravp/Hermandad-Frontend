@@ -1,11 +1,11 @@
-<mat-card class="hermanos-card">
+<mat-card class="socios-card">
 
   <mat-card-header>
 
     <div class="header-info">
 
       <mat-card-title>
-        Hermanos
+        Socios
       </mat-card-title>
 
       <mat-card-subtitle>
@@ -17,10 +17,10 @@
     <button
       mat-raised-button
       color="primary"
-      (click)="nuevoHermano()">
+      (click)="nuevoSocio()">
 
       <mat-icon>add</mat-icon>
-      Nuevo hermano
+      Nuevo socio
 
     </button>
 
@@ -69,6 +69,24 @@
 
       </mat-form-field>
 
+      <mat-form-field
+        appearance="outline"
+        class="estado">
+
+        <mat-label>Tipo</mat-label>
+
+        <mat-select
+          [(ngModel)]="tipoSeleccionado"
+          (selectionChange)="buscar()">
+
+          <mat-option [value]="undefined">Todos</mat-option>
+          <mat-option [value]="TipoSocio.HERMANO">Hermano</mat-option>
+          <mat-option [value]="TipoSocio.COSTALERO">Costalero</mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
     </div>
 
     <table
@@ -76,24 +94,24 @@
       [dataSource]="dataSource"
       matSort
       (matSortChange)="ordenar($event)"
-      class="tabla-hermanos mat-elevation-z1">
+      class="tabla-socios mat-elevation-z1">
 
       <!-- Nº -->
 
-      <ng-container matColumnDef="numeroHermano">
+      <ng-container matColumnDef="numeroSocio">
 
         <th
           mat-header-cell
           *matHeaderCellDef
-          mat-sort-header="numeroHermano">
+          mat-sort-header="numeroSocio">
 
           Nº
 
         </th>
 
-        <td mat-cell *matCellDef="let hermano">
+        <td mat-cell *matCellDef="let socio">
 
-          {{ hermano.numeroHermano }}
+          {{ socio.numeroSocio }}
 
         </td>
 
@@ -112,9 +130,9 @@
 
         </th>
 
-        <td mat-cell *matCellDef="let hermano">
+        <td mat-cell *matCellDef="let socio">
 
-          {{ hermano.nombre }}
+          {{ socio.nombre }}
 
         </td>
 
@@ -133,9 +151,9 @@
 
         </th>
 
-        <td mat-cell *matCellDef="let hermano">
+        <td mat-cell *matCellDef="let socio">
 
-          {{ hermano.apellidos }}
+          {{ socio.apellidos }}
 
         </td>
 
@@ -154,13 +172,25 @@
 
         </th>
 
-        <td mat-cell *matCellDef="let hermano">
+        <td mat-cell *matCellDef="let socio">
 
-          {{ hermano.dni }}
+          {{ socio.dni }}
 
         </td>
 
       </ng-container>
+
+        <!-- Tipo -->
+
+        <ng-container matColumnDef="tipo">
+
+          <th mat-header-cell *matHeaderCellDef>Tipo</th>
+
+          <td mat-cell *matCellDef="let socio">
+            {{ socio.tipo === 'HERMANO' ? 'Hermano' : 'Costalero' }}
+          </td>
+
+        </ng-container>
 
       <!-- Estado -->
 
@@ -177,15 +207,16 @@
 
         <td
           mat-cell
-          *matCellDef="let hermano"
+          *matCellDef="let socio"
           class="mat-column-estado">
 
-          <mat-chip
-            [ngClass]="obtenerClaseEstado(hermano.estado)">
+          <span
+            class="estado-chip"
+            [ngClass]="obtenerClaseEstado(socio.estado)">
 
-            {{ obtenerTextoEstado(hermano.estado) }}
+            {{ obtenerTextoEstado(socio.estado) }}
 
-          </mat-chip>
+          </span>
 
         </td>
 
@@ -206,18 +237,18 @@
 
         <td
           mat-cell
-          *matCellDef="let hermano"
+          *matCellDef="let socio"
           class="mat-column-acciones">
 
           <div class="acciones">
 
-            <button mat-icon-button matTooltip="Visualizar" (click)="visualizar(hermano)"><mat-icon>visibility</mat-icon></button>
+            <button mat-icon-button matTooltip="Visualizar" (click)="visualizar(socio)"><mat-icon>visibility</mat-icon></button>
 
             <button
               mat-icon-button
               class="btn-editar"
               matTooltip="Editar"
-              (click)="editar(hermano)">
+              (click)="editar(socio)">
 
               <mat-icon>
                 edit
@@ -229,7 +260,7 @@
               mat-icon-button
               class="btn-eliminar"
               matTooltip="Eliminar"
-              (click)="eliminar(hermano)">
+              (click)="eliminar(socio)">
 
               <mat-icon>
                 delete

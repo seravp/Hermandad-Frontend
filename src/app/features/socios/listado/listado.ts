@@ -6,8 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { HermanoService } from '../../../core/services/hermano';
-import { Hermano } from '../../../core/models/hermanos/hermano';
+import { SocioService } from '../../../core/services/socio';
+import { Socio } from '../../../core/models/socios/socio';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { FormsModule } from '@angular/forms';
@@ -26,7 +26,8 @@ import { NotificationService } from '../../../shared/services/notification';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { DetalleHermanoComponent } from '../detalle/detalle';
+import { DetalleSocioComponent } from '../detalle/detalle';
+import { TipoSocio } from '../../../core/models/socios/tipo-socio';
 
 
 
@@ -55,37 +56,40 @@ import { DetalleHermanoComponent } from '../detalle/detalle';
   styleUrl: './listado.css',
 })
 export class ListadoComponent implements OnInit {
-  private hermanoService = inject(HermanoService);
+  private socioService = inject(SocioService);
   private dialog = inject(MatDialog);
   private readonly notificationService = inject(NotificationService);
-  dataSource = new MatTableDataSource<Hermano>();
+  dataSource = new MatTableDataSource<Socio>();
 
   @ViewChild(MatSort) sortTable!: MatSort;
 
   textoBusqueda = '';
 
   estadoSeleccionado = '';
+  tipoSeleccionado?: TipoSocio;
+  readonly TipoSocio = TipoSocio;
 
   page = 0;
   size = 10;
   totalElements = 0;
 
-  sort = 'numeroHermano';
+  sort = 'numeroSocio';
   direction = 'asc';
 
   busquedaControl = new FormControl('');
 
   displayedColumns: string[] = [
-    'numeroHermano',
+    'numeroSocio',
     'nombre',
     'apellidos',
     'dni',
+    'tipo',
     'estado',
     'acciones',
   ];
 
   ngOnInit(): void {
-    this.cargarHermanos();
+    this.cargarSocios();
 
     this.busquedaControl.valueChanges
       .pipe(debounceTime(300), distinctUntilChanged())
@@ -94,7 +98,7 @@ export class ListadoComponent implements OnInit {
 
         this.page = 0;
 
-        this.cargarHermanos();
+        this.cargarSocios();
       });
   }
 
@@ -102,14 +106,15 @@ export class ListadoComponent implements OnInit {
     this.page = event.pageIndex;
     this.size = event.pageSize;
 
-    this.cargarHermanos();
+    this.cargarSocios();
   }
 
-  private cargarHermanos(): void {
-    this.hermanoService
+  private cargarSocios(): void {
+    this.socioService
       .buscar(
         this.textoBusqueda,
         this.estadoSeleccionado || undefined,
+        this.tipoSeleccionado,
         this.page,
         this.size,
         this.sort,
@@ -130,22 +135,22 @@ export class ListadoComponent implements OnInit {
   buscar(): void {
     this.page = 0;
 
-    this.cargarHermanos();
+    this.cargarSocios();
   }
 
-  editar(hermano: Hermano): void {
-    this.hermanoService.obtenerPorId(hermano.id).subscribe({
-      next: (hermanoDetalle) => {
+  editar(socio: Socio): void {
+    this.socioService.obtenerPorId(socio.id).subscribe({
+      next: (socioDetalle) => {
         const dialogRef = this.dialog.open(FormularioComponent, {
           width: '900px',
           maxWidth: '95vw',
           disableClose: true,
-          data: hermanoDetalle,
+          data: socioDetalle,
         });
 
         dialogRef.afterClosed().subscribe((resultado) => {
           if (resultado) {
-            this.cargarHermanos();
+            this.cargarSocios();
           }
         });
       },
@@ -154,21 +159,21 @@ export class ListadoComponent implements OnInit {
     });
   }
 
-  visualizar(hermano: Hermano): void {
-    this.hermanoService.obtenerPorId(hermano.id).subscribe({
-      next: detalle => this.dialog.open(DetalleHermanoComponent, { width: '720px', maxWidth: '95vw', data: detalle }),
+  visualizar(socio: Socio): void {
+    this.socioService.obtenerPorId(socio.id).subscribe({
+      next: detalle => this.dialog.open(DetalleSocioComponent, { width: '720px', maxWidth: '95vw', data: detalle }),
       error: error => this.notificationService.httpError(error),
     });
   }
 
-  eliminar(hermano: Hermano): void {
+  eliminar(socio: Socio): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '420px',
       disableClose: true,
       data: {
-        titulo: 'Eliminar hermano',
-        mensaje: `¿Deseas eliminar definitivamente al hermano
-             <strong>${hermano.nombre} ${hermano.apellidos}</strong>?`,
+        titulo: 'Eliminar socio',
+        mensaje: `¿Deseas eliminar definitivamente al socio
+             <strong>${socio.nombre} ${socio.apellidos}</strong>?`,
         advertencia: 'Esta acción no se puede deshacer.',
         textoConfirmar: 'Eliminar',
         textoCancelar: 'Cancelar',
@@ -182,15 +187,15 @@ export class ListadoComponent implements OnInit {
         return;
       }
 
-      this.hermanoService.eliminar(hermano.id).subscribe({
+      this.socioService.eliminar(socio.id).subscribe({
         next: () => {
-          this.notificationService.success('Hermano eliminado correctamente.');
+          this.notificationService.success('Socio eliminado correctamente.');
 
           if (this.dataSource.data.length === 1 && this.page > 0) {
             this.page--;
           }
 
-          this.cargarHermanos();
+          this.cargarSocios();
         },
 
         error: (error) => this.notificationService.httpError(error),
@@ -203,7 +208,7 @@ export class ListadoComponent implements OnInit {
 
     this.direction = sort.direction || 'asc';
 
-    this.cargarHermanos();
+    this.cargarSocios();
   }
 
   obtenerColorEstado(estado: string): 'primary' | 'warn' | 'accent' {
@@ -236,7 +241,7 @@ export class ListadoComponent implements OnInit {
     return estado ?? 'SIN ESTADO';
   }
 
-  nuevoHermano(): void {
+  nuevoSocio(): void {
     const dialogRef = this.dialog.open(FormularioComponent, {
       width: '900px',
       maxWidth: '95vw',
@@ -248,7 +253,7 @@ export class ListadoComponent implements OnInit {
       if (resultado) {
         console.log('Formulario guardado:', resultado);
 
-        this.cargarHermanos();
+        this.cargarSocios();
       }
     });
   }

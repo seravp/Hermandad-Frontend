@@ -2,28 +2,56 @@
 
   <mat-card-header>
 
-    <mat-card-title>
-      Dashboard
-    </mat-card-title>
+    <div class="header-info">
 
-    <mat-card-subtitle>
-      Resumen del ejercicio {{ dashboard.anioActivo }}
-    </mat-card-subtitle>
+      <mat-card-title>
+        Inicio
+      </mat-card-title>
 
+      <mat-card-subtitle>
+        Resumen del ejercicio {{ dashboard.anioActivo }}
+      </mat-card-subtitle>
+
+    </div>
   </mat-card-header>
 
   <mat-card-content>
 
-    <!-- ================= KPIs ================= -->
+    <section class="dashboard-section">
 
-    <div class="dashboard-grid">
+      <div class="section-title">
+        <mat-icon>groups</mat-icon>
+        <h2>Miembros</h2>
+      </div>
+
+      <div class="dashboard-grid">
+
+      <mat-card class="kpi-card">
+
+        <mat-card-content>
+
+          <mat-icon class="kpi-icon icon-socios">
+            groups
+          </mat-icon>
+
+          <div class="kpi-valor">
+            {{ dashboard.totalSocios }}
+          </div>
+
+          <div class="kpi-titulo">
+            Socios activos
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
 
       <mat-card class="kpi-card">
 
         <mat-card-content>
 
           <mat-icon class="kpi-icon icon-hermanos">
-            groups
+            church
           </mat-icon>
 
           <div class="kpi-valor">
@@ -37,6 +65,38 @@
         </mat-card-content>
 
       </mat-card>
+
+      <mat-card class="kpi-card">
+
+        <mat-card-content>
+
+          <mat-icon class="kpi-icon icon-costaleros">
+            accessibility_new
+          </mat-icon>
+
+          <div class="kpi-valor">
+            {{ dashboard.totalCostaleros }}
+          </div>
+
+          <div class="kpi-titulo">
+            Costaleros activos
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+      </div>
+    </section>
+
+    <section class="dashboard-section">
+
+      <div class="section-title">
+        <mat-icon>account_balance_wallet</mat-icon>
+        <h2>Tesorería</h2>
+      </div>
+
+      <div class="dashboard-grid">
 
       <mat-card class="kpi-card">
 
@@ -138,7 +198,8 @@
 
       </mat-card>
 
-    </div>
+      </div>
+    </section>
 
     <!-- ================= ESTADO DE COBRO ================= -->
 

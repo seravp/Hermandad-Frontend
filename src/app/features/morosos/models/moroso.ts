@@ -1,6 +1,6 @@
 export interface Moroso {
-  hermanoId: number;
-  numeroHermano: number;
+  socioId: number;
+  numeroSocio: number;
   nombreCompleto: string;
   cuotasPendientes: number;
   importePendiente: number;

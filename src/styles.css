@@ -37,3 +37,50 @@
 .mat-mdc-snack-bar-container .mat-mdc-button {
   color: white !important;
 }
+
+/* Tipografía común de los listados: legible sin perder densidad de información. */
+.mat-mdc-table .mat-mdc-header-cell {
+  font-size: 0.95rem !important;
+}
+
+.mat-mdc-table .mat-mdc-cell {
+  font-size: 0.94rem !important;
+}
+
+.mat-mdc-paginator {
+  font-size: 0.92rem;
+}
+
+/* Etiquetas de estado comunes a todos los listados. */
+.estado-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 76px;
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-size: .8rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.estado-chip.estado-activo,
+.estado-chip.estado-pagada,
+.estado-chip.estado-abierta {
+  background: #d8f1df;
+  color: #176b35;
+}
+
+.estado-chip.estado-pendiente {
+  background: #fff1cc;
+  color: #8a5b00;
+}
+
+.estado-chip.estado-baja,
+.estado-chip.estado-inactivo,
+.estado-chip.estado-anulada,
+.estado-chip.estado-cerrada,
+.estado-chip.estado-desconocido {
+  background: #fde0e0;
+  color: #b42318;
+}

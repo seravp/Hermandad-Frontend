@@ -2,7 +2,7 @@
 
   <mat-icon>person_add</mat-icon>
 
-  {{ esEdicion ? 'Editar hermano' : 'Nuevo hermano' }}
+  {{ esEdicion ? 'Editar socio' : 'Nuevo socio' }}
 
 </h2>
 
@@ -36,6 +36,18 @@
         Los apellidos son obligatorios.
       </mat-error>
 
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo de socio</mat-label>
+      <mat-select formControlName="tipo">
+        <mat-option [value]="TipoSocio.HERMANO">Hermano</mat-option>
+        <mat-option [value]="TipoSocio.COSTALERO">Costalero</mat-option>
+      </mat-select>
+
+      @if (form.controls.tipo.hasError('required') && form.controls.tipo.touched) {
+      <mat-error>Selecciona un tipo.</mat-error>
       }
     </mat-form-field>
 
@@ -155,11 +167,11 @@
 
       <mat-select formControlName="estado">
 
-        <mat-option [value]="EstadoHermano.ACTIVO">
+        <mat-option [value]="EstadoSocio.ACTIVO">
           Activo
         </mat-option>
 
-        <mat-option [value]="EstadoHermano.BAJA">
+        <mat-option [value]="EstadoSocio.BAJA">
           Baja
         </mat-option>
 

@@ -1,4 +1,4 @@
-export interface HermanoResponse {
+export interface SocioResponse {
   id: number;
 
   nombre: string;
@@ -7,6 +7,6 @@ export interface HermanoResponse {
 
   dni: string;
 
-  numeroHermano: number;
+  numeroSocio: number;
 }
 

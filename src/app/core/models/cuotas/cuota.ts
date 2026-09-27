@@ -1,4 +1,5 @@
 import { EstadoCuota } from '../estados/estado-cuota';
+import { TipoSocio } from '../socios/tipo-socio';
 
 export interface Cuota {
   id: number;
@@ -13,9 +14,11 @@ export interface Cuota {
 
   observaciones: string | null;
 
-  hermanoId: number;
+  socioId: number;
 
-  numeroHermano: number;
+  numeroSocio: number;
 
-  nombreHermano: string;
+  nombreSocio: string;
+
+  tipo: TipoSocio;
 }

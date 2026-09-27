@@ -1,7 +1,7 @@
-export interface Hermano {
+export interface Socio {
   id: number;
 
-  numeroHermano: number;
+  numeroSocio: number;
 
   nombre: string;
 
@@ -10,5 +10,7 @@ export interface Hermano {
   dni: string;
 
   estado: string;
+
+  tipo: 'HERMANO' | 'COSTALERO';
 
 }

@@ -43,7 +43,9 @@ export class ConfiguracionComponent implements OnInit {
 
     email: ['', [Validators.email]],
 
-    importeCuota: [0, [Validators.required, Validators.min(0.01)]],
+    importeCuotaHermano: [0, [Validators.required, Validators.min(0.01)]],
+
+    importeCuotaCostalero: [0, [Validators.required, Validators.min(0.01)]],
 
     anioActivo: [
       new Date().getFullYear(),

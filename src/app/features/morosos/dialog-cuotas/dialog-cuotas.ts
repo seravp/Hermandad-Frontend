@@ -51,7 +51,7 @@ export class DialogCuotasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cuotaService.obtenerPorHermano(this.data.hermanoId).subscribe({
+    this.cuotaService.obtenerPorSocio(this.data.socioId).subscribe({
       next: (cuotas) => {
         this.cuotas = cuotas.filter((cuota) => cuota.estado === 'PENDIENTE');
 
@@ -59,7 +59,7 @@ export class DialogCuotasComponent implements OnInit {
       },
 
       error: (error) => {
-        console.error('Error al cargar las cuotas del hermano:', error);
+        console.error('Error al cargar las cuotas del socio:', error);
       },
     });
   }

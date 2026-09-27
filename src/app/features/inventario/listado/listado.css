@@ -1,1 +1,23 @@
-.inventario-card{margin:24px;padding:28px}.cabecera,.filtros{display:flex;gap:16px;align-items:center}.cabecera{justify-content:space-between}.cabecera h1{margin:0}.cabecera p{margin:4px 0 20px;color:#5f6368}.filtros mat-form-field:first-child{flex:1}.tabla{width:100%}.vacio{text-align:center;padding:32px;color:#666}@media(max-width:700px){.cabecera,.filtros{align-items:stretch;flex-direction:column}}
+.inventario-card {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 12px;
+  border-radius: 18px;
+}
+
+.cabecera, .filtros { display: flex; gap: 16px; align-items: center; }
+.cabecera { justify-content: space-between; }
+.cabecera h1 { margin: 0; }
+.cabecera p { margin: 4px 0 20px; color: #5f6368; }
+.filtros mat-form-field:first-child { flex: 1; }
+
+.tabla {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.vacio { text-align: center; padding: 32px; color: #666; }
+
+@media(max-width:700px) {
+  .cabecera, .filtros { align-items: stretch; flex-direction: column; }
+}

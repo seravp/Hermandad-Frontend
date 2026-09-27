@@ -65,21 +65,21 @@ export class ListadoInformesComponent {
     this.cdr.detectChanges();
   }
 
-  descargarExcel(tipo: 'hermanos' | 'morosos' | 'cuotas'): void {
+  descargarExcel(tipo: 'socios' | 'morosos' | 'cuotas'): void {
     const solicitudes = {
-      hermanos: this.informeService.exportarExcelHermanos(),
+      socios: this.informeService.exportarExcelSocios(),
       morosos: this.informeService.exportarExcelMorosos(),
       cuotas: this.informeService.exportarExcelCuotas(),
     };
 
     const nombres = {
-      hermanos: 'hermanos.xlsx',
+      socios: 'socios.xlsx',
       morosos: 'morosos.xlsx',
       cuotas: 'cuotas.xlsx',
     };
 
     const etiquetas = {
-      hermanos: 'Listado de hermanos',
+      socios: 'Listado de socios',
       morosos: 'Listado de morosos',
       cuotas: 'Listado de cuotas',
     };

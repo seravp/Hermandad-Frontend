@@ -24,14 +24,14 @@ export class InformeService {
     });
   }
 
-  generarCartaMoroso(hermanoId: number): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/carta-moroso/${hermanoId}`, {
+  generarCartaMoroso(socioId: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/carta-moroso/${socioId}`, {
       responseType: 'blob',
     });
   }
 
-  exportarExcelHermanos(): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/excel/hermanos`, {
+  exportarExcelSocios(): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/excel/socios`, {
       responseType: 'blob',
     });
   }

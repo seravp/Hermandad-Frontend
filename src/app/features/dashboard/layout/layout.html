@@ -9,41 +9,41 @@
     <mat-nav-list>
 
       <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
-        <mat-icon>dashboard</mat-icon>
-        <span>Dashboard</span>
+        <mat-icon>home</mat-icon>
+        <span>Inicio</span>
       </a>
 
-      <a mat-list-item routerLink="/hermanos" routerLinkActive="active">
+      <a mat-list-item routerLink="/socios" routerLinkActive="active">
         <mat-icon>groups</mat-icon>
-        <span>Hermanos</span>
+        <span>Socios</span>
       </a>
 
       @if (authService.puedeConsultarCuotas()) {
       <a mat-list-item routerLink="/cuotas" routerLinkActive="active">
-        <mat-icon>payments</mat-icon>
+        <mat-icon>credit_card</mat-icon>
         <span>Cuotas</span>
       </a>
 
         <a mat-list-item routerLink="/morosos" routerLinkActive="active">
-          <mat-icon>warning</mat-icon>
+          <mat-icon>warning_amber</mat-icon>
           <span>Morosos</span>
         </a>
       }
 
       @if (authService.puedeGenerarInformes()) {
       <a mat-list-item routerLink="/informes" routerLinkActive="active">
-        <mat-icon>assessment</mat-icon>
+        <mat-icon>bar_chart</mat-icon>
         <span>Informes</span>
       </a>
       }
 
       @if (authService.puedeConsultarInventario()) {
-      <a mat-list-item routerLink="/inventario" routerLinkActive="active">
-        <mat-icon>inventory_2</mat-icon>
+      <a mat-list-item routerLink="/inventario" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon>deployed_code</mat-icon>
         <span>Inventario</span>
       </a>
       <!-- La revisión se abre con una navegación completa para reinicializar sus datos. -->
-      <a mat-list-item href="/inventario/revisiones">
+      <a mat-list-item href="/inventario/revisiones" [class.active]="esRutaActiva('/inventario/revisiones')">
         <mat-icon>fact_check</mat-icon>
         <span>Revisiones inventario</span>
       </a>
@@ -51,7 +51,7 @@
 
       @if (authService.esAdmin()) {
       <a mat-list-item routerLink="/usuarios" routerLinkActive="active">
-        <mat-icon>people</mat-icon>
+        <mat-icon>person</mat-icon>
         <span>Usuarios</span>
       </a>
       }
@@ -72,6 +72,10 @@
 
     </mat-nav-list>
 
+    <div class="sidebar-branding" aria-label="Hermandad de Alfacar">
+      <img src="/images/escudo-hermandad.png" alt="Escudo de la Hermandad de Alfacar">
+    </div>
+
     <div class="logout">
 
       <button
@@ -89,7 +93,7 @@
 
   <mat-sidenav-content>
 
-    <mat-toolbar color="primary">
+    <mat-toolbar class="topbar">
 
       Gestión de Hermandad
 

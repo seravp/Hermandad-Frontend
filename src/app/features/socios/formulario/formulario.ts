@@ -11,14 +11,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { HermanoService } from '../../../core/services/hermano';
-import { HermanoRequest } from '../models/hermano-request';
-import { EstadoHermano } from '../../../core/models/estados/estado-hermano';
+import { SocioService } from '../../../core/services/socio';
+import { SocioRequest } from '../models/socio-request';
+import { EstadoSocio } from '../../../core/models/estados/estado-socio';
 import { FormaPago } from '../models/forma-pago';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotificationService } from '../../../shared/services/notification';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HermanoDetalle } from '../../../core/models/hermanos/hermano-detalle';
+import { SocioDetalle } from '../../../core/models/socios/socio-detalle';
+import { TipoSocio } from '../../../core/models/socios/tipo-socio';
 
 
 @Component({
@@ -41,18 +42,19 @@ import { HermanoDetalle } from '../../../core/models/hermanos/hermano-detalle';
 })
 export class FormularioComponent implements OnInit {
   private fb = inject(NonNullableFormBuilder);
-  private hermanoService = inject(HermanoService);
+  private socioService = inject(SocioService);
   private notificationService = inject(NotificationService);
 
   private dialogRef = inject(MatDialogRef<FormularioComponent>);
 
-  readonly EstadoHermano = EstadoHermano;
+  readonly EstadoSocio = EstadoSocio;
   readonly FormaPago = FormaPago;
-  readonly hermano = inject(MAT_DIALOG_DATA, {
+  readonly TipoSocio = TipoSocio;
+  readonly socio = inject(MAT_DIALOG_DATA, {
     optional: true,
-  }) as HermanoDetalle | null;
+  }) as SocioDetalle | null;
 
-  readonly esEdicion = this.hermano !== null;
+  readonly esEdicion = this.socio !== null;
 
   maxFechaNacimiento = new Date();
 
@@ -71,7 +73,9 @@ export class FormularioComponent implements OnInit {
 
     direccion: [''],
 
-    estado: [EstadoHermano.ACTIVO, Validators.required],
+    estado: [EstadoSocio.ACTIVO, Validators.required],
+
+    tipo: [TipoSocio.HERMANO, Validators.required],
 
     formaPago: [FormaPago.DOMICILIACION, Validators.required],
 
@@ -81,21 +85,22 @@ export class FormularioComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    if (this.esEdicion && this.hermano) {
+    if (this.esEdicion && this.socio) {
       this.form.patchValue({
-        nombre: this.hermano.nombre,
-        apellidos: this.hermano.apellidos,
-        dni: this.hermano.dni,
-        telefono: this.hermano.telefono,
-        email: this.hermano.email,
-        direccion: this.hermano.direccion,
-        fechaNacimiento: this.hermano.fechaNacimiento
-          ? this.parseLocalDate(this.hermano.fechaNacimiento)
+        nombre: this.socio.nombre,
+        apellidos: this.socio.apellidos,
+        dni: this.socio.dni,
+        telefono: this.socio.telefono,
+        email: this.socio.email,
+        direccion: this.socio.direccion,
+        fechaNacimiento: this.socio.fechaNacimiento
+          ? this.parseLocalDate(this.socio.fechaNacimiento)
           : null,
-        estado: this.hermano.estado,
-        formaPago: this.hermano.formaPago,
-        iban: this.hermano.iban ?? '',
-        titularCuenta: this.hermano.titularCuenta ?? '',
+        estado: this.socio.estado,
+        tipo: this.socio.tipo,
+        formaPago: this.socio.formaPago,
+        iban: this.socio.iban ?? '',
+        titularCuenta: this.socio.titularCuenta ?? '',
       });
     }
     this.actualizarValidacionesFormaPago(this.form.get('formaPago')?.value);
@@ -161,10 +166,10 @@ export class FormularioComponent implements OnInit {
     }
   }
 
-  private crear(request: HermanoRequest): void {
-    this.hermanoService.crear(request).subscribe({
+  private crear(request: SocioRequest): void {
+    this.socioService.crear(request).subscribe({
       next: () => {
-        this.notificationService.success('Hermano creado correctamente.');
+        this.notificationService.success('Socio creado correctamente.');
         this.dialogRef.close(true);
       },
 
@@ -172,10 +177,10 @@ export class FormularioComponent implements OnInit {
     });
   }
 
-  private actualizar(request: HermanoRequest): void {
-    this.hermanoService.actualizar(this.hermano!.id, request).subscribe({
+  private actualizar(request: SocioRequest): void {
+    this.socioService.actualizar(this.socio!.id, request).subscribe({
       next: () => {
-        this.notificationService.success('Hermano actualizado correctamente.');
+        this.notificationService.success('Socio actualizado correctamente.');
         this.dialogRef.close(true);
       },
 
@@ -183,7 +188,7 @@ export class FormularioComponent implements OnInit {
     });
   }
 
-  private crearRequest(): HermanoRequest {
+  private crearRequest(): SocioRequest {
     const fechaNacimiento = this.form.controls.fechaNacimiento.value;
 
     return {
@@ -194,6 +199,7 @@ export class FormularioComponent implements OnInit {
       email: this.form.controls.email.value,
       direccion: this.form.controls.direccion.value,
       estado: this.form.controls.estado.value,
+      tipo: this.form.controls.tipo.value,
       formaPago: this.form.controls.formaPago.value,
       iban: this.form.controls.iban.value,
       titularCuenta: this.form.controls.titularCuenta.value,

@@ -14,9 +14,9 @@ export interface CuotaDetalle {
 
   observaciones: string | null;
 
-  hermanoId: number;
+  socioId: number;
 
-  numeroHermano: number;
+  numeroSocio: number;
 
-  nombreHermano: string;
+  nombreSocio: string;
 }

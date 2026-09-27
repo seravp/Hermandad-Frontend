@@ -146,7 +146,7 @@ export class ListadoUsuariosComponent implements OnInit {
   }
 
   obtenerTextoEstado(activo: boolean): string {
-    return activo ? 'Activo' : 'Desactivado';
+    return activo ? 'ACTIVO' : 'DESACTIVADO';
   }
 
   private cargarUsuarios(): void {

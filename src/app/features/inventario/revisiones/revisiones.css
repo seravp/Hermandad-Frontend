@@ -1,5 +1,25 @@
-mat-card{margin:24px;padding:24px}.cabecera{display:flex;justify-content:space-between;align-items:center;gap:16px}.cabecera h1,.cabecera h2{margin:0}.cabecera p{color:#666}.tabla{width:100%}.detalle{margin-top:0}
-.estado{display:inline-block;padding:4px 10px;border-radius:14px;background:#d8f1df;color:#176b35;font-size:.8rem;font-weight:700}.estado.cerrada{background:#fde0e0;color:#b42318}
+:host {
+  display: block;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+mat-card {
+  margin: 0 0 24px;
+  padding: 12px;
+  border-radius: 18px;
+}
+
+.cabecera { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.cabecera h1, .cabecera h2 { margin: 0; }
+.cabecera p { color: #666; }
+
+.tabla {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.detalle { margin-top: 0; }
 
 /* Acciones: mismo código de color y realce que los demás listados. */
 .mat-column-acciones {

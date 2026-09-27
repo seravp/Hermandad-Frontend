@@ -1,5 +1,5 @@
 export interface CuotaRequest {
-  hermanoId: number;
+  socioId: number;
 
   anio: number;
 

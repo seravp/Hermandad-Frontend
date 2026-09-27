@@ -4,6 +4,60 @@
 
 .sidebar {
   width: 260px;
+  background: #163a5f;
+  color: #fff;
+  overflow: hidden;
+}
+
+.sidebar ::ng-deep .mat-drawer-inner-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar mat-toolbar {
+  background: #102f4d;
+  color: #fff;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255, 255, 255, .14);
+}
+
+.sidebar a[mat-list-item] {
+  color: rgba(255, 255, 255, .92);
+  --mdc-list-list-item-label-text-color: rgba(255, 255, 255, .92);
+  --mdc-list-list-item-hover-label-text-color: #fff;
+  --mdc-list-list-item-focus-label-text-color: #fff;
+  margin: 3px 10px;
+  width: calc(100% - 20px);
+  border-radius: 8px;
+}
+
+.sidebar a[mat-list-item]:hover {
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+}
+
+.sidebar ::ng-deep .mdc-list-item__primary-text,
+.sidebar ::ng-deep .mat-icon {
+  color: inherit;
+}
+
+.sidebar ::ng-deep mat-icon {
+  font-family: 'Material Symbols Outlined';
+  font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  margin-right: 10px;
+}
+
+.sidebar a[mat-list-item]:focus,
+.sidebar a[mat-list-item]:focus-visible {
+  color: #f6c453 !important;
+  background: rgba(255, 255, 255, .18);
+  outline: 2px solid rgba(246, 196, 83, .75);
+  outline-offset: 1px;
+}
+
+.sidebar a[mat-list-item]:focus ::ng-deep .mdc-list-item__primary-text,
+.sidebar a[mat-list-item]:focus-visible ::ng-deep .mdc-list-item__primary-text {
+  color: #f6c453 !important;
 }
 
 .content {
@@ -11,13 +65,70 @@
 }
 
 .logout {
-  position: absolute;
-  bottom: 20px;
-  left: 16px;
-  right: 16px;
+  padding: 12px 16px 20px;
+  margin-top: 0;
+}
+
+.sidebar-branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 12px 18px;
+}
+
+.sidebar-branding img {
+  width: 150px;
+  height: min(22vh, 190px);
+  object-fit: contain;
 }
 
 .active {
-  background-color: rgba(25, 118, 210, 0.12);
+  background-color: rgba(255, 255, 255, .14);
+  color: #f6c453 !important;
   border-radius: 8px;
+  font-weight: 600;
+}
+
+.sidebar .active ::ng-deep .mdc-list-item__primary-text,
+.sidebar .active ::ng-deep .mat-icon {
+  color: #f6c453 !important;
+}
+
+.topbar {
+  background: #fff;
+  color: #163a5f;
+  border-bottom: 1px solid #dbe7f2;
+  font-weight: 600;
+}
+
+@media (max-width: 1200px) {
+  .sidebar { width: 220px; }
+
+  .sidebar a[mat-list-item] {
+    margin-inline: 6px;
+    width: calc(100% - 12px);
+  }
+}
+
+@media (max-width: 1000px) {
+  .sidebar { width: 200px; }
+  .sidebar a[mat-list-item] { font-size: .9rem; }
+  .sidebar ::ng-deep mat-icon { margin-right: 8px; }
+}
+
+@media (max-height: 950px) {
+  .sidebar-branding { padding-block: 6px; }
+  .sidebar-branding img { width: 110px; height: 130px; }
+}
+
+@media (max-height: 750px) {
+  .sidebar-branding img { width: 72px; height: 82px; }
+
+  .logout {
+    padding-top: 6px;
+    padding-bottom: 12px;
+  }
 }

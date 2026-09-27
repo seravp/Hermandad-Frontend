@@ -6,6 +6,31 @@
   border-radius: 18px;
 }
 
+/* CABECERA: mismo patrón visual que Socios y Cuotas. */
+.dashboard-card .mat-mdc-card-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.dashboard-card .mat-mdc-card-title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.dashboard-card .mat-mdc-card-subtitle {
+  margin-top: 6px;
+  color: #666;
+  font-size: .95rem;
+}
+
 /* ==========================
    GRID
 ========================== */
@@ -14,7 +39,32 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 24px;
-  margin-top: 24px;
+}
+
+.dashboard-section {
+  padding: 22px;
+  margin-bottom: 26px;
+  border: 1px solid #e2eaf2;
+  border-radius: 16px;
+  background: #fbfcfe;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  color: #163a5f;
+}
+
+.section-title mat-icon {
+  color: #1769aa;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 
 /* ==========================
@@ -62,8 +112,16 @@
   font-size: 30px;
 }
 
-.icon-hermanos {
+.icon-socios {
   color: #1976d2;
+}
+
+.icon-hermanos {
+  color: #6a4c93;
+}
+
+.icon-costaleros {
+  color: #00838f;
 }
 
 .icon-pagadas {
@@ -91,7 +149,7 @@
 ========================== */
 
 .progress-card {
-  margin-top: 32px;
+  margin-top: 0;
 }
 
 .progress-title{

@@ -18,7 +18,7 @@
           <div>
             <mat-card-title>Informe de morosos</mat-card-title>
             <mat-card-subtitle>
-              Relación de hermanos con cuotas pendientes
+              Relación de socios con cuotas pendientes
             </mat-card-subtitle>
           </div>
         </mat-card-header>
@@ -40,9 +40,9 @@
           <mat-icon class="icono domiciliados">account_balance</mat-icon>
 
           <div>
-            <mat-card-title>Hermanos domiciliados</mat-card-title>
+            <mat-card-title>Socios domiciliados</mat-card-title>
             <mat-card-subtitle>
-              Listado de hermanos con pago por domiciliación
+              Listado de socios con pago por domiciliación
             </mat-card-subtitle>
           </div>
         </mat-card-header>
@@ -70,7 +70,7 @@
           <mat-icon class="icono excel">table_view</mat-icon>
 
           <div>
-            <mat-card-title>Hermanos</mat-card-title>
+            <mat-card-title>Socios</mat-card-title>
             <mat-card-subtitle>Exportación completa del censo</mat-card-subtitle>
           </div>
         </mat-card-header>
@@ -80,9 +80,9 @@
             mat-flat-button
             color="primary"
             [disabled]="generando !== null"
-            (click)="descargarExcel('hermanos')">
+            (click)="descargarExcel('socios')">
             <mat-icon>download</mat-icon>
-            {{ generando === 'excel-hermanos' ? 'Generando…' : 'Descargar Excel' }}
+            {{ generando === 'excel-socios' ? 'Generando…' : 'Descargar Excel' }}
           </button>
         </mat-card-actions>
       </mat-card>

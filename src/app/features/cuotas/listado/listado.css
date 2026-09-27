@@ -23,6 +23,9 @@
 .header-info {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  margin-right: auto;
 }
 
 .mat-mdc-card-title {
@@ -116,21 +119,26 @@
 
 /* Columnas */
 
-.mat-column-numeroHermano {
-  width: 90px;
+.mat-column-numeroSocio {
+  width: 75px;
 }
 
-.mat-column-nombreHermano {
-  width: 260px;
+.mat-column-nombreSocio {
+  width: 230px;
+}
+
+.mat-column-tipo {
+  width: 135px;
+  text-align: center;
 }
 
 .mat-column-anio {
-  width: 90px;
+  width: 70px;
   text-align: center;
 }
 
 .mat-column-importe {
-  width: 120px;
+  width: 100px;
   text-align: right;
 }
 
@@ -139,17 +147,17 @@
 }
 
 .mat-column-estado {
-  width: 150px;
+  width: 125px;
   text-align: center;
 }
 
 .mat-column-fechaPago {
-  width: 140px;
+  width: 115px;
   text-align: center;
 }
 
 .mat-column-acciones {
-  width: 180px;
+  width: 160px;
   text-align: center;
 }
 
