@@ -29,7 +29,7 @@ export class LoginComponent {
       })
       .subscribe({
         next: (response) => {
-          this.authService.guardarToken(response.token);
+          this.authService.guardarSesion(response);
 
           this.router.navigate(['/dashboard']);
         },

@@ -1,0 +1,112 @@
+<h2 mat-dialog-title>
+  <mat-icon>add_card</mat-icon>
+  Nueva cuota manual
+</h2>
+
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="form" class="formulario">
+
+    <div class="espaciador-superior" aria-hidden="true"></div>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Buscar hermano activo</mat-label>
+
+      <input
+        matInput
+        [formControl]="busquedaHermanoControl"
+        [matAutocomplete]="auto"
+        placeholder="Nombre, apellidos, DNI o número">
+
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        [displayWith]="mostrarHermano"
+        (optionSelected)="seleccionarHermano($event.option.value)">
+
+        @for (hermano of hermanos; track hermano.id) {
+        <mat-option [value]="hermano">
+          Nº {{ hermano.numeroHermano }} —
+          {{ hermano.nombre }} {{ hermano.apellidos }}
+        </mat-option>
+        }
+      </mat-autocomplete>
+
+      @if (form.controls.hermanoId.invalid &&
+      form.controls.hermanoId.touched) {
+      <mat-error>Debes seleccionar un hermano.</mat-error>
+      }
+
+      @if (buscandoHermanos) {
+      <mat-option disabled>Buscando hermanos…</mat-option>
+      }
+
+      @if (busquedaRealizada &&
+      !buscandoHermanos &&
+      hermanos.length === 0) {
+      <mat-option disabled>
+        No se han encontrado hermanos activos.
+      </mat-option>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Año</mat-label>
+
+      <input
+        matInput
+        type="number"
+        formControlName="anio">
+
+      @if (form.controls.anio.invalid &&
+      form.controls.anio.touched) {
+      <mat-error>Introduce un año válido.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Importe</mat-label>
+
+      <input
+        matInput
+        type="number"
+        step="0.01"
+        min="0.01"
+        formControlName="importe">
+
+      @if (form.controls.importe.invalid &&
+      form.controls.importe.touched) {
+      <mat-error>El importe debe ser mayor que cero.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Observaciones</mat-label>
+
+      <textarea
+        matInput
+        rows="4"
+        maxlength="250"
+        formControlName="observaciones">
+      </textarea>
+
+      <mat-hint align="end">
+        {{ form.controls.observaciones.value.length }}/250
+      </mat-hint>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancelar()">
+    Cancelar
+  </button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    [disabled]="form.invalid"
+    (click)="guardar()">
+    Crear cuota
+  </button>
+</mat-dialog-actions>

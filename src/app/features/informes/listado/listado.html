@@ -1,0 +1,136 @@
+<mat-card class="informes-card">
+  <mat-card-header>
+    <div>
+      <mat-card-title>Informes</mat-card-title>
+      <mat-card-subtitle>
+        Generación de documentos y listados de la Hermandad
+      </mat-card-subtitle>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="informes-grid">
+
+      <mat-card class="informe-item">
+        <mat-card-header>
+          <mat-icon class="icono morosos">warning</mat-icon>
+
+          <div>
+            <mat-card-title>Informe de morosos</mat-card-title>
+            <mat-card-subtitle>
+              Relación de hermanos con cuotas pendientes
+            </mat-card-subtitle>
+          </div>
+        </mat-card-header>
+
+        <mat-card-actions align="end">
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="generando !== null"
+            (click)="generarMorosos()">
+            <mat-icon>picture_as_pdf</mat-icon>
+            {{ generando === 'morosos' ? 'Generando…' : 'Generar PDF' }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+
+      <mat-card class="informe-item">
+        <mat-card-header>
+          <mat-icon class="icono domiciliados">account_balance</mat-icon>
+
+          <div>
+            <mat-card-title>Hermanos domiciliados</mat-card-title>
+            <mat-card-subtitle>
+              Listado de hermanos con pago por domiciliación
+            </mat-card-subtitle>
+          </div>
+        </mat-card-header>
+
+        <mat-card-actions align="end">
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="generando !== null"
+            (click)="generarDomiciliados()">
+            <mat-icon>picture_as_pdf</mat-icon>
+            {{ generando === 'domiciliados' ? 'Generando…' : 'Generar PDF' }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+
+    <h2 class="seccion-titulo">Exportación Excel</h2>
+
+    <div class="informes-grid">
+
+      <mat-card class="informe-item">
+        <mat-card-header>
+          <mat-icon class="icono excel">table_view</mat-icon>
+
+          <div>
+            <mat-card-title>Hermanos</mat-card-title>
+            <mat-card-subtitle>Exportación completa del censo</mat-card-subtitle>
+          </div>
+        </mat-card-header>
+
+        <mat-card-actions align="end">
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="generando !== null"
+            (click)="descargarExcel('hermanos')">
+            <mat-icon>download</mat-icon>
+            {{ generando === 'excel-hermanos' ? 'Generando…' : 'Descargar Excel' }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+
+      <mat-card class="informe-item">
+        <mat-card-header>
+          <mat-icon class="icono excel">table_view</mat-icon>
+
+          <div>
+            <mat-card-title>Morosos</mat-card-title>
+            <mat-card-subtitle>Cuotas pendientes e importe adeudado</mat-card-subtitle>
+          </div>
+        </mat-card-header>
+
+        <mat-card-actions align="end">
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="generando !== null"
+            (click)="descargarExcel('morosos')">
+            <mat-icon>download</mat-icon>
+            {{ generando === 'excel-morosos' ? 'Generando…' : 'Descargar Excel' }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+
+      <mat-card class="informe-item">
+        <mat-card-header>
+          <mat-icon class="icono excel">table_view</mat-icon>
+
+          <div>
+            <mat-card-title>Cuotas</mat-card-title>
+            <mat-card-subtitle>Exportación de cuotas y pagos registrados</mat-card-subtitle>
+          </div>
+        </mat-card-header>
+
+        <mat-card-actions align="end">
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="generando !== null"
+            (click)="descargarExcel('cuotas')">
+            <mat-icon>download</mat-icon>
+            {{ generando === 'excel-cuotas' ? 'Generando…' : 'Descargar Excel' }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+  </mat-card-content>
+</mat-card>

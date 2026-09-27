@@ -1,0 +1,36 @@
+.dialog-content {
+  overflow: visible !important;
+  max-height: none;
+  padding: 14px 24px 0;
+}
+
+.formulario {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  min-width: 480px;
+  padding-top: 14px;
+  box-sizing: border-box;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.mat-mdc-dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .formulario {
+    grid-template-columns: 1fr;
+    min-width: 0;
+  }
+}
+
+.espaciador-superior {
+  grid-column: 1 / -1;
+  height: 16px;
+}

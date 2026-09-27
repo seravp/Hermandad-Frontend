@@ -14,6 +14,20 @@ import { ConfiguracionComponent } from './features/configuracion/configuracion/c
 
 import { ListadoComponent as ListadoMorososComponent } from './features/morosos/listado/listado';
 
+import { ListadoUsuariosComponent } from './features/usuarios/listado/listado';
+
+import { ListadoInformesComponent } from './features/informes/listado/listado';
+
+import { ListadoAuditoriaComponent } from './features/auditoria/listado/listado';
+
+import { informesGuard } from './core/guards/informes-guard';
+
+import { authGuard } from './core/guards/auth-guard';
+
+import { adminGuard } from './core/guards/admin-guard';
+
+import { cuotasGuard } from './core/guards/cuotas-guard';
+
 export const routes: Routes = [
   {
     path: '',
@@ -29,6 +43,7 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivateChild: [authGuard],
     children: [
       {
         path: 'dashboard',
@@ -47,10 +62,40 @@ export const routes: Routes = [
       {
         path: 'configuracion',
         component: ConfiguracionComponent,
+        canActivate: [adminGuard],
       },
       {
         path: 'morosos',
         component: ListadoMorososComponent,
+      },
+
+      {
+        path: 'usuarios',
+        component: ListadoUsuariosComponent,
+        canActivate: [adminGuard],
+      },
+
+      {
+        path: 'informes',
+        component: ListadoInformesComponent,
+        canActivate: [informesGuard],
+      },
+
+      {
+        path: 'auditoria',
+        component: ListadoAuditoriaComponent,
+        canActivate: [adminGuard],
+      },
+
+      {
+        path: 'cuotas',
+        component: ListadoCuotasComponent,
+        canActivate: [cuotasGuard],
+      },
+      {
+        path: 'morosos',
+        component: ListadoMorososComponent,
+        canActivate: [cuotasGuard],
       },
     ],
   },

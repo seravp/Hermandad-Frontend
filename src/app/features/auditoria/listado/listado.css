@@ -1,21 +1,128 @@
-table {
+.auditoria-card {
+  max-width: 1500px;
+  margin: auto;
+  padding: 12px;
+  border-radius: 18px;
+}
+
+.mat-mdc-card-header {
+  margin-bottom: 28px;
+}
+
+.mat-mdc-card-title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.mat-mdc-card-subtitle {
+  margin-top: 6px;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.toolbar {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.filtro-usuario {
+  flex: 1;
+  min-width: 280px;
+}
+
+.filtro {
+  width: 220px;
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+.tabla-auditoria {
   width: 100%;
+  min-width: 780px;
 }
 
-mat-card {
-  padding: 20px;
+.mat-mdc-header-row {
+  background: #f8fafc;
 }
 
-.mat-column-acciones {
-  width: 90px;
-  text-align: center;
+.mat-mdc-header-cell {
+  color: #455a64;
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
-th {
+.mat-mdc-row {
+  height: 62px;
+}
+
+.mat-mdc-row:hover {
+  background: #f8fbff;
+}
+
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  padding: 14px 16px;
+}
+
+.mat-column-fecha {
+  width: 180px;
+}
+
+.mat-column-usuario {
+  width: 150px;
+}
+
+.mat-column-accion {
+  width: 180px;
   font-weight: 600;
 }
 
-.mat-column-acciones {
-  background: red;
+.mat-column-entidad {
   width: 150px;
+}
+
+.mat-column-registroId {
+  width: 120px;
+  text-align: center;
+}
+
+.estado-vacio {
+  display: flex;
+  min-height: 240px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #607d8b;
+  text-align: center;
+}
+
+.estado-vacio mat-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  color: #1976d2;
+  font-size: 48px;
+}
+
+.mat-mdc-paginator {
+  margin-top: 20px;
+  border-top: 1px solid #ececec;
+}
+
+@media (max-width: 900px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filtro-usuario,
+  .filtro {
+    width: 100%;
+  }
 }

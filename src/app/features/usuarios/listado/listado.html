@@ -1,1 +1,117 @@
-<p>listado works!</p>
+<mat-card class="usuarios-card">
+  <mat-card-header>
+    <div>
+      <mat-card-title>Usuarios</mat-card-title>
+      <mat-card-subtitle>
+        Gestión de acceso y roles de la aplicación
+      </mat-card-subtitle>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="nuevoUsuario()">
+      <mat-icon>person_add</mat-icon>
+      Nuevo usuario
+    </button>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="toolbar">
+      <mat-form-field appearance="outline" class="buscar">
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          matInput
+          [formControl]="busquedaControl"
+          placeholder="Buscar por nombre de usuario">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filtro">
+        <mat-label>Rol</mat-label>
+
+        <mat-select
+          [(ngModel)]="rolSeleccionado"
+          (selectionChange)="buscar()">
+          <mat-option value="">Todos</mat-option>
+
+          @for (rol of roles; track rol) {
+          <mat-option [value]="rol">{{ rol }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filtro">
+        <mat-label>Estado</mat-label>
+
+        <mat-select
+          [(ngModel)]="estadoSeleccionado"
+          (selectionChange)="buscar()">
+          <mat-option value="">Todos</mat-option>
+          <mat-option value="true">Activo</mat-option>
+          <mat-option value="false">Desactivado</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="tabla-usuarios mat-elevation-z1">
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>Usuario</th>
+
+        <td mat-cell *matCellDef="let usuario">
+          {{ usuario.username }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rol">
+        <th mat-header-cell *matHeaderCellDef>Rol</th>
+
+        <td mat-cell *matCellDef="let usuario">
+          {{ usuario.rol }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+
+        <td mat-cell *matCellDef="let usuario">
+          <mat-chip [ngClass]="obtenerClaseEstado(usuario.activo)">
+            {{ obtenerTextoEstado(usuario.activo) }}
+          </mat-chip>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef class="centrado">
+          Acciones
+        </th>
+
+        <td mat-cell *matCellDef="let usuario" class="centrado">
+          <div class="acciones">
+            <button
+              mat-icon-button
+              class="btn-editar"
+              matTooltip="Editar usuario"
+              (click)="editar(usuario)">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button
+              mat-icon-button
+              [class.btn-desactivar]="usuario.activo"
+              [class.btn-activar]="!usuario.activo"
+              [matTooltip]="usuario.activo ? 'Desactivar usuario' : 'Activar usuario'"
+              (click)="cambiarEstado(usuario)">
+              <mat-icon>
+                {{ usuario.activo ? 'person_off' : 'person_check' }}
+              </mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

@@ -297,3 +297,31 @@
   }
 
 }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.boton-crear,
+.boton-generar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+}
+
+@media (max-width: 1100px) {
+  .header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .boton-crear,
+  .boton-generar {
+    width: 100%;
+    justify-content: center;
+  }
+}

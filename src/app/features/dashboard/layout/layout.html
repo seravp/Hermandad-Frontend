@@ -18,31 +18,45 @@
         <span>Hermanos</span>
       </a>
 
+      @if (authService.puedeConsultarCuotas()) {
       <a mat-list-item routerLink="/cuotas" routerLinkActive="active">
         <mat-icon>payments</mat-icon>
         <span>Cuotas</span>
       </a>
 
-      <a mat-list-item routerLink="/morosos" routerLinkActive="active">
-        <mat-icon>warning</mat-icon>
-        <span>Morosos</span>
-      </a>
+        <a mat-list-item routerLink="/morosos" routerLinkActive="active">
+          <mat-icon>warning</mat-icon>
+          <span>Morosos</span>
+        </a>
+      }
 
+      @if (authService.puedeGenerarInformes()) {
+      <a mat-list-item routerLink="/informes" routerLinkActive="active">
+        <mat-icon>assessment</mat-icon>
+        <span>Informes</span>
+      </a>
+      }
+
+      @if (authService.esAdmin()) {
       <a mat-list-item routerLink="/usuarios" routerLinkActive="active">
         <mat-icon>people</mat-icon>
         <span>Usuarios</span>
       </a>
+      }
 
+      @if (authService.esAdmin()) {
       <a mat-list-item routerLink="/auditoria" routerLinkActive="active">
         <mat-icon>history</mat-icon>
         <span>Auditoría</span>
       </a>
+      }
 
-      <a
-        mat-list-item routerLink="/configuracion" routerLinkActive="activo">
+      @if (authService.esAdmin()) {
+      <a mat-list-item routerLink="/configuracion" routerLinkActive="active">
         <mat-icon>settings</mat-icon>
         <span>Configuración</span>
       </a>
+      }
 
     </mat-nav-list>
 

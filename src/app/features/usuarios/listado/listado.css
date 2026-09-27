@@ -1,0 +1,109 @@
+.usuarios-card {
+  max-width: 1500px;
+  margin: auto;
+  border-radius: 18px;
+  padding: 10px;
+}
+
+.mat-mdc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.mat-mdc-card-title {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.mat-mdc-card-subtitle {
+  margin-top: 4px;
+  color: #666;
+  font-size: 15px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.buscar {
+  flex: 1;
+  min-width: 280px;
+}
+
+.filtro {
+  width: 180px;
+}
+
+.tabla-usuarios {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mat-mdc-header-row {
+  background: #f8fafc;
+}
+
+.mat-mdc-header-cell {
+  color: #455a64;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.mat-mdc-row {
+  height: 64px;
+  transition: 0.2s;
+}
+
+.mat-mdc-row:hover {
+  background: #f7f9fc;
+}
+
+.centrado {
+  text-align: center;
+}
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.estado-activo.mat-mdc-chip {
+  color: #1b5e20;
+  background: #c8e6c9 !important;
+  border: 1px solid #66bb6a;
+}
+
+.estado-inactivo.mat-mdc-chip {
+  color: #b71c1c;
+  background: #ffcdd2 !important;
+  border: 1px solid #ef5350;
+}
+
+.btn-editar mat-icon,
+.btn-activar mat-icon {
+  color: #1976d2;
+}
+
+.btn-desactivar mat-icon {
+  color: #d32f2f;
+}
+
+@media (max-width: 900px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .buscar,
+  .filtro {
+    width: 100%;
+  }
+}

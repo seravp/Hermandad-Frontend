@@ -29,6 +29,9 @@ import { ConfirmDialogService } from '../../../shared/services/confirm-dialog';
 import { CuotaDetalle } from '../../../core/models/cuotas/cuota-detalle';
 import { DialogEditarCuotaComponent } from '../dialog-editar/dialog-editar';
 import { Configuracion } from '../../../core/models/configuracion/configuracion';
+import { DialogCrearCuotaComponent } from '../dialog-crear/dialog-crear';
+import { CuotaRequest } from '../../hermanos/models/cuota-request';
+import { AuthService } from '../../../core/services/auth';
 
 
 @Component({
@@ -60,6 +63,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   private readonly confirmDialog = inject(ConfirmDialogService);
   private readonly dialog = inject(MatDialog);
   private readonly configuracionService = inject(ConfiguracionService);
+  readonly authService = inject(AuthService);
 
   anios: number[] = [];
   configuracion!: Configuracion;
@@ -101,21 +105,22 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   ];
 
   ngOnInit(): void {
+    if (!this.authService.puedeGestionarCuotas()) {
+      this.displayedColumns = this.displayedColumns.filter((columna) => columna !== 'acciones');
+    }
+
     this.cargarCuotas();
 
-    this.cuotaService.obtenerAnios().subscribe({
-      next: (anios) => {
-        this.anios = anios;
-      },
-      error: (error) => this.notificationService.httpError(error),
-    });
+    this.cargarAnios();
 
-    this.configuracionService.obtener().subscribe({
-      next: (configuracion) => {
-        this.configuracion = configuracion;
-      },
-      error: (error) => this.notificationService.httpError(error),
-    });
+    if (this.authService.puedeGestionarCuotas()) {
+      this.configuracionService.obtener().subscribe({
+        next: (configuracion) => {
+          this.configuracion = configuracion;
+        },
+        error: (error) => this.notificationService.httpError(error),
+      });
+    }
 
     this.busquedaControl.valueChanges
       .pipe(debounceTime(300), distinctUntilChanged())
@@ -138,8 +143,8 @@ export class ListadoComponent implements OnInit, AfterViewInit {
 
   ordenar(sort: Sort): void {
     this.sort = sort.active;
-
     this.direction = sort.direction || 'asc';
+    this.page = 0;
 
     this.cargarCuotas();
   }
@@ -202,6 +207,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
           next: (mensaje) => {
             this.notificationService.success(mensaje);
 
+            this.cargarAnios();
             this.cargarCuotas();
           },
 
@@ -438,5 +444,43 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     }
 
     return new Date(cuota.fechaPago).toLocaleDateString('es-ES');
+  }
+
+  nuevaCuota(): void {
+    const dialogRef = this.dialog.open(DialogCrearCuotaComponent, {
+      width: '650px',
+      maxWidth: '95vw',
+      disableClose: true,
+      data: {
+        anio: this.configuracion?.anioActivo ?? new Date().getFullYear(),
+
+        importe: this.configuracion?.importeCuota ?? 0,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((request: CuotaRequest | undefined) => {
+      if (!request) {
+        return;
+      }
+
+      this.cuotaService.crear(request).subscribe({
+        next: () => {
+          this.notificationService.success('Cuota creada correctamente.');
+
+          this.cargarAnios();
+          this.cargarCuotas();
+        },
+        error: (error) => this.notificationService.httpError(error),
+      });
+    });
+  }
+
+  private cargarAnios(): void {
+    this.cuotaService.obtenerAnios().subscribe({
+      next: (anios) => {
+        this.anios = anios;
+      },
+      error: (error) => this.notificationService.httpError(error),
+    });
   }
 }

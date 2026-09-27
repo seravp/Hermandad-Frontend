@@ -18,8 +18,17 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, request);
   }
 
-  guardarToken(token: string): void {
-    localStorage.setItem('token', token);
+  guardarSesion(response: LoginResponse): void {
+    localStorage.setItem('token', response.token);
+    localStorage.setItem('rol', response.rol);
+  }
+
+  obtenerRol(): string | null {
+    return localStorage.getItem('rol');
+  }
+
+  esAdmin(): boolean {
+    return this.obtenerRol() === 'ADMIN';
   }
 
   obtenerToken(): string | null {
@@ -28,9 +37,47 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('rol');
   }
 
   estaAutenticado(): boolean {
-    return !!this.obtenerToken();
+    const token = this.obtenerToken();
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+
+      const noHaCaducado = typeof payload.exp === 'number' && payload.exp * 1000 > Date.now();
+
+      if (!noHaCaducado) {
+        this.logout();
+      }
+
+      return noHaCaducado;
+    } catch {
+      this.logout();
+      return false;
+    }
+  }
+
+  puedeGenerarInformes(): boolean {
+    const rol = this.obtenerRol();
+
+    return rol === 'ADMIN' || rol === 'TESORERO';
+  }
+
+  puedeGestionarCuotas(): boolean {
+    const rol = this.obtenerRol();
+
+    return rol === 'ADMIN' || rol === 'TESORERO';
+  }
+
+  puedeConsultarCuotas(): boolean {
+    const rol = this.obtenerRol();
+
+    return rol === 'ADMIN' || rol === 'TESORERO' || rol === 'CONSULTA';
   }
 }

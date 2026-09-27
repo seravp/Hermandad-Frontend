@@ -1,33 +1,110 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
-import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 
-import { HermanoService } from '../../../core/services/hermano';
-import { Hermano } from '../../../core/models/hermanos/hermano';
+import { Auditoria } from '../../../core/models/auditoria/auditoria';
+import { AuditoriaService } from '../../../core/services/auditoria';
+import { NotificationService } from '../../../shared/services/notification';
 
 @Component({
-  selector: 'app-listado',
+  selector: 'app-listado-auditoria',
   standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSelectModule,
+    MatTableModule,
+  ],
   templateUrl: './listado.html',
   styleUrl: './listado.css',
-  imports: [CommonModule, MatCardModule, MatTableModule, MatButtonModule, MatIconModule],
 })
-export class ListadoComponent implements OnInit {
-  private hermanoService = inject(HermanoService);
+export class ListadoAuditoriaComponent implements OnInit {
+  private readonly auditoriaService = inject(AuditoriaService);
+  private readonly notificationService = inject(NotificationService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
-  hermanos: Hermano[] = [];
+  readonly usuarioControl = new FormControl('');
+  readonly entidadControl = new FormControl('');
 
-  displayedColumns = ['numeroHermano', 'nombre', 'apellidos', 'dni', 'estado', 'acciones'];
+  readonly acciones = [
+    'CREAR',
+    'MODIFICAR',
+    'ELIMINAR',
+    'PAGAR',
+    'ANULAR',
+    'DESHACER-PAGO',
+    'GENERAR_ANUALES',
+    'CAMBIAR_PASSWORD',
+  ];
+
+  readonly displayedColumns = ['fecha', 'usuario', 'accion', 'entidad', 'registroId'];
+
+  auditorias: Auditoria[] = [];
+
+  accionSeleccionada = '';
+  page = 0;
+  size = 20;
+  totalElements = 0;
 
   ngOnInit(): void {
-    this.hermanoService.buscar().subscribe({
-      next: (page) => {
-        this.hermanos = page.content;
-      },
-    });
+    this.cargarAuditoria();
+
+    this.usuarioControl.valueChanges
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe(() => this.buscar());
+
+    this.entidadControl.valueChanges
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe(() => this.buscar());
+  }
+
+  buscar(): void {
+    this.page = 0;
+    this.cargarAuditoria();
+  }
+
+  cambiarPagina(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.size = event.pageSize;
+    this.cargarAuditoria();
+  }
+
+  formatearFecha(fecha: string): string {
+    return new Date(fecha).toLocaleString('es-ES');
+  }
+
+  private cargarAuditoria(): void {
+    this.auditoriaService
+      .buscar(
+        this.usuarioControl.value ?? '',
+        this.accionSeleccionada,
+        this.entidadControl.value ?? '',
+        this.page,
+        this.size,
+      )
+      .subscribe({
+        next: (respuesta) => {
+          this.auditorias = respuesta.content;
+          this.totalElements = respuesta.totalElements;
+
+          this.cdr.detectChanges();
+        },
+        error: (error) => this.notificationService.httpError(error),
+      });
   }
 }

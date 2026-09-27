@@ -1,0 +1,13 @@
+.git
+.gitignore
+.idea
+.vscode
+
+node_modules
+dist
+.angular
+coverage
+*.log
+
+README*
+docker-compose.yml

@@ -10,8 +10,40 @@ import { environment } from '../../../environments/environment';
 export class InformeService {
   private readonly http = inject(HttpClient);
 
+  private readonly apiUrl = `${environment.apiUrl}/informes`;
+
+  generarInformeMorosos(): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/morosos`, {
+      responseType: 'blob',
+    });
+  }
+
+  generarInformeDomiciliados(): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/domiciliados`, {
+      responseType: 'blob',
+    });
+  }
+
   generarCartaMoroso(hermanoId: number): Observable<Blob> {
-    return this.http.get(`${environment.apiUrl}/informes/carta-moroso/${hermanoId}`, {
+    return this.http.get(`${this.apiUrl}/carta-moroso/${hermanoId}`, {
+      responseType: 'blob',
+    });
+  }
+
+  exportarExcelHermanos(): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/excel/hermanos`, {
+      responseType: 'blob',
+    });
+  }
+
+  exportarExcelMorosos(): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/excel/morosos`, {
+      responseType: 'blob',
+    });
+  }
+
+  exportarExcelCuotas(): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/excel/cuotas`, {
       responseType: 'blob',
     });
   }

@@ -1,103 +1,126 @@
-<mat-card>
-
+<mat-card class="auditoria-card">
   <mat-card-header>
+    <div>
+      <mat-card-title>Auditoría</mat-card-title>
 
-    <mat-card-title>
-
-      Hermanos
-
-    </mat-card-title>
-
+      <mat-card-subtitle>
+        Registro de acciones realizadas en la aplicación
+      </mat-card-subtitle>
+    </div>
   </mat-card-header>
 
   <mat-card-content>
+    <div class="toolbar">
 
-    <table mat-table [dataSource]="hermanos" class="mat-elevation-z2">
+      <mat-form-field appearance="outline" class="filtro-usuario">
+        <mat-icon matPrefix>person_search</mat-icon>
 
-      <ng-container matColumnDef="numeroHermano">
+        <input
+          matInput
+          [formControl]="usuarioControl"
+          placeholder="Filtrar por usuario">
+      </mat-form-field>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Nº
-        </th>
+      <mat-form-field appearance="outline" class="filtro">
+        <mat-label>Acción</mat-label>
 
-        <td mat-cell *matCellDef="let hermano">
-          {{ hermano.numeroHermano }}
-        </td>
+        <mat-select
+          [(ngModel)]="accionSeleccionada"
+          (selectionChange)="buscar()">
 
-      </ng-container>
+          <mat-option value="">Todas</mat-option>
 
-      <ng-container matColumnDef="nombre">
+          @for (accion of acciones; track accion) {
+          <mat-option [value]="accion">
+            {{ accion }}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Nombre
-        </th>
+      <mat-form-field appearance="outline" class="filtro">
+        <mat-icon matPrefix>search</mat-icon>
 
-        <td mat-cell *matCellDef="let hermano">
-          {{ hermano.nombre }}
-        </td>
+        <input
+          matInput
+          [formControl]="entidadControl"
+          placeholder="Entidad: CUOTA, HERMANO...">
+      </mat-form-field>
 
-      </ng-container>
+    </div>
 
-      <ng-container matColumnDef="apellidos">
+    <div class="table-container">
+      <table
+        mat-table
+        [dataSource]="auditorias"
+        class="tabla-auditoria mat-elevation-z1">
 
-        <th mat-header-cell *matHeaderCellDef>
-          Apellidos
-        </th>
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef>Fecha</th>
 
-        <td mat-cell *matCellDef="let hermano">
-          {{ hermano.apellidos }}
-        </td>
+          <td mat-cell *matCellDef="let registro">
+            {{ formatearFecha(registro.fecha) }}
+          </td>
+        </ng-container>
 
-      </ng-container>
+        <ng-container matColumnDef="usuario">
+          <th mat-header-cell *matHeaderCellDef>Usuario</th>
 
-      <ng-container matColumnDef="dni">
+          <td mat-cell *matCellDef="let registro">
+            {{ registro.usuario }}
+          </td>
+        </ng-container>
 
-        <th mat-header-cell *matHeaderCellDef>
-          DNI
-        </th>
+        <ng-container matColumnDef="accion">
+          <th mat-header-cell *matHeaderCellDef>Acción</th>
 
-        <td mat-cell *matCellDef="let hermano">
-          {{ hermano.dni }}
-        </td>
+          <td mat-cell *matCellDef="let registro">
+            {{ registro.accion }}
+          </td>
+        </ng-container>
 
-      </ng-container>
+        <ng-container matColumnDef="entidad">
+          <th mat-header-cell *matHeaderCellDef>Entidad</th>
 
-      <ng-container matColumnDef="estado">
+          <td mat-cell *matCellDef="let registro">
+            {{ registro.entidad }}
+          </td>
+        </ng-container>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Estado
-        </th>
+        <ng-container matColumnDef="registroId">
+          <th mat-header-cell *matHeaderCellDef>ID registro</th>
 
-        <td mat-cell *matCellDef="let hermano">
-          {{ hermano.estado }}
-        </td>
+          <td mat-cell *matCellDef="let registro">
+            {{ registro.registroId ?? '—' }}
+          </td>
+        </ng-container>
 
-      </ng-container>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns">
+        </tr>
 
-      <ng-container matColumnDef="acciones">
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns">
+        </tr>
+      </table>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Acciones
-        </th>
+      @if (auditorias.length === 0) {
+      <div class="estado-vacio">
+        <mat-icon>history</mat-icon>
+        <p>No hay registros de auditoría para los filtros seleccionados.</p>
+      </div>
+      }
+    </div>
 
-        <td mat-cell *matCellDef="let hermano">
-
-          <button mat-icon-button color="primary">
-
-            <mat-icon>edit</mat-icon>
-
-          </button>
-
-        </td>
-
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-    </table>
+    <mat-paginator
+      [length]="totalElements"
+      [pageSize]="size"
+      [pageSizeOptions]="[10, 20, 50, 100]"
+      showFirstLastButtons
+      (page)="cambiarPagina($event)">
+    </mat-paginator>
 
   </mat-card-content>
-
 </mat-card>

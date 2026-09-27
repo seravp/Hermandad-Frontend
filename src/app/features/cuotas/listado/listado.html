@@ -14,17 +14,36 @@
 
     </div>
 
-    <button
-      mat-raised-button
-      color="primary"
-      class="boton-generar"
-      matTooltip="Genera las cuotas del año para los hermanos activos"
-      (click)="generarCuotas()">
+    @if (authService.puedeGestionarCuotas()) {
 
-      <mat-icon>payments</mat-icon>
-      Generar cuotas
+    <div class="header-actions">
 
-    </button>
+      <button
+        mat-stroked-button
+        color="primary"
+        class="boton-crear"
+        matTooltip="Crear una cuota para un hermano concreto"
+        (click)="nuevaCuota()">
+
+        <mat-icon>add_card</mat-icon>
+        Nueva cuota
+
+      </button>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="boton-generar"
+        matTooltip="Genera las cuotas del año para los hermanos activos"
+        (click)="generarCuotas()">
+
+        <mat-icon>payments</mat-icon>
+        Generar cuotas
+
+      </button>
+
+    </div>
+    }
 
   </mat-card-header>
 

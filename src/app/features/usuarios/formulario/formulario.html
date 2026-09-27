@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>
+  <mat-icon>{{ esEdicion ? 'edit' : 'person_add' }}</mat-icon>
+  {{ esEdicion ? 'Editar usuario' : 'Nuevo usuario' }}
+</h2>
+
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="form" class="formulario">
+    <form [formGroup]="form" class="formulario">
+      <div class="espaciador-superior" aria-hidden="true"></div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput formControlName="username">
+
+          @if (form.controls.username.hasError('required') &&
+          form.controls.username.touched) {
+          <mat-error>El nombre de usuario es obligatorio.</mat-error>
+          }
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{ esEdicion ? 'Nueva contraseña (opcional)' : 'Contraseña inicial' }}
+          </mat-label>
+
+          <input matInput type="password" formControlName="password">
+
+          @if (!esEdicion &&
+          form.controls.password.hasError('required') &&
+          form.controls.password.touched) {
+          <mat-error>La contraseña es obligatoria.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Rol</mat-label>
+
+          <mat-select formControlName="rol">
+            @for (rol of roles; track rol) {
+            <mat-option [value]="rol">{{ rol }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+
+          <mat-select formControlName="activo">
+            <mat-option [value]="true">Activo</mat-option>
+            <mat-option [value]="false">Desactivado</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="form.invalid"
+    (click)="guardar()">
+    {{ esEdicion ? 'Actualizar' : 'Crear usuario' }}
+  </button>
+</mat-dialog-actions>

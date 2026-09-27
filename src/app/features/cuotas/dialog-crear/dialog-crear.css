@@ -1,0 +1,33 @@
+.dialog-content {
+  min-width: 500px;
+}
+
+.formulario {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .dialog-content {
+    min-width: 0;
+  }
+
+  .formulario {
+    grid-template-columns: 1fr;
+  }
+}
+
+.espaciador-superior {
+  grid-column: 1 / -1;
+  height: 16px;
+}

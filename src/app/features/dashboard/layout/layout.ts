@@ -23,11 +23,11 @@ import { AuthService } from '../../../core/services/auth';
     MatToolbarModule,
     MatListModule,
     MatIconModule,
-    MatButtonModule
-  ]
+    MatButtonModule,
+  ],
 })
 export class LayoutComponent {
-  private authService = inject(AuthService);
+  readonly authService = inject(AuthService);
 
   private router = inject(Router);
 
