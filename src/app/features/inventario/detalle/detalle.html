@@ -1,0 +1,4 @@
+<h2 mat-dialog-title>{{ item.nombre }}</h2><mat-dialog-content class="detalle">
+  @if (imagen) {<img [src]="imagen" [alt]="item.nombre">}
+  <dl><dt>Código</dt><dd>{{item.codigo}}</dd><dt>Categoría</dt><dd>{{item.categoria}}</dd><dt>Ubicación</dt><dd>{{item.ubicacion}}</dd><dt>Estado</dt><dd>{{item.estado}}</dd><dt>Fecha de adquisición</dt><dd>{{item.fechaAdquisicion || 'No indicada'}}</dd><dt>Valor</dt><dd>{{item.valorAdquisicion | currency:'EUR'}}</dd><dt>Descripción</dt><dd>{{item.descripcion || 'Sin descripción'}}</dd><dt>Observaciones</dt><dd>{{item.observaciones || 'Sin observaciones'}}</dd></dl>
+</mat-dialog-content><mat-dialog-actions align="end"><button mat-button mat-dialog-close>Cerrar</button></mat-dialog-actions>

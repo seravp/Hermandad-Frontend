@@ -19,6 +19,8 @@ import { ListadoUsuariosComponent } from './features/usuarios/listado/listado';
 import { ListadoInformesComponent } from './features/informes/listado/listado';
 
 import { ListadoAuditoriaComponent } from './features/auditoria/listado/listado';
+import { ListadoInventarioComponent } from './features/inventario/listado/listado';
+import { RevisionesInventarioComponent } from './features/inventario/revisiones/revisiones';
 
 import { informesGuard } from './core/guards/informes-guard';
 
@@ -85,6 +87,15 @@ export const routes: Routes = [
         path: 'auditoria',
         component: ListadoAuditoriaComponent,
         canActivate: [adminGuard],
+      },
+      {
+        path: 'inventario/revisiones',
+        component: RevisionesInventarioComponent,
+      },
+      {
+        path: 'inventario',
+        component: ListadoInventarioComponent,
+        pathMatch: 'full',
       },
 
       {

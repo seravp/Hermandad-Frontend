@@ -1,0 +1,23 @@
+<mat-card class="inventario-card">
+  <div class="cabecera">
+    <div><h1>Inventario</h1><p>Bienes pertenecientes a la Hermandad</p></div>
+    @if (puedeGestionar()) { <button mat-raised-button color="primary" (click)="nuevo()"><mat-icon>add</mat-icon> Nuevo bien</button> }
+  </div>
+  <div class="filtros">
+    <mat-form-field appearance="outline"><mat-label>Buscar por código o nombre</mat-label><input matInput [formControl]="busqueda"><mat-icon matPrefix>search</mat-icon></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Categoría</mat-label><mat-select [(value)]="categoria" (selectionChange)="filtrar()"><mat-option value="">Todas</mat-option>@for (categoria of categorias; track categoria) {<mat-option [value]="categoria">{{ categoria }}</mat-option>}</mat-select></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Estado</mat-label><mat-select [(value)]="estado" (selectionChange)="filtrar()"><mat-option>Todos</mat-option>@for (item of estados; track item) { <mat-option [value]="item">{{ item }}</mat-option> }</mat-select></mat-form-field>
+  </div>
+  <table mat-table [dataSource]="elementos" class="tabla">
+    <ng-container matColumnDef="codigo"><th mat-header-cell *matHeaderCellDef>Código</th><td mat-cell *matCellDef="let item">{{ item.codigo }}</td></ng-container>
+    <ng-container matColumnDef="nombre"><th mat-header-cell *matHeaderCellDef>Bien</th><td mat-cell *matCellDef="let item"><button mat-button (click)="ver(item)">{{ item.nombre }}</button></td></ng-container>
+    <ng-container matColumnDef="categoria"><th mat-header-cell *matHeaderCellDef>Categoría</th><td mat-cell *matCellDef="let item">{{ item.categoria }}</td></ng-container>
+    <ng-container matColumnDef="ubicacion"><th mat-header-cell *matHeaderCellDef>Ubicación</th><td mat-cell *matCellDef="let item">{{ item.ubicacion }}</td></ng-container>
+    <ng-container matColumnDef="estado"><th mat-header-cell *matHeaderCellDef>Estado</th><td mat-cell *matCellDef="let item">{{ item.estado }}</td></ng-container>
+    <ng-container matColumnDef="valor"><th mat-header-cell *matHeaderCellDef>Valor</th><td mat-cell *matCellDef="let item">{{ item.valorAdquisicion | currency:'EUR' }}</td></ng-container>
+    <ng-container matColumnDef="acciones"><th mat-header-cell *matHeaderCellDef>Acciones</th><td mat-cell *matCellDef="let item">@if (puedeGestionar()) {<button mat-icon-button (click)="editar(item)"><mat-icon>edit</mat-icon></button>}</td></ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr><tr mat-row *matRowDef="let row; columns: columnas"></tr>
+  </table>
+  @if (!elementos.length) { <p class="vacio">No hay bienes que mostrar.</p> }
+  <mat-paginator [length]="total" [pageIndex]="page" [pageSize]="size" [pageSizeOptions]="[10,20,50]" (page)="pagina($event)"></mat-paginator>
+</mat-card>

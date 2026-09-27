@@ -80,4 +80,8 @@ export class AuthService {
 
     return rol === 'ADMIN' || rol === 'TESORERO' || rol === 'CONSULTA';
   }
+
+  puedeConsultarInventario(): boolean {
+    return ['ADMIN', 'SECRETARIO', 'TESORERO', 'CONSULTA'].includes(this.obtenerRol() ?? '');
+  }
 }

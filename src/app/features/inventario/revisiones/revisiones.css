@@ -1,0 +1,28 @@
+mat-card{margin:24px;padding:24px}.cabecera{display:flex;justify-content:space-between;align-items:center;gap:16px}.cabecera h1,.cabecera h2{margin:0}.cabecera p{color:#666}.tabla{width:100%}.detalle{margin-top:0}
+.estado{display:inline-block;padding:4px 10px;border-radius:14px;background:#d8f1df;color:#176b35;font-size:.8rem;font-weight:700}.estado.cerrada{background:#fde0e0;color:#b42318}
+
+/* Acciones: mismo código de color y realce que los demás listados. */
+.mat-column-acciones {
+  width: 120px;
+  text-align: center;
+}
+
+.mat-column-acciones button {
+  transition: background-color .2s ease;
+}
+
+.mat-column-acciones button[color="primary"] mat-icon {
+  color: #1976d2;
+}
+
+.mat-column-acciones button[color="primary"]:hover {
+  background: #e3f2fd;
+}
+
+.mat-column-acciones button[color="warn"] mat-icon {
+  color: #d32f2f;
+}
+
+.mat-column-acciones button[color="warn"]:hover {
+  background: #ffebee;
+}

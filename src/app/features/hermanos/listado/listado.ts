@@ -26,6 +26,7 @@ import { NotificationService } from '../../../shared/services/notification';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DetalleHermanoComponent } from '../detalle/detalle';
 
 
 
@@ -150,6 +151,13 @@ export class ListadoComponent implements OnInit {
       },
 
       error: (error) => this.notificationService.httpError(error),
+    });
+  }
+
+  visualizar(hermano: Hermano): void {
+    this.hermanoService.obtenerPorId(hermano.id).subscribe({
+      next: detalle => this.dialog.open(DetalleHermanoComponent, { width: '720px', maxWidth: '95vw', data: detalle }),
+      error: error => this.notificationService.httpError(error),
     });
   }
 

@@ -37,6 +37,18 @@
       </a>
       }
 
+      @if (authService.puedeConsultarInventario()) {
+      <a mat-list-item routerLink="/inventario" routerLinkActive="active">
+        <mat-icon>inventory_2</mat-icon>
+        <span>Inventario</span>
+      </a>
+      <!-- La revisión se abre con una navegación completa para reinicializar sus datos. -->
+      <a mat-list-item href="/inventario/revisiones">
+        <mat-icon>fact_check</mat-icon>
+        <span>Revisiones inventario</span>
+      </a>
+      }
+
       @if (authService.esAdmin()) {
       <a mat-list-item routerLink="/usuarios" routerLinkActive="active">
         <mat-icon>people</mat-icon>
