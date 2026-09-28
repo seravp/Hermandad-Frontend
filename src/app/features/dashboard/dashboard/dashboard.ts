@@ -114,4 +114,30 @@ export class DashboardComponent implements OnInit {
 
     return 'check_circle';
   }
+
+  porcentajeDe(valor: number): string {
+    if (!this.dashboard.totalCuotas) {
+      return '0,0';
+    }
+
+    return ((valor * 100) / this.dashboard.totalCuotas)
+      .toFixed(1)
+      .replace('.', ',');
+  }
+
+  get mensajeCobro(): string {
+    if (this.dashboard.porcentajeCobrado < 40) {
+      return 'Nivel de cobro bajo';
+    }
+
+    if (this.dashboard.porcentajeCobrado < 80) {
+      return 'Cobro en progreso';
+    }
+
+    return 'Buen nivel de cumplimiento';
+  }
+
+  get detalleCobro(): string {
+    return `Se ha recaudado el ${this.dashboard.porcentajeCobrado} % de las cuotas del ejercicio.`;
+  }
 }

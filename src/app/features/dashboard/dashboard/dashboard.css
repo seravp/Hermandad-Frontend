@@ -1,243 +1,284 @@
 .dashboard-card {
-  max-width:1500px;
-  margin: auto;
-  margin-bottom: 32px;
-  padding: 12px;
+  max-width: 1500px;
+  margin: 0 auto 32px;
+  padding: 26px;
+  border: 1px solid #e1e8f0;
   border-radius: 18px;
   background: #fff;
+  box-shadow: 0 10px 28px rgba(22, 58, 95, .08);
 }
 
-/* CABECERA: mismo patrón visual que Socios y Cuotas. */
-.dashboard-card .mat-mdc-card-header {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 28px;
+.dashboard-heading {
+  margin: 0 8px 26px;
 }
 
-.header-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+.eyebrow {
+  display: block;
+  margin-bottom: 3px;
+  color: #a66d12;
+  font-family: Lora, Georgia, serif;
+  font-size: .91rem;
+  font-weight: 600;
 }
 
-.dashboard-card .mat-mdc-card-title {
-  font-size: 2rem;
+.dashboard-heading h1,
+.section-title h2 {
+  margin: 0;
+  color: #122b4a;
+  font-family: Lora, Georgia, serif;
   font-weight: 700;
 }
 
-.dashboard-card .mat-mdc-card-subtitle {
-  margin-top: 6px;
-  color: #666;
-  font-size: .95rem;
+.dashboard-heading h1 {
+  font-size: 2.35rem;
+  line-height: 1.1;
 }
 
-/* ==========================
-   GRID
-========================== */
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
+.dashboard-heading p,
+.section-title p {
+  margin: 5px 0 0;
+  color: #718096;
+  font-size: .92rem;
 }
 
 .dashboard-section {
-  padding: 24px;
-  margin-bottom: 26px;
-  border: 1px solid #e5edf4;
-  border-radius: 16px;
-  background: #fbfcfe;
+  padding: 20px;
+  border-bottom: 1px solid #e7edf3;
 }
 
+.dashboard-section:first-of-type {
+  border: 1px solid #e6edf4;
+  border-radius: 14px 14px 0 0;
+}
+
+.tesoreria-section {
+  border-inline: 1px solid #e6edf4;
+  border-radius: 0 0 14px 14px;
+}
+
+.section-heading,
 .section-title {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-  color: #163a5f;
 }
 
-.section-title mat-icon {
-  color: #1769aa;
-  background: #eaf3ff;
+.section-heading {
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  gap: 12px;
+}
+
+.section-title > mat-icon {
+  width: 26px;
+  height: 26px;
   padding: 8px;
   border-radius: 10px;
+  background: #eaf3ff;
+  color: #1769aa;
+  font-size: 26px;
 }
 
 .section-title h2 {
-  margin: 0;
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1.28rem;
 }
 
-/* ==========================
-   KPI CARDS
-========================== */
+.section-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 220px;
+  padding: 11px 14px;
+  border: 1px solid #f6e5bd;
+  border-radius: 9px;
+  background: #fffaf0;
+  color: #855b14;
+}
+
+.section-notice mat-icon {
+  color: #d18b00;
+}
+
+.section-notice div,
+.progress-feedback div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.section-notice strong,
+.progress-feedback strong {
+  font-family: Lora, Georgia, serif;
+  font-size: .83rem;
+}
+
+.section-notice span,
+.progress-feedback span {
+  color: #758397;
+  font-size: .73rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.members-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.treasury-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
 
 .kpi-card {
-  height: 164px;
-  border: 1px solid #e2eaf2;
-  border-radius: 14px;
-  box-shadow: 0 3px 10px rgba(22, 58, 95, .05);
-  transition:
-    transform .25s ease,
-    box-shadow .25s ease;
+  min-height: 122px;
+  border: 1px solid #e4ebf2;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(22, 58, 95, .045);
+  transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .kpi-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(22, 58, 95, .09);
 }
 
 .kpi-card mat-card-content {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px;
 }
 
-.kpi-valor {
-  font-size: 2.2rem;
-  font-weight: 700;
-  line-height: 1;
-  margin: 14px 0 8px;
+.kpi-icon {
+  flex: 0 0 auto;
+  width: 25px;
+  height: 25px;
+  padding: 9px;
+  border-radius: 9px;
+  background: #eaf3ff;
+  color: #1769aa;
+  font-size: 25px;
+}
+
+.kpi-content {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
 }
 
 .kpi-titulo {
-  color: #666;
-  font-size: .92rem;
+  color: #294563;
+  font-family: Lora, Georgia, serif;
+  font-size: .85rem;
+  font-weight: 600;
 }
 
-/* ==========================
-   ICONOS
-========================== */
-
-.kpi-icon {
-  width: 28px;
-  height: 28px;
-  font-size: 28px;
-  padding: 10px;
-  border-radius: 10px;
-  background: #eaf3ff;
+.kpi-valor {
+  margin-top: 4px;
+  color: #10284a;
+  font-size: 1.92rem;
+  line-height: 1.08;
+  white-space: nowrap;
 }
 
-.icon-socios {
-  color: #1976d2;
+.kpi-meta {
+  margin-top: 5px;
+  color: #718096;
+  font-size: .72rem;
 }
 
-.icon-hermanos {
-  color: #6a4c93;
-  background: #f0eafa;
-}
+.icon-hermanos { background: #f1ebff; color: #7652a7; }
+.icon-costaleros { background: #fff2d5; color: #d88a00; }
+.icon-pagadas, .icon-recaudado { background: #e0f4e5; color: #27843a; }
+.icon-pendientes, .icon-pendiente { background: #fff1d6; color: #dd8500; }
+.icon-morosos { background: #ffe6e4; color: #c8342e; }
 
-.icon-costaleros {
-  color: #00838f;
-  background: #e4f5f6;
-}
-
-.icon-pagadas {
-  color: #2e7d32;
-  background: #e2f4e6;
-}
-
-.icon-pendientes {
-  color: #ed6c02;
-  background: #fff2db;
-}
-
-.icon-morosos {
-  color: #d32f2f;
-  background: #fde8e7;
-}
-
-.icon-recaudado {
-  color: #388e3c;
-  background: #e2f4e6;
-}
-
-.icon-pendiente {
-  color: #f9a825;
-  background: #fff2db;
-}
-
-/* ==========================
-   PROGRESO
-========================== */
+.kpi-economico { border-top: 4px solid #358d44; }
+.kpi-pendiente { border-top: 4px solid #e8a21b; }
 
 .progress-card {
-  margin-top: 0;
-  border: 1px solid #e2eaf2;
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #e1e8f0;
   border-radius: 14px;
-  box-shadow: none;
+  background: #fbfcfe;
 }
 
-.progress-title{
-
-  font-size:1.35rem;
-  font-weight:600;
-
-  margin-bottom:24px;
-
+.progress-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 28px;
+  align-items: center;
+  margin-top: 18px;
 }
 
 .progress-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom:18px;
-  font-size: .95rem;
+  margin-bottom: 10px;
+  color: #40566f;
+  font-size: .85rem;
 }
 
-.progress-percent {
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: #f5f5f5;
-  font-weight: 700;
-}
-
-.mat-mdc-progress-bar {
-  height: 12px;
+.progress-track {
+  width: 100%;
+  height: 22px;
   border-radius: 999px;
   overflow: hidden;
+  background: #dfe5ec;
 }
 
-.progress-footer {
+.progress-value {
+  height: 100%;
+  min-width: 0;
+  border-radius: inherit;
+  background: #27843a;
+  transition: width .35s ease;
+}
+
+.progress-track.progress-rojo .progress-value {
+  background: #c8342e;
+}
+
+.progress-track.progress-naranja .progress-value {
+  background: #d88a00;
+}
+
+.progress-feedback {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 8px;
-
-  margin-top: 18px;
-
-  font-size: 1rem;
-  font-weight: 600;
+  gap: 12px;
+  padding: 13px 15px;
+  border: 1px solid #d5efdb;
+  border-radius: 9px;
+  background: #ecf9ef;
 }
 
-/* ==========================
-   ESTADOS
-========================== */
+.progress-feedback mat-icon { color: #27843a; }
+.feedback-progress-rojo { border-color: #f5d3d0; background: #fff2f1; }
+.feedback-progress-rojo mat-icon { color: #c8342e; }
+.feedback-progress-naranja { border-color: #f5e4bf; background: #fff9ed; }
+.feedback-progress-naranja mat-icon { color: #d88a00; }
 
-.estado-rojo {
-  color: #d32f2f;
+@media (max-width: 1250px) {
+  .treasury-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
-.estado-naranja {
-  color: #ef6c00;
+@media (max-width: 850px) {
+  .dashboard-card { padding: 18px; }
+  .members-grid, .treasury-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .progress-layout { grid-template-columns: 1fr; }
+  .section-notice { display: none; }
 }
 
-.estado-verde {
-  color: #2e7d32;
-}
-
-.kpi-economico {
-  background: #f8faf8;
-}
-
-.kpi-economico{
-  border-top:4px solid #2e7d32;
-}
-
-.kpi-pendiente{
-  border-top:4px solid #f9a825;
+@media (max-width: 560px) {
+  .members-grid, .treasury-grid { grid-template-columns: 1fr; }
+  .dashboard-heading h1 { font-size: 2rem; }
+  .dashboard-section, .progress-card { padding: 15px; }
 }

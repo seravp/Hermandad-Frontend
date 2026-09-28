@@ -1,255 +1,162 @@
 <mat-card class="dashboard-card">
+  <header class="dashboard-heading">
+    <span class="eyebrow">Hermandad de Alfacar</span>
+    <h1>Inicio</h1>
+    <p>Resumen de la actividad y situación de la Hermandad</p>
+  </header>
 
-  <mat-card-header>
-
-    <div class="header-info">
-
-      <mat-card-title>
-        Inicio
-      </mat-card-title>
-
-      <mat-card-subtitle>
-        Resumen del ejercicio {{ dashboard.anioActivo }}
-      </mat-card-subtitle>
-
-    </div>
-  </mat-card-header>
-
-  <mat-card-content>
-
-    <section class="dashboard-section">
-
+  <section class="dashboard-section miembros-section">
+    <div class="section-heading">
       <div class="section-title">
         <mat-icon>groups</mat-icon>
-        <h2>Miembros</h2>
+        <div>
+          <h2>Miembros</h2>
+          <p>Datos actualizados de la Hermandad</p>
+        </div>
       </div>
 
-      <div class="dashboard-grid">
-
-      <mat-card class="kpi-card">
-
-        <mat-card-content>
-
-          <mat-icon class="kpi-icon icon-socios">
-            groups
-          </mat-icon>
-
-          <div class="kpi-valor">
-            {{ dashboard.totalSocios }}
-          </div>
-
-          <div class="kpi-titulo">
-            Socios activos
-          </div>
-
-        </mat-card-content>
-
-      </mat-card>
-
-      <mat-card class="kpi-card">
-
-        <mat-card-content>
-
-          <mat-icon class="kpi-icon icon-hermanos">
-            church
-          </mat-icon>
-
-          <div class="kpi-valor">
-            {{ dashboard.totalHermanos }}
-          </div>
-
-          <div class="kpi-titulo">
-            Hermanos activos
-          </div>
-
-        </mat-card-content>
-
-      </mat-card>
-
-      <mat-card class="kpi-card">
-
-        <mat-card-content>
-
-          <mat-icon class="kpi-icon icon-costaleros">
-            accessibility_new
-          </mat-icon>
-
-          <div class="kpi-valor">
-            {{ dashboard.totalCostaleros }}
-          </div>
-
-          <div class="kpi-titulo">
-            Costaleros activos
-          </div>
-
-        </mat-card-content>
-
-      </mat-card>
-
+      <div class="section-notice">
+        <mat-icon>notifications_none</mat-icon>
+        <div>
+          <strong>{{ dashboard.morosos ? dashboard.morosos + ' aviso(s) pendiente(s)' : 'No hay avisos pendientes' }}</strong>
+          <span>{{ dashboard.morosos ? 'Existen cuotas que requieren atención' : 'Todo al día' }}</span>
+        </div>
       </div>
-    </section>
+    </div>
 
-    <section class="dashboard-section">
+    <div class="dashboard-grid members-grid">
+      <mat-card class="kpi-card">
+        <mat-card-content>
+          <mat-icon class="kpi-icon icon-socios">groups</mat-icon>
+          <div class="kpi-content">
+            <span class="kpi-titulo">Socios activos</span>
+            <strong class="kpi-valor">{{ dashboard.totalSocios }}</strong>
+          </div>
+        </mat-card-content>
+      </mat-card>
 
+      <mat-card class="kpi-card">
+        <mat-card-content>
+          <mat-icon class="kpi-icon icon-hermanos">church</mat-icon>
+          <div class="kpi-content">
+            <span class="kpi-titulo">Hermanos activos</span>
+            <strong class="kpi-valor">{{ dashboard.totalHermanos }}</strong>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="kpi-card">
+        <mat-card-content>
+          <mat-icon class="kpi-icon icon-costaleros">accessibility_new</mat-icon>
+          <div class="kpi-content">
+            <span class="kpi-titulo">Costaleros activos</span>
+            <strong class="kpi-valor">{{ dashboard.totalCostaleros }}</strong>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  <section class="dashboard-section tesoreria-section">
+    <div class="section-heading">
       <div class="section-title">
         <mat-icon>account_balance_wallet</mat-icon>
-        <h2>Tesorería</h2>
+        <div>
+          <h2>Tesorería</h2>
+          <p>Situación económica de la Hermandad</p>
+        </div>
       </div>
+    </div>
 
-      <div class="dashboard-grid">
-
+    <div class="dashboard-grid treasury-grid">
       <mat-card class="kpi-card">
-
         <mat-card-content>
-
-          <mat-icon class="kpi-icon icon-pagadas">
-            paid
-          </mat-icon>
-
-          <div class="kpi-valor">
-            {{ dashboard.cuotasPagadas }}
+          <mat-icon class="kpi-icon icon-pagadas">task_alt</mat-icon>
+          <div class="kpi-content">
+            <span class="kpi-titulo">Cuotas pagadas</span>
+            <strong class="kpi-valor">{{ dashboard.cuotasPagadas }}</strong>
+            <span class="kpi-meta">{{ porcentajeDe(dashboard.cuotasPagadas) }} % del total</span>
           </div>
-
-          <div class="kpi-titulo">
-            Cuotas pagadas
-          </div>
-
         </mat-card-content>
-
       </mat-card>
 
       <mat-card class="kpi-card">
-
         <mat-card-content>
-
-          <mat-icon class="kpi-icon icon-pendientes">
-            schedule
-          </mat-icon>
-
-          <div class="kpi-valor">
-            {{ dashboard.cuotasPendientes }}
+          <mat-icon class="kpi-icon icon-pendientes">schedule</mat-icon>
+          <div class="kpi-content">
+            <span class="kpi-titulo">Cuotas pendientes</span>
+            <strong class="kpi-valor">{{ dashboard.cuotasPendientes }}</strong>
+            <span class="kpi-meta">{{ porcentajeDe(dashboard.cuotasPendientes) }} % del total</span>
           </div>
-
-          <div class="kpi-titulo">
-            Cuotas pendientes
-          </div>
-
         </mat-card-content>
-
       </mat-card>
 
       <mat-card class="kpi-card">
-
         <mat-card-content>
-
-          <mat-icon class="kpi-icon icon-morosos">
-            warning
-          </mat-icon>
-
-          <div class="kpi-valor">
-            {{ dashboard.morosos }}
+          <mat-icon class="kpi-icon icon-morosos">warning_amber</mat-icon>
+          <div class="kpi-content">
+            <span class="kpi-titulo">Morosos</span>
+            <strong class="kpi-valor">{{ dashboard.morosos }}</strong>
+            <span class="kpi-meta">Requieren seguimiento</span>
           </div>
-
-          <div class="kpi-titulo">
-            Morosos
-          </div>
-
         </mat-card-content>
-
       </mat-card>
 
       <mat-card class="kpi-card kpi-economico">
-
         <mat-card-content>
-
-          <mat-icon class="kpi-icon icon-recaudado">
-            account_balance_wallet
-          </mat-icon>
-
-          <div class="kpi-valor">
-            {{ dashboard.importeRecaudado | currency:'EUR' }}
+          <mat-icon class="kpi-icon icon-recaudado">bar_chart</mat-icon>
+          <div class="kpi-content">
+            <span class="kpi-titulo">Importe recaudado</span>
+            <strong class="kpi-valor">{{ dashboard.importeRecaudado | currency:'EUR' }}</strong>
           </div>
-
-          <div class="kpi-titulo">
-            Importe recaudado
-          </div>
-
         </mat-card-content>
-
       </mat-card>
 
       <mat-card class="kpi-card kpi-pendiente">
-
         <mat-card-content>
-
-          <mat-icon class="kpi-icon icon-pendiente">
-            payments
-          </mat-icon>
-
-          <div class="kpi-valor">
-            {{ dashboard.importePendiente | currency:'EUR' }}
+          <mat-icon class="kpi-icon icon-pendiente">payments</mat-icon>
+          <div class="kpi-content">
+            <span class="kpi-titulo">Importe pendiente</span>
+            <strong class="kpi-valor">{{ dashboard.importePendiente | currency:'EUR' }}</strong>
           </div>
-
-          <div class="kpi-titulo">
-            Importe pendiente
-          </div>
-
         </mat-card-content>
-
       </mat-card>
+    </div>
+  </section>
 
+  <section class="progress-card">
+    <div class="section-title">
+      <mat-icon>bar_chart</mat-icon>
+      <div>
+        <h2>Estado de cobro</h2>
+        <p>Porcentaje de cuotas abonadas · Ejercicio {{ dashboard.anioActivo }}</p>
       </div>
-    </section>
+    </div>
 
-    <!-- ================= ESTADO DE COBRO ================= -->
-
-    <mat-card class="progress-card">
-
-      <mat-card-content>
-
-        <div class="progress-title">
-          Estado de cobro · Ejercicio {{ dashboard.anioActivo }}
-        </div>
-
+    <div class="progress-layout">
+      <div class="progress-data">
         <div class="progress-header">
-
-      <span>
-        {{ dashboard.cuotasPagadas }}
-        de
-        {{ dashboard.totalCuotas }}
-        cuotas cobradas
-      </span>
-
-          <span class="progress-percent">
-          {{ dashboard.porcentajeCobrado }} %
-        </span>
-
+          <span>{{ dashboard.cuotasPagadas }} de {{ dashboard.totalCuotas }} cuotas cobradas</span>
+          <strong>{{ dashboard.porcentajeCobrado }} %</strong>
         </div>
-
-        <mat-progress-bar
-          class="{{ claseProgreso }}"
-          mode="determinate"
-          [value]="dashboard.porcentajeCobrado">
-        </mat-progress-bar>
-
         <div
-          class="progress-footer"
-          [ngClass]="{
-        'estado-rojo': claseProgreso === 'progress-rojo',
-        'estado-naranja': claseProgreso === 'progress-naranja',
-        'estado-verde': claseProgreso === 'progress-verde'
-      }">
-
-          <mat-icon>{{ iconoEstado }}</mat-icon>
-
-          <span>{{ textoEstado }}</span>
-
+          class="progress-track {{ claseProgreso }}"
+          role="progressbar"
+          aria-label="Porcentaje de cuotas cobradas"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          [attr.aria-valuenow]="dashboard.porcentajeCobrado">
+          <div class="progress-value" [style.width.%]="dashboard.porcentajeCobrado"></div>
         </div>
+      </div>
 
-      </mat-card-content>
-
-    </mat-card>
-
-  </mat-card-content>
-
+      <div class="progress-feedback" [ngClass]="'feedback-' + claseProgreso">
+        <mat-icon>{{ iconoEstado }}</mat-icon>
+        <div>
+          <strong>{{ mensajeCobro }}</strong>
+          <span>{{ detalleCobro }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
 </mat-card>
