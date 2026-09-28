@@ -13,6 +13,7 @@
 
 .cabecera, .filtros { display: flex; gap: 16px; align-items: center; }
 .cabecera { justify-content: space-between; }
+.header-actions { display:flex; align-items:center; gap:12px; }
 .cabecera h1 { margin: 0; }
 .cabecera p { margin: 4px 0 20px; color: #5f6368; }
 .filtros mat-form-field:first-child { flex: 1; }

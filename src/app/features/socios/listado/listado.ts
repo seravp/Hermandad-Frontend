@@ -23,11 +23,12 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormularioComponent } from '../formulario/formulario';
 import { NotificationService } from '../../../shared/services/notification';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 import { DetalleSocioComponent } from '../detalle/detalle';
 import { TipoSocio } from '../../../core/models/socios/tipo-socio';
+import { ListadoPaginadorComponent } from '../../../shared/components/listado-paginador/listado-paginador';
 
 
 
@@ -49,8 +50,9 @@ import { TipoSocio } from '../../../core/models/socios/tipo-socio';
     MatChipsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatPaginatorModule,
     MatTooltipModule,
+    MatMenuModule,
+    ListadoPaginadorComponent,
   ],
   templateUrl: './listado.html',
   styleUrl: './listado.css',
@@ -102,10 +104,38 @@ export class ListadoComponent implements OnInit {
       });
   }
 
-  cambiarPagina(event: PageEvent): void {
-    this.page = event.pageIndex;
-    this.size = event.pageSize;
+  get totalPaginas(): number {
+    return Math.max(1, Math.ceil(this.totalElements / this.size));
+  }
 
+  get desde(): number {
+    return this.totalElements ? this.page * this.size + 1 : 0;
+  }
+
+  get hasta(): number {
+    return Math.min((this.page + 1) * this.size, this.totalElements);
+  }
+
+  get paginasVisibles(): number[] {
+    const total = this.totalPaginas;
+    const inicio = Math.max(0, Math.min(this.page - 2, total - 5));
+    const fin = Math.min(total, inicio + 5);
+
+    return Array.from({ length: fin - inicio }, (_, indice) => inicio + indice);
+  }
+
+  irAPagina(pagina: number): void {
+    if (pagina < 0 || pagina >= this.totalPaginas || pagina === this.page) {
+      return;
+    }
+
+    this.page = pagina;
+    this.cargarSocios();
+  }
+
+  cambiarTamanoPagina(size: number): void {
+    this.size = Number(size);
+    this.page = 0;
     this.cargarSocios();
   }
 
@@ -256,5 +286,9 @@ export class ListadoComponent implements OnInit {
         this.cargarSocios();
       }
     });
+  }
+
+  exportarExcel(filtrado = false): void {
+    this.socioService.exportarExcel(filtrado ? this.textoBusqueda : '', filtrado ? this.estadoSeleccionado || undefined : undefined, filtrado ? this.tipoSeleccionado : undefined).subscribe({ next: blob => { const url = URL.createObjectURL(blob); const enlace = document.createElement('a'); enlace.href = url; enlace.download = 'socios.xlsx'; enlace.click(); URL.revokeObjectURL(url); }, error: error => this.notificationService.httpError(error) });
   }
 }

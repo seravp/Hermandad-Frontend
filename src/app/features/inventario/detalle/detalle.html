@@ -1,4 +1,16 @@
-<h2 mat-dialog-title>{{ item.nombre }}</h2><mat-dialog-content class="detalle">
-  @if (imagen) {<img [src]="imagen" [alt]="item.nombre">}
-  <dl><dt>Código</dt><dd>{{item.codigo}}</dd><dt>Categoría</dt><dd>{{item.categoria}}</dd><dt>Ubicación</dt><dd>{{item.ubicacion}}</dd><dt>Estado</dt><dd>{{item.estado}}</dd><dt>Fecha de adquisición</dt><dd>{{item.fechaAdquisicion || 'No indicada'}}</dd><dt>Valor</dt><dd>{{item.valorAdquisicion | currency:'EUR'}}</dd><dt>Descripción</dt><dd>{{item.descripcion || 'Sin descripción'}}</dd><dt>Observaciones</dt><dd>{{item.observaciones || 'Sin observaciones'}}</dd></dl>
-</mat-dialog-content><mat-dialog-actions align="end"><button mat-button mat-dialog-close>Cerrar</button></mat-dialog-actions>
+<h2 mat-dialog-title class="detalle-header"><span class="detalle-eyebrow">Ficha de inventario</span><span>{{ item.nombre }}</span></h2>
+<mat-dialog-content class="detalle-dialog-content">
+  <section class="imagen-panel">@if (imagen) {<img [src]="imagen" [alt]="item.nombre">} @else {<div class="imagen-vacia"><span>Sin imagen disponible</span></div>}</section>
+  <section class="ficha-contenido">
+    <div class="ficha-resumen"><div class="dato-resumen"><span class="dato-label">Código</span><strong>{{ item.codigo }}</strong></div><div class="dato-resumen"><span class="dato-label">Estado</span><span class="estado-badge" [attr.data-estado]="item.estado">{{ item.estado }}</span></div></div>
+    <div class="datos-principales">
+      <div class="dato-item"><div><span>Categoría</span><strong>{{ item.categoria }}</strong></div></div>
+      <div class="dato-item"><div><span>Ubicación</span><strong>{{ item.ubicacion }}</strong></div></div>
+      <div class="dato-item"><div><span>Fecha de adquisición</span><strong>{{ item.fechaAdquisicion || 'No indicada' }}</strong></div></div>
+      <div class="dato-item"><div><span>Valor de adquisición</span><strong>{{ item.valorAdquisicion | currency:'EUR' }}</strong></div></div>
+    </div>
+    <div class="texto-item"><span>Descripción</span><p>{{ item.descripcion || 'Sin descripción registrada.' }}</p></div>
+    <div class="texto-item"><span>Observaciones</span><p>{{ item.observaciones || 'Sin observaciones.' }}</p></div>
+  </section>
+</mat-dialog-content>
+<mat-dialog-actions class="detalle-actions" align="end"><button mat-stroked-button mat-dialog-close>Cerrar</button></mat-dialog-actions>

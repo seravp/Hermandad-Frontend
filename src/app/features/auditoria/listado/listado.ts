@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { Auditoria } from '../../../core/models/auditoria/auditoria';
 import { AuditoriaService } from '../../../core/services/auditoria';
 import { NotificationService } from '../../../shared/services/notification';
+import { ListadoPaginadorComponent } from '../../../shared/components/listado-paginador/listado-paginador';
 
 @Component({
   selector: 'app-listado-auditoria',
@@ -29,6 +30,7 @@ import { NotificationService } from '../../../shared/services/notification';
     MatPaginatorModule,
     MatSelectModule,
     MatTableModule,
+    ListadoPaginadorComponent,
   ],
   templateUrl: './listado.html',
   styleUrl: './listado.css',
@@ -81,6 +83,17 @@ export class ListadoAuditoriaComponent implements OnInit {
   cambiarPagina(event: PageEvent): void {
     this.page = event.pageIndex;
     this.size = event.pageSize;
+    this.cargarAuditoria();
+  }
+
+  irAPagina(pagina: number): void {
+    this.page = pagina;
+    this.cargarAuditoria();
+  }
+
+  cambiarTamanoPagina(tamano: number): void {
+    this.size = tamano;
+    this.page = 0;
     this.cargarAuditoria();
   }
 

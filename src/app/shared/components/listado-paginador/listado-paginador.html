@@ -1,0 +1,11 @@
+<div class="custom-paginator">
+  <span class="pagination-summary">Mostrando {{ desde }} - {{ hasta }} de {{ total }} {{ etiqueta }}</span>
+  <div class="pagination-controls">
+    <button mat-icon-button aria-label="Página anterior" [disabled]="pagina === 0" (click)="irAPagina(pagina - 1)"><mat-icon>chevron_left</mat-icon></button>
+    @if (paginasVisibles[0] > 0) { <button mat-button class="page-button" (click)="irAPagina(0)">1</button><span class="pagination-ellipsis">…</span> }
+    @for (numero of paginasVisibles; track numero) { <button mat-button class="page-button" [class.active-page]="numero === pagina" (click)="irAPagina(numero)">{{ numero + 1 }}</button> }
+    @if (paginasVisibles[paginasVisibles.length - 1] < totalPaginas - 1) { <span class="pagination-ellipsis">…</span><button mat-button class="page-button" (click)="irAPagina(totalPaginas - 1)">{{ totalPaginas }}</button> }
+    <button mat-icon-button aria-label="Página siguiente" [disabled]="pagina >= totalPaginas - 1" (click)="irAPagina(pagina + 1)"><mat-icon>chevron_right</mat-icon></button>
+    <mat-form-field appearance="outline" class="page-size-select"><mat-select [value]="tamano" (selectionChange)="cambiarTamano($event.value)">@for (opcion of opcionesTamano; track opcion) { <mat-option [value]="opcion">{{ opcion }} por página</mat-option> }</mat-select></mat-form-field>
+  </div>
+</div>

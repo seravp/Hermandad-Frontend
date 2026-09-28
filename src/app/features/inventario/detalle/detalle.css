@@ -1,1 +1,26 @@
-.detalle{display:grid;grid-template-columns:minmax(200px,1fr) 1fr;gap:24px;min-width:560px}.detalle img{width:100%;max-height:360px;object-fit:contain;border-radius:8px;background:#f4f4f4}dl{margin:0}dt{font-weight:700;color:#555;margin-top:10px}dd{margin:2px 0;white-space:pre-wrap}@media(max-width:650px){.detalle{grid-template-columns:1fr;min-width:0}}
+:host { display:block; color:#233f5c; }
+.detalle-header { display:flex; flex-direction:column; gap:5px; margin:0; padding:26px 30px 18px; border-bottom:1px solid #e4ebf2; }
+.detalle-eyebrow { display:block; margin-bottom:5px; color:#a66d12; font-size:.76rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; }
+.detalle-header > span:last-child { color:#132f4d; font-family:Lora,Georgia,serif; font-size:1.75rem; line-height:1.2; }
+.detalle-dialog-content { display:grid; grid-template-columns:minmax(255px,.88fr) minmax(0,1.12fr); gap:30px; min-width:0; margin:0; padding:28px 30px !important; }
+.imagen-panel { display:grid; min-height:345px; place-items:center; overflow:hidden; border:1px solid #e4ebf2; border-radius:12px; background:#f7f9fc; }
+.imagen-panel img { display:block; width:100%; height:100%; max-height:430px; object-fit:contain; }
+.imagen-vacia { display:flex; flex-direction:column; align-items:center; gap:10px; color:#8090a2; font-size:.9rem; }
+.ficha-contenido { min-width:0; }
+.ficha-resumen { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+.dato-resumen { min-height:72px; padding:13px 15px; border:1px solid #e4ebf2; border-radius:10px; background:#fbfcfe; }
+.dato-label,.dato-item span,.texto-item > span { display:block; color:#6c7e92; font-size:.76rem; font-weight:600; }
+.dato-resumen strong { display:block; margin-top:5px; color:#163a5f; font-size:1rem; }
+.estado-badge { display:inline-flex; align-items:center; margin-top:8px; padding:5px 10px; border-radius:999px; color:#176b35; font-size:.74rem; font-weight:800; line-height:1; background:#d8f1df; }
+.estado-badge[data-estado='REGULAR'],.estado-badge[data-estado='RESTAURACION'] { color:#8a5b00; background:#fff1cc; }
+.estado-badge[data-estado='MALO'] { color:#b42318; background:#fde0e0; }
+.datos-principales { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px 20px; padding:20px 0; border-top:1px solid #e9eef4; border-bottom:1px solid #e9eef4; }
+.dato-item { display:flex; align-items:flex-start; gap:10px; min-width:0; }
+.dato-item div { min-width:0; }
+.dato-item strong { display:block; margin-top:4px; color:#243b53; font-size:.91rem; font-weight:600; overflow-wrap:anywhere; }
+.texto-item { margin-top:18px; }
+.texto-item p { margin:5px 0 0; color:#435a72; font-size:.91rem; line-height:1.5; white-space:pre-wrap; }
+.detalle-actions { min-height:68px; margin:0; padding:14px 30px 18px; border-top:1px solid #e4ebf2; }
+.detalle-actions button { color:#063456; font-weight:700; }
+@media (max-width:680px) { .detalle-header { padding:22px 22px 16px; }.detalle-dialog-content { grid-template-columns:1fr; gap:22px; padding:22px !important; }.imagen-panel { min-height:250px; }.detalle-actions { padding-inline:22px; } }
+@media (max-width:430px) { .ficha-resumen,.datos-principales { grid-template-columns:1fr; } }

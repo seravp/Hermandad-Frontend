@@ -15,6 +15,11 @@ export class InventarioService {
     if (estado) params = params.set('estado', estado);
     return this.http.get<Page<ElementoInventario>>(this.apiUrl, { params });
   }
+  exportarExcel(texto = '', categoria = '', estado?: EstadoInventario): Observable<Blob> {
+    let params = new HttpParams().set('texto', texto).set('categoria', categoria);
+    if (estado) params = params.set('estado', estado);
+    return this.http.get(`${this.apiUrl}/exportar-excel`, { params, responseType: 'blob' });
+  }
   crear(request: ElementoInventarioRequest): Observable<ElementoInventario> { return this.http.post<ElementoInventario>(this.apiUrl, request); }
   actualizar(id: number, request: ElementoInventarioRequest): Observable<ElementoInventario> { return this.http.put<ElementoInventario>(`${this.apiUrl}/${id}`, request); }
   cambiarActivo(id: number, activo: boolean): Observable<ElementoInventario> { return this.http.put<ElementoInventario>(`${this.apiUrl}/${id}/activo`, null, { params: { activo } }); }

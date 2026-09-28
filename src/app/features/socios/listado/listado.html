@@ -24,6 +24,15 @@
 
     </button>
 
+    <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="exportMenu">
+      <mat-icon>download</mat-icon>
+      Exportar Excel
+    </button>
+    <mat-menu #exportMenu="matMenu">
+      <button mat-menu-item (click)="exportarExcel(true)"><mat-icon>filter_alt</mat-icon><span>Filtros actuales</span></button>
+      <button mat-menu-item (click)="exportarExcel(false)"><mat-icon>dataset</mat-icon><span>Datos completos</span></button>
+    </mat-menu>
+
   </mat-card-header>
 
   <mat-card-content>
@@ -288,13 +297,14 @@
 
     </table>
 
-    <mat-paginator
-      [length]="totalElements"
-      [pageSize]="size"
-      [pageSizeOptions]="[5,10,20,50]"
-      (page)="cambiarPagina($event)">
-
-    </mat-paginator>
+    <app-listado-paginador
+      [total]="totalElements"
+      [pagina]="page"
+      [tamano]="size"
+      etiqueta="socios"
+      (paginaChange)="irAPagina($event)"
+      (tamanoChange)="cambiarTamanoPagina($event)">
+    </app-listado-paginador>
 
     </div>
 

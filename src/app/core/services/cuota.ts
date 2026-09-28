@@ -102,4 +102,13 @@ export class CuotaService {
   obtenerAnios(): Observable<number[]> {
     return this.http.get<number[]>(`${environment.apiUrl}/cuotas/anios`);
   }
+
+  exportarExcel(texto = '', estado?: string, anio?: number, tipo?: TipoSocio): Observable<Blob> {
+    let params = new HttpParams();
+    if (texto.trim()) params = params.set('texto', texto);
+    if (estado) params = params.set('estado', estado);
+    if (anio) params = params.set('anio', anio);
+    if (tipo) params = params.set('tipo', tipo);
+    return this.http.get(`${this.apiUrl}/exportar-excel`, { params, responseType: 'blob' });
+  }
 }

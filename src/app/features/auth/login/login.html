@@ -1,33 +1,65 @@
-<div class="login-container">
+<main class="login-page">
+  <section class="login-identity" aria-label="Hermandad de Alfacar">
+    <div class="identity-content">
+      <img
+        class="identity-crest"
+        src="/images/escudo-hermandad.png"
+        alt="Escudo de la Hermandad de Alfacar">
+      <div class="identity-divider"></div>
+      <h1>Hermandad de Alfacar</h1>
+      <p>Gestión de Hermandad</p>
+    </div>
+  </section>
 
-  <h1>Gestión Hermandad</h1>
+  <section class="login-form-area">
+    <form class="login-card" (ngSubmit)="login()" #loginForm="ngForm">
+      <div class="login-heading">
+        <div class="heading-symbol" aria-hidden="true">
+          <span></span><span class="material-symbols-outlined">add</span><span></span>
+        </div>
+        <h2>Acceso</h2>
+        <p>Introduzca sus credenciales para continuar</p>
+      </div>
 
-  <form (ngSubmit)="login()">
+      <div class="form-field">
+        <label for="username">Usuario</label>
+        <div class="input-with-icon">
+          <span class="material-symbols-outlined" aria-hidden="true">person</span>
+          <input
+            id="username"
+            type="text"
+            placeholder="Usuario"
+            [(ngModel)]="username"
+            name="username"
+            autocomplete="username"
+            required>
+        </div>
+      </div>
 
-    <input
-      type="text"
-      placeholder="Usuario"
-      [(ngModel)]="username"
-      name="username">
+      <div class="form-field">
+        <label for="password">Contraseña</label>
+        <div class="input-with-icon">
+          <span class="material-symbols-outlined" aria-hidden="true">lock</span>
+          <input
+            id="password"
+            type="password"
+            placeholder="Contraseña"
+            [(ngModel)]="password"
+            name="password"
+            autocomplete="current-password"
+            required>
+        </div>
+      </div>
 
-    <input
-      type="password"
-      placeholder="Contraseña"
-      [(ngModel)]="password"
-      name="password">
+      @if (error) {
+        <p class="login-error" role="alert">{{ error }}</p>
+      }
 
-    <button type="submit">
+      <button class="login-submit" type="submit" [disabled]="loginForm.invalid">
+        Iniciar sesión
+      </button>
 
-      Entrar
-
-    </button>
-
-  </form>
-
-  @if(error){
-
-    <p>{{error}}</p>
-
-  }
-
-</div>
+      <p class="login-footer"><span></span>Gestión de Hermandad<span></span></p>
+    </form>
+  </section>
+</main>

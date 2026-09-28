@@ -22,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AfterViewInit } from '@angular/core';
 import { NotificationService } from '../../../shared/services/notification';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 import { ConfirmDialogData } from '../../../shared/models/confirm-dialog-data';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { MatDialog } from '@angular/material/dialog';
@@ -33,6 +34,7 @@ import { DialogCrearCuotaComponent } from '../dialog-crear/dialog-crear';
 import { CuotaRequest } from '../../socios/models/cuota-request';
 import { AuthService } from '../../../core/services/auth';
 import { TipoSocio } from '../../../core/models/socios/tipo-socio';
+import { ListadoPaginadorComponent } from '../../../shared/components/listado-paginador/listado-paginador';
 
 
 @Component({
@@ -54,6 +56,8 @@ import { TipoSocio } from '../../../core/models/socios/tipo-socio';
     MatDialogModule,
     MatPaginatorModule,
     MatTooltipModule,
+    MatMenuModule,
+    ListadoPaginadorComponent,
   ],
   templateUrl: './listado.html',
   styleUrl: './listado.css',
@@ -146,6 +150,17 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     this.cargarCuotas();
   }
 
+  irAPagina(pagina: number): void {
+    this.page = pagina;
+    this.cargarCuotas();
+  }
+
+  cambiarTamanoPagina(tamano: number): void {
+    this.pageSize = tamano;
+    this.page = 0;
+    this.cargarCuotas();
+  }
+
   ordenar(sort: Sort): void {
     this.sort = sort.active;
     this.direction = sort.direction || 'asc';
@@ -180,6 +195,10 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   buscar(): void {
     this.page = 0;
     this.cargarCuotas();
+  }
+
+  exportarExcel(filtrado = false): void {
+    this.cuotaService.exportarExcel(filtrado ? this.textoBusqueda : '', filtrado ? this.estadoSeleccionado || undefined : undefined, filtrado ? this.anioSeleccionado : undefined, filtrado ? this.tipoSeleccionado : undefined).subscribe({ next: blob => { const url = URL.createObjectURL(blob); const enlace = document.createElement('a'); enlace.href = url; enlace.download = 'cuotas.xlsx'; enlace.click(); URL.revokeObjectURL(url); }, error: error => this.notificationService.httpError(error) });
   }
 
   generarCuotas(): void {

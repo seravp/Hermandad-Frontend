@@ -4,18 +4,29 @@
 
 .sidebar {
   width: 260px;
-  background: #163a5f;
+  background: #063456;
   color: #fff;
   overflow: hidden;
+  border-radius: 0 !important;
 }
 
 .sidebar ::ng-deep .mat-drawer-inner-container {
   display: flex;
   flex-direction: column;
+  border-radius: 0 !important;
+}
+
+.sidebar mat-nav-list {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  background: transparent;
 }
 
 .sidebar mat-toolbar {
-  background: #102f4d;
+  position: relative;
+  z-index: 1;
+  background: #042942;
   color: #fff;
   min-height: 96px;
   padding: 0 24px;
@@ -74,6 +85,8 @@
 }
 
 .sidebar-branding {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,17 +94,21 @@
   flex: 1 1 auto;
   min-height: 0;
   padding: 12px 18px;
+  overflow: hidden;
 }
 
 .sidebar-branding img {
-  width: 150px;
-  height: min(22vh, 190px);
+  width: 210px;
+  height: min(32vh, 300px);
+  max-width: 100%;
+  max-height: 100%;
+  flex: 0 1 auto;
   object-fit: contain;
 }
 
 .active {
   background-color: rgba(246, 196, 83, .95);
-  color: #163a5f !important;
+  color: #063456 !important;
   color: #f6c453 !important;
   border-radius: 8px;
   font-weight: 600;
@@ -99,14 +116,14 @@
 
 .sidebar .active ::ng-deep .mdc-list-item__primary-text,
 .sidebar .active ::ng-deep .mat-icon {
-  color: #163a5f !important;
+  color: #063456 !important;
 }
 
 .topbar {
   min-height: 64px;
   padding: 0 28px;
   background: #fff;
-  color: #163a5f;
+  color: #063456;
   border-bottom: 1px solid #dbe7f2;
   font-weight: 600;
   box-shadow: 0 2px 10px rgba(22, 58, 95, .04);
@@ -137,7 +154,7 @@
 
 .topbar-date mat-icon,
 .notification-button mat-icon {
-  color: #163a5f;
+  color: #063456;
 }
 
 .topbar-divider {
@@ -148,7 +165,7 @@
 }
 
 .notification-button {
-  color: #163a5f;
+  color: #063456;
 }
 
 .user-profile {
@@ -174,7 +191,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #163a5f;
+  background: #063456;
   color: #fff;
   font-size: .78rem;
   font-weight: 700;
@@ -261,9 +278,9 @@
 
 @media (max-height: 950px) {
   .sidebar-branding { padding-block: 6px; }
-  .sidebar-branding img { width: 110px; height: 130px; }
+  .sidebar-branding img { width: 160px; height: 220px; }
 }
 
 @media (max-height: 750px) {
-  .sidebar-branding img { width: 72px; height: 82px; }
+  .sidebar-branding img { width: 120px; height: 150px; }
 }

@@ -11,16 +11,18 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 import { EstadoInventario, ElementoInventario } from '../../../core/models/inventario/inventario';
 import { InventarioService } from '../../../core/services/inventario';
 import { NotificationService } from '../../../shared/services/notification';
 import { AuthService } from '../../../core/services/auth';
 import { FormularioInventarioComponent } from '../formulario/formulario';
 import { DetalleInventarioComponent } from '../detalle/detalle';
+import { ListadoPaginadorComponent } from '../../../shared/components/listado-paginador/listado-paginador';
 
 @Component({
   selector: 'app-listado-inventario', standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatPaginatorModule, MatSelectModule, MatTableModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatPaginatorModule, MatSelectModule, MatTableModule, MatMenuModule, ListadoPaginadorComponent],
   templateUrl: './listado.html', styleUrl: './listado.css',
 })
 export class ListadoInventarioComponent implements OnInit {
@@ -52,7 +54,25 @@ export class ListadoInventarioComponent implements OnInit {
     });
   }
   filtrar(): void { this.page = 0; this.cargar(); }
+  exportarExcel(filtrado = false): void {
+    const texto = filtrado ? this.busqueda.value ?? '' : '';
+    const categoria = filtrado ? this.categoria : '';
+    const estado = filtrado ? this.estado : undefined;
+    this.service.exportarExcel(texto, categoria, estado).subscribe({
+      next: archivo => {
+        const url = URL.createObjectURL(archivo);
+        const enlace = document.createElement('a');
+        enlace.href = url;
+        enlace.download = 'inventario.xlsx';
+        enlace.click();
+        URL.revokeObjectURL(url);
+      },
+      error: error => this.notifications.httpError(error),
+    });
+  }
   pagina(event: PageEvent): void { this.page = event.pageIndex; this.size = event.pageSize; this.cargar(); }
+  irAPagina(pagina: number): void { this.page = pagina; this.cargar(); }
+  cambiarTamanoPagina(tamano: number): void { this.size = tamano; this.page = 0; this.cargar(); }
   nuevo(): void { this.abrirFormulario(); }
   editar(item: ElementoInventario): void { this.abrirFormulario(item); }
   ver(item: ElementoInventario): void { this.dialog.open(DetalleInventarioComponent, { width: '760px', maxWidth: '95vw', data: item }); }

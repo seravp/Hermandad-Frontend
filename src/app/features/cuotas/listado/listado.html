@@ -19,7 +19,7 @@
     <div class="header-actions">
 
       <button
-        mat-stroked-button
+        mat-raised-button
         color="primary"
         class="boton-crear"
         matTooltip="Crear una cuota para un socio concreto"
@@ -29,6 +29,9 @@
         Nueva cuota
 
       </button>
+
+      <button mat-raised-button color="primary" [matMenuTriggerFor]="exportMenu"><mat-icon>download</mat-icon>Exportar Excel</button>
+      <mat-menu #exportMenu="matMenu"><button mat-menu-item (click)="exportarExcel(true)"><mat-icon>filter_alt</mat-icon><span>Filtros actuales</span></button><button mat-menu-item (click)="exportarExcel(false)"><mat-icon>dataset</mat-icon><span>Datos completos</span></button></mat-menu>
 
       <button
         mat-raised-button
@@ -391,14 +394,14 @@
 
     </div>
 
-    <mat-paginator
-      [length]="totalElements"
-      [pageSize]="pageSize"
-      [pageSizeOptions]="[5, 10, 20, 50]"
-      showFirstLastButtons
-      (page)="cambiarPagina($event)">
-
-    </mat-paginator>
+    <app-listado-paginador
+      [total]="totalElements"
+      [pagina]="page"
+      [tamano]="pageSize"
+      etiqueta="cuotas"
+      (paginaChange)="irAPagina($event)"
+      (tamanoChange)="cambiarTamanoPagina($event)">
+    </app-listado-paginador>
 
   </mat-card-content>
 

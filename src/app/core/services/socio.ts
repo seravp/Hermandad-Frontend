@@ -64,4 +64,12 @@ export class SocioService {
   eliminar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  exportarExcel(texto = '', estado?: string, tipo?: TipoSocio): Observable<Blob> {
+    let params = new HttpParams();
+    if (texto.trim()) params = params.set('texto', texto);
+    if (estado) params = params.set('estado', estado);
+    if (tipo) params = params.set('tipo', tipo);
+    return this.http.get(`${this.apiUrl}/exportar-excel`, { params, responseType: 'blob' });
+  }
 }

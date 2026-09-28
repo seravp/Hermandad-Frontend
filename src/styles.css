@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-  --app-navy: #163a5f;
-  --app-blue: #1769aa;
+  --app-navy: #063456;
+  --app-blue: #063456;
   --app-gold: #f6c453;
   --app-canvas: #f5f7fa;
   --app-border: #e1e8f0;
@@ -15,6 +15,25 @@ body {
   font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
+/* Tipografía funcional única para todos los controles y listados de Material. */
+button,
+input,
+textarea,
+select,
+.mat-mdc-table,
+.mat-mdc-cell,
+.mat-mdc-header-cell,
+.mat-mdc-form-field,
+.mat-mdc-select,
+.mat-mdc-paginator,
+.mat-mdc-menu-panel,
+.mat-mdc-list-item,
+.mat-mdc-chip,
+.mat-mdc-dialog-container,
+.mat-mdc-snack-bar-container {
+  font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
 mat-icon {
   font-family: 'Material Symbols Outlined' !important;
   font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
@@ -25,6 +44,12 @@ mat-icon {
 .content .section-title h2 {
   font-family: Lora, Georgia, serif;
   letter-spacing: -.02em;
+}
+
+.content h1,
+.content h2,
+.content .mat-mdc-card-title {
+  font-family: Lora, Georgia, serif;
 }
 
 /* Superficies principales: una misma presencia en todos los módulos. */
@@ -123,17 +148,28 @@ button.mat-mdc-unelevated-button {
   padding-inline: 18px;
   border-radius: 8px;
   box-shadow: none;
+  font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: .9rem;
   font-weight: 600;
+  letter-spacing: .01em;
 }
 
 button.mat-mdc-raised-button[color="primary"],
 button.mat-mdc-unelevated-button[color="primary"] {
-  background: #0967b3 !important;
+  background: #063456 !important;
+  color: #fff !important;
+}
+
+button.mat-mdc-raised-button[color="primary"] .mdc-button__label,
+button.mat-mdc-unelevated-button[color="primary"] .mdc-button__label,
+button.mat-mdc-raised-button[color="primary"] mat-icon,
+button.mat-mdc-unelevated-button[color="primary"] mat-icon {
+  color: #fff !important;
 }
 
 button.mat-mdc-raised-button[color="primary"]:hover,
 button.mat-mdc-unelevated-button[color="primary"]:hover {
-  background: #075b9f !important;
+  background: #042942 !important;
 }
 
 button.mat-mdc-outlined-button,

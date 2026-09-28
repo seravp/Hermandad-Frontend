@@ -1,7 +1,8 @@
 <mat-card class="inventario-card">
   <div class="cabecera">
     <div><h1>Inventario</h1><p>Bienes pertenecientes a la Hermandad</p></div>
-    @if (puedeGestionar()) { <button mat-raised-button color="primary" (click)="nuevo()"><mat-icon>add</mat-icon> Nuevo bien</button> }
+    <div class="header-actions">@if (puedeGestionar()) { <button mat-raised-button color="primary" (click)="nuevo()"><mat-icon>add</mat-icon> Nuevo bien</button> }<button mat-raised-button color="primary" [matMenuTriggerFor]="exportMenu"><mat-icon>download</mat-icon> Exportar Excel</button></div>
+    <mat-menu #exportMenu="matMenu"><button mat-menu-item (click)="exportarExcel(true)"><mat-icon>filter_alt</mat-icon><span>Filtros actuales</span></button><button mat-menu-item (click)="exportarExcel(false)"><mat-icon>dataset</mat-icon><span>Datos completos</span></button></mat-menu>
   </div>
   <div class="filtros">
     <mat-form-field appearance="outline"><mat-label>Buscar por código o nombre</mat-label><input matInput [formControl]="busqueda"><mat-icon matPrefix>search</mat-icon></mat-form-field>
@@ -19,5 +20,5 @@
     <tr mat-header-row *matHeaderRowDef="columnas"></tr><tr mat-row *matRowDef="let row; columns: columnas"></tr>
   </table>
   @if (!elementos.length) { <p class="vacio">No hay bienes que mostrar.</p> }
-  <mat-paginator [length]="total" [pageIndex]="page" [pageSize]="size" [pageSizeOptions]="[10,20,50]" (page)="pagina($event)"></mat-paginator>
+  <app-listado-paginador [total]="total" [pagina]="page" [tamano]="size" etiqueta="bienes" [opcionesTamano]="[10,20,50]" (paginaChange)="irAPagina($event)" (tamanoChange)="cambiarTamanoPagina($event)"></app-listado-paginador>
 </mat-card>

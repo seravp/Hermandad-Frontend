@@ -114,13 +114,15 @@
       }
     </div>
 
-    <mat-paginator
-      [length]="totalElements"
-      [pageSize]="size"
-      [pageSizeOptions]="[10, 20, 50, 100]"
-      showFirstLastButtons
-      (page)="cambiarPagina($event)">
-    </mat-paginator>
+    <app-listado-paginador
+      [total]="totalElements"
+      [pagina]="page"
+      [tamano]="size"
+      etiqueta="registros"
+      [opcionesTamano]="[10, 20, 50, 100]"
+      (paginaChange)="irAPagina($event)"
+      (tamanoChange)="cambiarTamanoPagina($event)">
+    </app-listado-paginador>
 
   </mat-card-content>
 </mat-card>
