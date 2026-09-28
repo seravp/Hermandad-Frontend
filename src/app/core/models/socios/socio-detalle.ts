@@ -25,6 +25,10 @@ export interface SocioDetalle {
 
   tipo: TipoSocio;
 
+  cuadrilla: string | null;
+
+  posicionCuadrilla: number | null;
+
   formaPago: FormaPago;
 
   iban: string | null;

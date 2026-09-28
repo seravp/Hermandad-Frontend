@@ -21,6 +21,7 @@ import { ListadoInformesComponent } from './features/informes/listado/listado';
 import { ListadoAuditoriaComponent } from './features/auditoria/listado/listado';
 import { ListadoInventarioComponent } from './features/inventario/listado/listado';
 import { RevisionesInventarioComponent } from './features/inventario/revisiones/revisiones';
+import { CuadrillasComponent } from './features/cuadrillas/cuadrillas';
 
 import { informesGuard } from './core/guards/informes-guard';
 
@@ -29,6 +30,8 @@ import { authGuard } from './core/guards/auth-guard';
 import { adminGuard } from './core/guards/admin-guard';
 
 import { cuotasGuard } from './core/guards/cuotas-guard';
+import { cuadrillasGuard } from './core/guards/cuadrillas-guard';
+import { inventarioRevisionesGuard } from './core/guards/inventario-revisiones-guard';
 
 export const routes: Routes = [
   {
@@ -56,10 +59,16 @@ export const routes: Routes = [
         path: 'socios',
         component: ListadoComponent,
       },
+      {
+        path: 'cuadrillas',
+        component: CuadrillasComponent,
+        canActivate: [cuadrillasGuard],
+      },
 
       {
         path: 'cuotas',
         component: ListadoCuotasComponent,
+        canActivate: [cuotasGuard],
       },
       {
         path: 'configuracion',
@@ -69,6 +78,7 @@ export const routes: Routes = [
       {
         path: 'morosos',
         component: ListadoMorososComponent,
+        canActivate: [informesGuard],
       },
 
       {
@@ -91,6 +101,7 @@ export const routes: Routes = [
       {
         path: 'inventario/revisiones',
         component: RevisionesInventarioComponent,
+        canActivate: [inventarioRevisionesGuard],
       },
       {
         path: 'inventario',
@@ -98,16 +109,6 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
 
-      {
-        path: 'cuotas',
-        component: ListadoCuotasComponent,
-        canActivate: [cuotasGuard],
-      },
-      {
-        path: 'morosos',
-        component: ListadoMorososComponent,
-        canActivate: [cuotasGuard],
-      },
     ],
   },
 

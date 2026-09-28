@@ -50,6 +50,7 @@ export class FormularioComponent implements OnInit {
   readonly EstadoSocio = EstadoSocio;
   readonly FormaPago = FormaPago;
   readonly TipoSocio = TipoSocio;
+  readonly cuadrillas = ['Nuestra Señora de los Dolores', 'Nuestro Padre Jesús Nazareno', 'Santo Entierro de Cristo', 'Calvario', 'Nazarenos', 'Otros'];
   readonly socio = inject(MAT_DIALOG_DATA, {
     optional: true,
   }) as SocioDetalle | null;
@@ -77,6 +78,8 @@ export class FormularioComponent implements OnInit {
 
     tipo: [TipoSocio.HERMANO, Validators.required],
 
+    cuadrilla: [''],
+
     formaPago: [FormaPago.DOMICILIACION, Validators.required],
 
     iban: ['', Validators.pattern(/^ES\d{22}$/)],
@@ -98,6 +101,7 @@ export class FormularioComponent implements OnInit {
           : null,
         estado: this.socio.estado,
         tipo: this.socio.tipo,
+        cuadrilla: this.socio.cuadrilla ?? '',
         formaPago: this.socio.formaPago,
         iban: this.socio.iban ?? '',
         titularCuenta: this.socio.titularCuenta ?? '',
@@ -200,6 +204,7 @@ export class FormularioComponent implements OnInit {
       direccion: this.form.controls.direccion.value,
       estado: this.form.controls.estado.value,
       tipo: this.form.controls.tipo.value,
+      cuadrilla: this.form.controls.cuadrilla.value || null,
       formaPago: this.form.controls.formaPago.value,
       iban: this.form.controls.iban.value,
       titularCuenta: this.form.controls.titularCuenta.value,

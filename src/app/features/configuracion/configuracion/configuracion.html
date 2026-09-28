@@ -139,6 +139,37 @@
 
       </mat-form-field>
 
+      <h3 class="seccion">
+        <mat-icon>grid_view</mat-icon>
+        Cuadrillas
+      </h3>
+
+      <p class="descripcion-seccion">Configura las filas y columnas del croquis del trono para cada cuadrilla.</p>
+
+      <div class="cuadrillas-configuracion">
+        @for (grupo of cuadrillasConfiguracion; track grupo.nombre) {
+          <div class="fila fila-cuadrilla">
+            <strong>{{ grupo.nombre }}</strong>
+            <mat-form-field appearance="outline">
+              <mat-label>Filas</mat-label>
+              <input matInput type="number" min="1" max="20" [(ngModel)]="grupo.filas" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Columnas</mat-label>
+              <input matInput type="number" min="1" max="8" [(ngModel)]="grupo.columnas" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+            <span class="capacidad">{{ grupo.filas * grupo.columnas }} posiciones</span>
+          </div>
+        }
+      </div>
+
+      <div class="acciones acciones-cuadrillas">
+        <button mat-raised-button color="primary" type="button" (click)="guardarCuadrillas()">
+          <mat-icon>save</mat-icon>
+          Guardar croquis de cuadrillas
+        </button>
+      </div>
+
       <div class="acciones">
 
         <button

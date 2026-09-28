@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { ConfiguracionService } from '../../../core/services/configuracion';
 import { NotificationService } from '../../../shared/services/notification';
-import { Configuracion } from '../../../core/models/configuracion/configuracion';
+import { Configuracion, ConfiguracionCuadrilla } from '../../../core/models/configuracion/configuracion';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
@@ -31,6 +32,7 @@ export class ConfiguracionComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly configuracionService = inject(ConfiguracionService);
   private readonly notificationService = inject(NotificationService);
+  cuadrillasConfiguracion: ConfiguracionCuadrilla[] = [];
 
   form = this.fb.group({
     nombreHermandad: ['', [Validators.required, Validators.maxLength(200)]],
@@ -63,6 +65,7 @@ export class ConfiguracionComponent implements OnInit {
     this.configuracionService.obtener().subscribe({
       next: (configuracion: Configuracion) => {
         this.form.patchValue(configuracion);
+        this.cuadrillasConfiguracion = (configuracion.cuadrillas ?? []).map(cuadrilla => ({ ...cuadrilla }));
       },
 
       error: (error) => this.notificationService.httpError(error),
@@ -75,12 +78,28 @@ export class ConfiguracionComponent implements OnInit {
       return;
     }
 
-    this.configuracionService.actualizar(this.form.getRawValue() as Configuracion).subscribe({
-      next: () => {
+    this.configuracionService.actualizar({ ...this.form.getRawValue(), cuadrillas: this.cuadrillasConfiguracion } as Configuracion).subscribe({
+      next: configuracion => {
+        this.cuadrillasConfiguracion = configuracion.cuadrillas.map(cuadrilla => ({ ...cuadrilla }));
         this.notificationService.success('La configuración se ha actualizado correctamente.');
       },
 
       error: (error) => this.notificationService.httpError(error),
+    });
+  }
+
+  guardarCuadrillas(): void {
+    const cuadrillas = this.cuadrillasConfiguracion.map(cuadrilla => ({
+      nombre: cuadrilla.nombre,
+      filas: Number(cuadrilla.filas),
+      columnas: Number(cuadrilla.columnas),
+    }));
+    this.configuracionService.actualizarCuadrillas(cuadrillas).subscribe({
+      next: respuesta => {
+        this.cuadrillasConfiguracion = respuesta.map(cuadrilla => ({ ...cuadrilla }));
+        this.notificationService.success('Configuración de cuadrillas guardada correctamente.');
+      },
+      error: error => this.notificationService.httpError(error),
     });
   }
 

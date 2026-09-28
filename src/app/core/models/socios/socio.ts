@@ -13,4 +13,8 @@ export interface Socio {
 
   tipo: 'HERMANO' | 'COSTALERO';
 
+  cuadrilla: string | null;
+
+  posicionCuadrilla: number | null;
+
 }

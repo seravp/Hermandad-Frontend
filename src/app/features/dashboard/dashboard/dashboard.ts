@@ -13,6 +13,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, inject } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AuthService } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +26,7 @@ export class DashboardComponent implements OnInit {
   private dashboardService = inject(DashboardService);
   private platformId = inject(PLATFORM_ID);
   private readonly cdr = inject(ChangeDetectorRef);
+  readonly authService = inject(AuthService);
 
   constructor() {
     console.log('DashboardComponent', this);

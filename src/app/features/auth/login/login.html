@@ -42,12 +42,20 @@
           <span class="material-symbols-outlined" aria-hidden="true">lock</span>
           <input
             id="password"
-            type="password"
+            [type]="mostrarPassword ? 'text' : 'password'"
             placeholder="Contraseña"
             [(ngModel)]="password"
             name="password"
             autocomplete="current-password"
             required>
+          <button
+            type="button"
+            class="password-toggle"
+            [attr.aria-label]="mostrarPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+            [attr.aria-pressed]="mostrarPassword"
+            (click)="mostrarPassword = !mostrarPassword">
+            <span class="material-symbols-outlined">{{ mostrarPassword ? 'visibility_off' : 'visibility' }}</span>
+          </button>
         </div>
       </div>
 

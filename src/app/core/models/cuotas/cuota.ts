@@ -21,4 +21,6 @@ export interface Cuota {
   nombreSocio: string;
 
   tipo: TipoSocio;
+
+  cuadrilla: string | null;
 }

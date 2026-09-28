@@ -1,0 +1,62 @@
+<mat-card class="cuadrillas-card">
+  <header class="page-header">
+    <div>
+      <h1>Cuadrillas</h1>
+      <p>Organiza la posición de los miembros en el interior del trono.</p>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Cuadrilla</mat-label>
+      <mat-select [(value)]="cuadrilla" (selectionChange)="cambiarCuadrilla()">
+        <mat-option value="">Selecciona una cuadrilla</mat-option>
+        @for (opcion of cuadrillas; track opcion) {
+          <mat-option [value]="opcion">{{ opcion }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </header>
+
+  @if (!cuadrilla) {
+    <div class="estado-vacio"><mat-icon>groups</mat-icon><p>Selecciona una cuadrilla para consultar y ordenar a sus miembros.</p></div>
+  } @else {
+    <div class="cuadrillas-layout" cdkDropListGroup>
+      <aside class="miembros-panel" cdkDropList [cdkDropListData]="miembros" [cdkDropListSortingDisabled]="true">
+        <h2>Miembros</h2>
+        <p>{{ miembros.length }} persona(s) en {{ cuadrilla }}</p>
+        @if (cargando) {
+          <div class="cargando">Cargando miembros…</div>
+        } @else {
+          <div class="lista-miembros">
+            @for (socio of miembros; track socio.id) {
+              <article class="miembro" cdkDrag [cdkDragData]="socio" [cdkDragDisabled]="!puedeEditar()">
+                <mat-icon>drag_indicator</mat-icon>
+                <div><strong>{{ socio.nombre }} {{ socio.apellidos }}</strong><small>@if (socio.posicionCuadrilla) { Posición {{ socio.posicionCuadrilla }} } @else { Sin posición asignada }</small></div>
+              </article>
+            } @empty {
+              <p class="sin-miembros">No hay personas asignadas a esta cuadrilla.</p>
+            }
+          </div>
+        }
+      </aside>
+
+      <section class="trono-panel">
+        <div class="trono-titulo"><mat-icon>church</mat-icon><div><h2>Croquis del trono</h2><p>Arrastra un miembro a cualquiera de las {{ posiciones.length }} posiciones.</p></div></div>
+        <div class="trono">
+          <div class="frontal">FRENTE DEL TRONO</div>
+          <div class="posiciones" [style.grid-template-columns]="'repeat(' + columnas + ', minmax(0, 1fr))'">
+            @for (posicion of posiciones; track posicion) {
+              <div class="posicion" cdkDropList [cdkDropListData]="posicion" [cdkDropListDisabled]="!puedeEditar()" (cdkDropListDropped)="soltar($event, posicion)">
+                <span class="numero">{{ posicion }}</span>
+                @if (ocupante(posicion); as socio) {
+                  <div class="ocupante"><strong>{{ socio.nombre }} {{ socio.apellidos }}</strong>@if (puedeEditar()) {<button mat-icon-button aria-label="Liberar posición" (click)="liberar($event, socio)"><mat-icon>close</mat-icon></button>}</div>
+                } @else {
+                  <span class="libre">Libre</span>
+                }
+              </div>
+            }
+          </div>
+          <div class="trasera">TRASERA DEL TRONO</div>
+        </div>
+      </section>
+    </div>
+  }
+</mat-card>

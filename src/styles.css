@@ -282,3 +282,130 @@ button.mat-mdc-button-base.mat-mdc-outlined-button {
   background: #fde0e0;
   color: #b42318;
 }
+
+/* Adaptación común para las pantallas de gestión en móviles. */
+@media (max-width: 800px) {
+  .socios-card .mat-mdc-card-header,
+  .cuotas-card .mat-mdc-card-header,
+  .morosos-card .mat-mdc-card-header,
+  .usuarios-card .mat-mdc-card-header,
+  .auditoria-card .mat-mdc-card-header,
+  .inventario-card .cabecera,
+  .inventario-card .header-actions,
+  app-revisiones-inventario .cabecera {
+    align-items: stretch !important;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .socios-card .header-info,
+  .cuotas-card .header-info,
+  .morosos-card .header-info,
+  .usuarios-card .header-info,
+  .auditoria-card .header-info {
+    flex: 1 0 100%;
+  }
+
+  .socios-card .mat-mdc-card-header > button,
+  .cuotas-card .header-actions > button,
+  .morosos-card .mat-mdc-card-header > button,
+  .usuarios-card .mat-mdc-card-header > button,
+  .inventario-card .header-actions > button,
+  app-revisiones-inventario .cabecera > button {
+    flex: 1 1 auto;
+    margin-left: 0 !important;
+  }
+
+  .socios-card .toolbar,
+  .cuotas-card .toolbar,
+  .morosos-card .toolbar,
+  .usuarios-card .toolbar,
+  .auditoria-card .toolbar,
+  .inventario-card .filtros {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px !important;
+    padding: 14px !important;
+  }
+
+  .socios-card .toolbar .mat-mdc-form-field,
+  .cuotas-card .toolbar .mat-mdc-form-field,
+  .morosos-card .toolbar .mat-mdc-form-field,
+  .usuarios-card .toolbar .mat-mdc-form-field,
+  .auditoria-card .toolbar .mat-mdc-form-field,
+  .inventario-card .filtros .mat-mdc-form-field {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .table-surface,
+  .table-container,
+  .inventario-card,
+  app-revisiones-inventario mat-card {
+    overflow-x: auto;
+  }
+
+  .table-surface table,
+  .table-container table,
+  .inventario-card .tabla,
+  app-revisiones-inventario .tabla {
+    min-width: 720px;
+  }
+
+  .mat-mdc-dialog-container {
+    max-width: calc(100vw - 24px);
+  }
+}
+
+@media (max-width: 560px) {
+  .socios-card .mat-mdc-card-header,
+  .cuotas-card .mat-mdc-card-header,
+  .morosos-card .mat-mdc-card-header,
+  .usuarios-card .mat-mdc-card-header,
+  .auditoria-card .mat-mdc-card-header {
+    padding-inline: 0 !important;
+  }
+
+  .socios-card .mat-mdc-card-title,
+  .cuotas-card .mat-mdc-card-title,
+  .morosos-card .mat-mdc-card-title,
+  .usuarios-card .mat-mdc-card-title,
+  .auditoria-card .mat-mdc-card-title,
+  .inventario-card .cabecera h1 {
+    font-size: 1.9rem !important;
+  }
+
+  .socios-card .toolbar,
+  .cuotas-card .toolbar,
+  .morosos-card .toolbar,
+  .usuarios-card .toolbar,
+  .auditoria-card .toolbar,
+  .inventario-card .filtros {
+    grid-template-columns: 1fr;
+  }
+
+  .table-surface,
+  .table-container {
+    margin-top: 12px;
+    border-radius: 10px;
+  }
+
+  .custom-paginator,
+  app-listado-paginador .listado-paginador {
+    gap: 10px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .configuracion-card {
+    padding: 4px !important;
+  }
+
+  .configuracion-card .acciones {
+    justify-content: stretch;
+  }
+
+  .configuracion-card .acciones button {
+    width: 100%;
+  }
+}

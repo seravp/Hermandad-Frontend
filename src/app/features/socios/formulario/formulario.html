@@ -51,6 +51,15 @@
       }
     </mat-form-field>
 
+    <mat-form-field appearance="outline">
+      <mat-label>Cuadrilla</mat-label>
+      <mat-select formControlName="cuadrilla">
+        <mat-option value="">Sin asignar</mat-option>
+        @for (cuadrilla of cuadrillas; track cuadrilla) {
+          <mat-option [value]="cuadrilla">{{ cuadrilla }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>DNI </mat-label>

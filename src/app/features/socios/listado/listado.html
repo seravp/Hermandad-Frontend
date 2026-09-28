@@ -14,7 +14,7 @@
 
     </div>
 
-    <button
+    @if (authService.puedeGestionarSocios()) {<button
       mat-raised-button
       color="primary"
       (click)="nuevoSocio()">
@@ -22,7 +22,7 @@
       <mat-icon>add</mat-icon>
       Nuevo socio
 
-    </button>
+    </button>}
 
     <button mat-raised-button color="primary" type="button" [matMenuTriggerFor]="exportMenu">
       <mat-icon>download</mat-icon>
@@ -32,6 +32,18 @@
       <button mat-menu-item (click)="exportarExcel(true)"><mat-icon>filter_alt</mat-icon><span>Filtros actuales</span></button>
       <button mat-menu-item (click)="exportarExcel(false)"><mat-icon>dataset</mat-icon><span>Datos completos</span></button>
     </mat-menu>
+
+    @if (authService.esAdmin()) {
+      <input #archivoImportacion type="file" accept=".xlsx,.xls" hidden (change)="importarExcel($event)">
+      <button mat-raised-button color="primary" class="btn-importar-excel" type="button" [matMenuTriggerFor]="importMenu">
+        <mat-icon>upload_file</mat-icon>
+        Importar Excel
+      </button>
+      <mat-menu #importMenu="matMenu">
+        <button mat-menu-item (click)="seleccionarArchivoImportacion()"><mat-icon>upload_file</mat-icon><span>Seleccionar archivo</span></button>
+        <button mat-menu-item (click)="descargarPlantillaImportacion()"><mat-icon>download</mat-icon><span>Descargar plantilla</span></button>
+      </mat-menu>
+    }
 
   </mat-card-header>
 
@@ -94,6 +106,16 @@
 
         </mat-select>
 
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="estado">
+        <mat-label>Cuadrilla</mat-label>
+        <mat-select [(ngModel)]="cuadrillaSeleccionada" (selectionChange)="buscar()">
+          <mat-option value="">Todas</mat-option>
+          @for (cuadrilla of cuadrillas; track cuadrilla) {
+            <mat-option [value]="cuadrilla">{{ cuadrilla }}</mat-option>
+          }
+        </mat-select>
       </mat-form-field>
 
     </div>
@@ -203,6 +225,11 @@
 
         </ng-container>
 
+        <ng-container matColumnDef="cuadrilla">
+          <th mat-header-cell *matHeaderCellDef>Cuadrilla</th>
+          <td mat-cell *matCellDef="let socio">{{ socio.cuadrilla || '—' }}</td>
+        </ng-container>
+
       <!-- Estado -->
 
       <ng-container matColumnDef="estado">
@@ -255,7 +282,7 @@
 
             <button mat-icon-button matTooltip="Visualizar" (click)="visualizar(socio)"><mat-icon>visibility</mat-icon></button>
 
-            <button
+            @if (authService.puedeGestionarSocios()) {<button
               mat-icon-button
               class="btn-editar"
               matTooltip="Editar"
@@ -265,9 +292,9 @@
                 edit
               </mat-icon>
 
-            </button>
+            </button>}
 
-            <button
+            @if (authService.puedeGestionarSocios()) {<button
               mat-icon-button
               class="btn-eliminar"
               matTooltip="Eliminar"
@@ -277,7 +304,7 @@
                 delete
               </mat-icon>
 
-            </button>
+            </button>}
 
           </div>
 

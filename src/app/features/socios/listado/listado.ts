@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatTableModule } from '@angular/material/table';
@@ -15,7 +15,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { ViewChild } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
@@ -29,6 +28,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { DetalleSocioComponent } from '../detalle/detalle';
 import { TipoSocio } from '../../../core/models/socios/tipo-socio';
 import { ListadoPaginadorComponent } from '../../../shared/components/listado-paginador/listado-paginador';
+import { AuthService } from '../../../core/services/auth';
 
 
 
@@ -61,15 +61,19 @@ export class ListadoComponent implements OnInit {
   private socioService = inject(SocioService);
   private dialog = inject(MatDialog);
   private readonly notificationService = inject(NotificationService);
+  readonly authService = inject(AuthService);
   dataSource = new MatTableDataSource<Socio>();
 
   @ViewChild(MatSort) sortTable!: MatSort;
+  @ViewChild('archivoImportacion') archivoImportacion?: ElementRef<HTMLInputElement>;
 
   textoBusqueda = '';
 
   estadoSeleccionado = '';
   tipoSeleccionado?: TipoSocio;
+  cuadrillaSeleccionada = '';
   readonly TipoSocio = TipoSocio;
+  readonly cuadrillas = ['Nuestra Señora de los Dolores', 'Nuestro Padre Jesús Nazareno', 'Santo Entierro de Cristo', 'Calvario', 'Nazarenos', 'Otros'];
 
   page = 0;
   size = 10;
@@ -86,6 +90,7 @@ export class ListadoComponent implements OnInit {
     'apellidos',
     'dni',
     'tipo',
+    'cuadrilla',
     'estado',
     'acciones',
   ];
@@ -145,6 +150,7 @@ export class ListadoComponent implements OnInit {
         this.textoBusqueda,
         this.estadoSeleccionado || undefined,
         this.tipoSeleccionado,
+        this.cuadrillaSeleccionada || undefined,
         this.page,
         this.size,
         this.sort,
@@ -289,6 +295,48 @@ export class ListadoComponent implements OnInit {
   }
 
   exportarExcel(filtrado = false): void {
-    this.socioService.exportarExcel(filtrado ? this.textoBusqueda : '', filtrado ? this.estadoSeleccionado || undefined : undefined, filtrado ? this.tipoSeleccionado : undefined).subscribe({ next: blob => { const url = URL.createObjectURL(blob); const enlace = document.createElement('a'); enlace.href = url; enlace.download = 'socios.xlsx'; enlace.click(); URL.revokeObjectURL(url); }, error: error => this.notificationService.httpError(error) });
+    this.socioService.exportarExcel(filtrado ? this.textoBusqueda : '', filtrado ? this.estadoSeleccionado || undefined : undefined, filtrado ? this.tipoSeleccionado : undefined, filtrado ? this.cuadrillaSeleccionada || undefined : undefined).subscribe({ next: blob => { const url = URL.createObjectURL(blob); const enlace = document.createElement('a'); enlace.href = url; enlace.download = 'socios.xlsx'; enlace.click(); URL.revokeObjectURL(url); }, error: error => this.notificationService.httpError(error) });
+  }
+
+  seleccionarArchivoImportacion(): void {
+    this.archivoImportacion?.nativeElement.click();
+  }
+
+  descargarPlantillaImportacion(): void {
+    this.socioService.descargarPlantillaImportacion().subscribe({
+      next: archivo => {
+        const url = URL.createObjectURL(archivo);
+        const enlace = document.createElement('a');
+        enlace.href = url;
+        enlace.download = 'plantilla-importacion-socios.xlsx';
+        enlace.click();
+        URL.revokeObjectURL(url);
+      },
+      error: error => this.notificationService.httpError(error),
+    });
+  }
+
+  importarExcel(evento: Event): void {
+    const input = evento.target as HTMLInputElement;
+    const archivo = input.files?.[0];
+    if (!archivo) return;
+
+    this.socioService.importarExcel(archivo).subscribe({
+      next: resultado => {
+        const resumen = `${resultado.importados} socio(s) importado(s)`;
+        if (resultado.omitidos) {
+          this.notificationService.warning(`${resumen}. ${resultado.omitidos} fila(s) omitida(s): ${resultado.errores.slice(0, 2).join(' ')}`);
+        } else {
+          this.notificationService.success(`${resumen} correctamente.`);
+        }
+        input.value = '';
+        this.page = 0;
+        this.cargarSocios();
+      },
+      error: error => {
+        input.value = '';
+        this.notificationService.httpError(error);
+      },
+    });
   }
 }

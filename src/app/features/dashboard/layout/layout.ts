@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,8 +29,23 @@ import { AuthService } from '../../../core/services/auth';
     MatMenuModule,
   ],
 })
-export class LayoutComponent {
+export class LayoutComponent implements AfterViewInit {
   readonly authService = inject(AuthService);
+  private readonly breakpointObserver = inject(BreakpointObserver);
+  esMovil = false;
+  menuAbierto = true;
+  @ViewChild('menuLateral') private menuLateral?: MatSidenav;
+
+  ngAfterViewInit(): void {
+    this.breakpointObserver.observe('(max-width: 800px)').subscribe(resultado => {
+      this.esMovil = resultado.matches;
+      this.menuAbierto = !this.esMovil;
+
+      if (!this.esMovil) {
+        void this.menuLateral?.open();
+      }
+    });
+  }
 
   readonly fechaActual = new Intl.DateTimeFormat('es-ES', {
     weekday: 'long',
@@ -42,6 +58,10 @@ export class LayoutComponent {
 
   esRutaActiva(ruta: string): boolean {
     return this.router.url === ruta;
+  }
+
+  cerrarMenuMovil(): void {
+    if (this.esMovil) this.menuAbierto = false;
   }
 
   get nombreUsuario(): string {

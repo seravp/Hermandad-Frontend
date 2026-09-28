@@ -15,13 +15,13 @@
         </div>
       </div>
 
-      <div class="section-notice">
+      @if (authService.puedeVerTesoreria()) {<div class="section-notice">
         <mat-icon>notifications_none</mat-icon>
         <div>
           <strong>{{ dashboard.morosos ? dashboard.morosos + ' aviso(s) pendiente(s)' : 'No hay avisos pendientes' }}</strong>
           <span>{{ dashboard.morosos ? 'Existen cuotas que requieren atención' : 'Todo al día' }}</span>
         </div>
-      </div>
+      </div>}
     </div>
 
     <div class="dashboard-grid members-grid">
@@ -57,7 +57,7 @@
     </div>
   </section>
 
-  <section class="dashboard-section tesoreria-section">
+  @if (authService.puedeVerTesoreria()) {<section class="dashboard-section tesoreria-section">
     <div class="section-heading">
       <div class="section-title">
         <mat-icon>account_balance_wallet</mat-icon>
@@ -122,7 +122,7 @@
         </mat-card-content>
       </mat-card>
     </div>
-  </section>
+  </section>}
 
   <section class="progress-card">
     <div class="section-title">

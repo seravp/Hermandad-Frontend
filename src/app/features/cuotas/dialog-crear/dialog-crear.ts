@@ -17,11 +17,13 @@ import { MatInputModule } from '@angular/material/input';
 import { Socio } from '../../../core/models/socios/socio';
 import { SocioService } from '../../../core/services/socio';
 import { CuotaRequest } from '../../socios/models/cuota-request';
+import { TipoSocio } from '../../../core/models/socios/tipo-socio';
 
 interface DatosInicialesCuota {
   anio: number;
   importeCuotaHermano: number;
   importeCuotaCostalero: number;
+  tipoPermitido?: TipoSocio;
 }
 
 @Component({
@@ -123,7 +125,7 @@ export class DialogCrearCuotaComponent {
     this.buscandoSocios = true;
     this.busquedaRealizada = false;
 
-    this.socioService.buscar(texto, 'ACTIVO', undefined, 0, 10).subscribe({
+    this.socioService.buscar(texto, 'ACTIVO', this.datosIniciales?.tipoPermitido, undefined, 0, 10).subscribe({
       next: (respuesta) => {
         this.socios = respuesta.content;
         this.buscandoSocios = false;

@@ -278,7 +278,40 @@
 }
 
 @media (max-width: 560px) {
-  .members-grid, .treasury-grid { grid-template-columns: 1fr; }
+  .dashboard-card {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .dashboard-heading { margin: 2px 4px 20px; }
   .dashboard-heading h1 { font-size: 2rem; }
-  .dashboard-section, .progress-card { padding: 15px; }
+  .dashboard-heading p { font-size: .88rem; line-height: 1.45; }
+
+  .dashboard-section,
+  .dashboard-section:first-of-type,
+  .tesoreria-section,
+  .progress-card {
+    padding: 16px;
+    border: 1px solid #e1e8f0;
+    border-radius: 14px;
+  }
+
+  .dashboard-section + .dashboard-section,
+  .progress-card { margin-top: 14px; }
+
+  .members-grid, .treasury-grid { grid-template-columns: 1fr; gap: 12px; }
+  .section-heading { align-items: stretch; flex-direction: column; gap: 12px; }
+  .section-title { align-items: flex-start; }
+  .section-title h2 { font-size: 1.2rem; }
+  .section-notice { display: flex; min-width: 0; width: auto; }
+  .kpi-card { min-height: 96px; }
+  .kpi-card mat-card-content { align-items: center; padding: 15px; }
+  .kpi-valor { font-size: 1.72rem; }
+  .progress-layout { gap: 16px; margin-top: 16px; }
+  .progress-header { font-size: .8rem; }
+  .progress-track { height: 18px; }
+  .progress-feedback { align-items: flex-start; }
 }

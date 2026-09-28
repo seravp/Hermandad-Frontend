@@ -21,6 +21,8 @@ export interface SocioRequest {
 
   tipo: TipoSocio;
 
+  cuadrilla: string | null;
+
   iban: string | null;
 
   titularCuenta: string | null;

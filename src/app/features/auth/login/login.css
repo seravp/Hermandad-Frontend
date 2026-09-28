@@ -177,6 +177,33 @@
   color: #7b8ca2;
 }
 
+.password-toggle {
+  display: inline-flex;
+  width: 52px;
+  min-width: 52px;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4px;
+  border: 0;
+  border-radius: 7px;
+  color: #61738c;
+  background: transparent;
+  cursor: pointer;
+}
+
+.password-toggle:hover,
+.password-toggle:focus-visible {
+  color: #063456;
+  background: #eef4fa;
+  outline: 0;
+}
+
+.input-with-icon .password-toggle .material-symbols-outlined {
+  margin: 0;
+  font-size: 23px;
+}
+
 .login-error {
   margin: 24px 0 0;
   padding: 12px 14px;

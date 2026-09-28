@@ -77,5 +77,5 @@ export class ListadoInventarioComponent implements OnInit {
   editar(item: ElementoInventario): void { this.abrirFormulario(item); }
   ver(item: ElementoInventario): void { this.dialog.open(DetalleInventarioComponent, { width: '760px', maxWidth: '95vw', data: item }); }
   private abrirFormulario(item?: ElementoInventario): void { this.dialog.open(FormularioInventarioComponent, { width: '720px', maxWidth: '95vw', disableClose: true, data: item }).afterClosed().subscribe(ok => { if (ok) this.cargar(); }); }
-  puedeGestionar(): boolean { return this.authService.esAdmin() || this.authService.obtenerRol() === 'SECRETARIO'; }
+  puedeGestionar(): boolean { return this.authService.puedeGestionarInventario(); }
 }

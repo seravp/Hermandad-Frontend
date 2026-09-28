@@ -88,17 +88,48 @@ export class AuthService {
 
   puedeGestionarCuotas(): boolean {
     const rol = this.obtenerRol();
-
-    return rol === 'ADMIN' || rol === 'TESORERO';
+    return rol === 'ADMIN' || rol === 'TESORERO' || rol === 'SECRETARIO';
   }
 
   puedeConsultarCuotas(): boolean {
     const rol = this.obtenerRol();
 
-    return rol === 'ADMIN' || rol === 'TESORERO' || rol === 'CONSULTA';
+    return rol === 'ADMIN' || rol === 'TESORERO' || rol === 'SECRETARIO';
   }
 
   puedeConsultarInventario(): boolean {
     return ['ADMIN', 'SECRETARIO', 'TESORERO', 'CONSULTA'].includes(this.obtenerRol() ?? '');
+  }
+
+  puedeGestionarSocios(): boolean {
+    return ['ADMIN', 'SECRETARIO', 'TESORERO'].includes(this.obtenerRol() ?? '');
+  }
+
+  puedeGestionarCuadrillas(): boolean {
+    return ['ADMIN', 'SECRETARIO', 'TESORERO'].includes(this.obtenerRol() ?? '');
+  }
+
+  puedeGestionarInventario(): boolean {
+    return ['ADMIN', 'SECRETARIO', 'TESORERO'].includes(this.obtenerRol() ?? '');
+  }
+
+  puedeGestionarRevisionesInventario(): boolean {
+    return ['ADMIN', 'SECRETARIO', 'TESORERO'].includes(this.obtenerRol() ?? '');
+  }
+
+  puedeVerTesoreria(): boolean {
+    return ['ADMIN', 'SECRETARIO', 'TESORERO'].includes(this.obtenerRol() ?? '');
+  }
+
+  puedeAccederMorosos(): boolean {
+    return ['ADMIN', 'TESORERO'].includes(this.obtenerRol() ?? '');
+  }
+
+  puedeGenerarCuotas(): boolean {
+    return ['ADMIN', 'TESORERO'].includes(this.obtenerRol() ?? '');
+  }
+
+  puedeGestionarTipoCuota(tipo: string): boolean {
+    return this.puedeGenerarCuotas() || (this.obtenerRol() === 'SECRETARIO' && tipo === 'COSTALERO');
   }
 }

@@ -1,6 +1,6 @@
 <mat-sidenav-container class="layout">
 
-  <mat-sidenav mode="side" opened class="sidebar">
+  <mat-sidenav #menuLateral [mode]="esMovil ? 'over' : 'side'" [opened]="menuAbierto" (openedChange)="menuAbierto = $event" class="sidebar">
 
     <mat-toolbar color="primary" class="sidebar-title">
       Hermandad<br>de Alfacar
@@ -8,63 +8,70 @@
 
     <mat-nav-list>
 
-      <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active" (click)="cerrarMenuMovil()">
         <mat-icon>home</mat-icon>
         <span>Inicio</span>
       </a>
 
-      <a mat-list-item routerLink="/socios" routerLinkActive="active">
+      <a mat-list-item routerLink="/socios" routerLinkActive="active" (click)="cerrarMenuMovil()">
         <mat-icon>groups</mat-icon>
         <span>Socios</span>
       </a>
 
+      @if (authService.estaAutenticado()) {
+      <a mat-list-item routerLink="/cuadrillas" routerLinkActive="active" (click)="cerrarMenuMovil()">
+        <mat-icon>grid_view</mat-icon>
+        <span>Cuadrillas</span>
+      </a>
+      }
+
       @if (authService.puedeConsultarCuotas()) {
-      <a mat-list-item routerLink="/cuotas" routerLinkActive="active">
+      <a mat-list-item routerLink="/cuotas" routerLinkActive="active" (click)="cerrarMenuMovil()">
         <mat-icon>credit_card</mat-icon>
         <span>Cuotas</span>
       </a>
 
-        <a mat-list-item routerLink="/morosos" routerLinkActive="active">
+        @if (authService.puedeAccederMorosos()) {<a mat-list-item routerLink="/morosos" routerLinkActive="active" (click)="cerrarMenuMovil()">
           <mat-icon>warning_amber</mat-icon>
           <span>Morosos</span>
-        </a>
+        </a>}
       }
 
       @if (authService.puedeGenerarInformes()) {
-      <a mat-list-item routerLink="/informes" routerLinkActive="active">
+      <a mat-list-item routerLink="/informes" routerLinkActive="active" (click)="cerrarMenuMovil()">
         <mat-icon>bar_chart</mat-icon>
         <span>Informes</span>
       </a>
       }
 
       @if (authService.puedeConsultarInventario()) {
-      <a mat-list-item routerLink="/inventario" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a mat-list-item routerLink="/inventario" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="cerrarMenuMovil()">
         <mat-icon>deployed_code</mat-icon>
         <span>Inventario</span>
       </a>
       <!-- La revisión se abre con una navegación completa para reinicializar sus datos. -->
-      <a mat-list-item href="/inventario/revisiones" [class.active]="esRutaActiva('/inventario/revisiones')">
+      @if (authService.puedeGestionarRevisionesInventario()) {<a mat-list-item href="/inventario/revisiones" [class.active]="esRutaActiva('/inventario/revisiones')" (click)="cerrarMenuMovil()">
         <mat-icon>fact_check</mat-icon>
         <span>Revisiones inventario</span>
-      </a>
+      </a>}
       }
 
       @if (authService.esAdmin()) {
-      <a mat-list-item routerLink="/usuarios" routerLinkActive="active">
+      <a mat-list-item routerLink="/usuarios" routerLinkActive="active" (click)="cerrarMenuMovil()">
         <mat-icon>person</mat-icon>
         <span>Usuarios</span>
       </a>
       }
 
       @if (authService.esAdmin()) {
-      <a mat-list-item routerLink="/auditoria" routerLinkActive="active">
+      <a mat-list-item routerLink="/auditoria" routerLinkActive="active" (click)="cerrarMenuMovil()">
         <mat-icon>history</mat-icon>
         <span>Auditoría</span>
       </a>
       }
 
       @if (authService.esAdmin()) {
-      <a mat-list-item routerLink="/configuracion" routerLinkActive="active">
+      <a mat-list-item routerLink="/configuracion" routerLinkActive="active" (click)="cerrarMenuMovil()">
         <mat-icon>settings</mat-icon>
         <span>Configuración</span>
       </a>
@@ -81,6 +88,9 @@
   <mat-sidenav-content>
 
     <mat-toolbar class="topbar">
+      <button mat-icon-button class="mobile-menu-button" aria-label="Abrir menú" (click)="menuLateral.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
       <span class="topbar-brand">Hermandad de Alfacar</span>
 
       <span class="topbar-spacer"></span>

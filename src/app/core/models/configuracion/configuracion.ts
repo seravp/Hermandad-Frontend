@@ -1,3 +1,9 @@
+export interface ConfiguracionCuadrilla {
+  nombre: string;
+  filas: number;
+  columnas: number;
+}
+
 export interface Configuracion {
   nombreHermandad: string;
 
@@ -16,4 +22,12 @@ export interface Configuracion {
   anioActivo: number;
 
   iban: string;
+
+  cuadrillas: ConfiguracionCuadrilla[];
+}
+
+export interface ConfiguracionCuotas {
+  anioActivo: number;
+  importeCuotaHermano: number;
+  importeCuotaCostalero: number;
 }

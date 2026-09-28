@@ -33,7 +33,7 @@
       <button mat-raised-button color="primary" [matMenuTriggerFor]="exportMenu"><mat-icon>download</mat-icon>Exportar Excel</button>
       <mat-menu #exportMenu="matMenu"><button mat-menu-item (click)="exportarExcel(true)"><mat-icon>filter_alt</mat-icon><span>Filtros actuales</span></button><button mat-menu-item (click)="exportarExcel(false)"><mat-icon>dataset</mat-icon><span>Datos completos</span></button></mat-menu>
 
-      <button
+      @if (authService.puedeGenerarCuotas()) {<button
         mat-raised-button
         color="primary"
         class="boton-generar"
@@ -43,7 +43,7 @@
         <mat-icon>payments</mat-icon>
         Generar cuotas
 
-      </button>
+      </button>}
 
     </div>
     }
@@ -139,6 +139,16 @@
 
       </mat-form-field>
 
+      <mat-form-field appearance="outline" class="estado">
+        <mat-label>Cuadrilla</mat-label>
+        <mat-select [(ngModel)]="cuadrillaSeleccionada" (selectionChange)="buscar()">
+          <mat-option value="">Todas</mat-option>
+          @for (cuadrilla of cuadrillas; track cuadrilla) {
+            <mat-option [value]="cuadrilla">{{ cuadrilla }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
     </div>
 
     <div class="table-container">
@@ -201,6 +211,11 @@
             {{ cuota.tipo === 'HERMANO' ? 'Hermano' : 'Costalero' }}
           </td>
 
+        </ng-container>
+
+        <ng-container matColumnDef="cuadrilla">
+          <th mat-header-cell *matHeaderCellDef>Cuadrilla</th>
+          <td mat-cell *matCellDef="let cuota">{{ cuota.cuadrilla || '—' }}</td>
         </ng-container>
 
         <!-- Año -->
@@ -324,7 +339,7 @@
                 class="btn-pagar"
                 matTooltip="Marcar como pagada"
                 (click)="pagar(cuota)"
-                *ngIf="puedePagar(cuota.estado)">
+                *ngIf="authService.puedeGestionarTipoCuota(cuota.tipo) && puedePagar(cuota.estado)">
 
                 <mat-icon>paid</mat-icon>
 
@@ -335,7 +350,7 @@
                 class="btn-deshacerPago"
                 matTooltip="Deshacer pago"
                 (click)="deshacerPago(cuota)"
-                *ngIf="puedeDeshacer(cuota.estado)">
+                *ngIf="authService.puedeGestionarTipoCuota(cuota.tipo) && puedeDeshacer(cuota.estado)">
 
                 <mat-icon>undo</mat-icon>
 
@@ -346,7 +361,7 @@
                 class="btn-anular"
                 matTooltip="Anular cuota"
                 (click)="anular(cuota)"
-                *ngIf="puedeAnular(cuota.estado)">
+                *ngIf="authService.puedeGestionarTipoCuota(cuota.tipo) && puedeAnular(cuota.estado)">
 
                 <mat-icon>block</mat-icon>
 
@@ -357,7 +372,7 @@
                 class="btn-editar"
                 matTooltip="Editar cuota"
                 (click)="editar(cuota)"
-                *ngIf="puedeEditar(cuota.estado)">
+                *ngIf="authService.puedeGestionarTipoCuota(cuota.tipo) && puedeEditar(cuota.estado)">
 
                 <mat-icon>edit</mat-icon>
 
@@ -368,7 +383,7 @@
                 class="btn-eliminar"
                 matTooltip="Eliminar cuota"
                 (click)="eliminar(cuota)"
-                *ngIf="puedeEliminar(cuota.estado)">
+                *ngIf="authService.puedeGestionarTipoCuota(cuota.tipo) && puedeEliminar(cuota.estado)">
 
                 <mat-icon>delete</mat-icon>
 

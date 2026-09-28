@@ -29,7 +29,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogService } from '../../../shared/services/confirm-dialog';
 import { CuotaDetalle } from '../../../core/models/cuotas/cuota-detalle';
 import { DialogEditarCuotaComponent } from '../dialog-editar/dialog-editar';
-import { Configuracion } from '../../../core/models/configuracion/configuracion';
+import { ConfiguracionCuotas } from '../../../core/models/configuracion/configuracion';
 import { DialogCrearCuotaComponent } from '../dialog-crear/dialog-crear';
 import { CuotaRequest } from '../../socios/models/cuota-request';
 import { AuthService } from '../../../core/services/auth';
@@ -71,7 +71,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   readonly authService = inject(AuthService);
 
   anios: number[] = [];
-  configuracion!: Configuracion;
+  configuracion!: ConfiguracionCuotas;
 
   dataSource = new MatTableDataSource<Cuota>();
 
@@ -88,7 +88,9 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   anioSeleccionado?: number;
 
   tipoSeleccionado?: TipoSocio;
+  cuadrillaSeleccionada = '';
   readonly TipoSocio = TipoSocio;
+  readonly cuadrillas = ['Nuestra Señora de los Dolores', 'Nuestro Padre Jesús Nazareno', 'Santo Entierro de Cristo', 'Calvario', 'Nazarenos', 'Otros'];
 
   page = 0;
 
@@ -106,6 +108,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     'numeroSocio',
     'nombreSocio',
     'tipo',
+    'cuadrilla',
     'anio',
     'importe',
     'estado',
@@ -123,7 +126,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     this.cargarAnios();
 
     if (this.authService.puedeGestionarCuotas()) {
-      this.configuracionService.obtener().subscribe({
+      this.configuracionService.obtenerConfiguracionCuotas().subscribe({
         next: (configuracion) => {
           this.configuracion = configuracion;
         },
@@ -176,6 +179,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
         this.estadoSeleccionado || undefined,
         this.anioSeleccionado,
         this.tipoSeleccionado,
+        this.cuadrillaSeleccionada || undefined,
         this.page,
         this.pageSize,
         this.sort,
@@ -198,7 +202,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   }
 
   exportarExcel(filtrado = false): void {
-    this.cuotaService.exportarExcel(filtrado ? this.textoBusqueda : '', filtrado ? this.estadoSeleccionado || undefined : undefined, filtrado ? this.anioSeleccionado : undefined, filtrado ? this.tipoSeleccionado : undefined).subscribe({ next: blob => { const url = URL.createObjectURL(blob); const enlace = document.createElement('a'); enlace.href = url; enlace.download = 'cuotas.xlsx'; enlace.click(); URL.revokeObjectURL(url); }, error: error => this.notificationService.httpError(error) });
+    this.cuotaService.exportarExcel(filtrado ? this.textoBusqueda : '', filtrado ? this.estadoSeleccionado || undefined : undefined, filtrado ? this.anioSeleccionado : undefined, filtrado ? this.tipoSeleccionado : undefined, filtrado ? this.cuadrillaSeleccionada || undefined : undefined).subscribe({ next: blob => { const url = URL.createObjectURL(blob); const enlace = document.createElement('a'); enlace.href = url; enlace.download = 'cuotas.xlsx'; enlace.click(); URL.revokeObjectURL(url); }, error: error => this.notificationService.httpError(error) });
   }
 
   generarCuotas(): void {
@@ -481,6 +485,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
 
         importeCuotaHermano: this.configuracion?.importeCuotaHermano ?? 0,
         importeCuotaCostalero: this.configuracion?.importeCuotaCostalero ?? 0,
+        tipoPermitido: this.authService.obtenerRol() === 'SECRETARIO' ? TipoSocio.COSTALERO : undefined,
       },
     });
 

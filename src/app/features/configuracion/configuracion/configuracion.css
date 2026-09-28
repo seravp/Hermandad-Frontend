@@ -61,6 +61,14 @@
   margin-top: 8px;
 }
 
+.descripcion-seccion { margin: -12px 0 0; color: #64748b; }
+.cuadrillas-configuracion { display: grid; gap: 12px; }
+.fila-cuadrilla { align-items: center; padding: 12px 16px; border: 1px solid #dbe5ef; border-radius: 12px; background: #f8fbff; }
+.fila-cuadrilla strong { flex: 1.5; color: #123b60; }
+.fila-cuadrilla mat-form-field { margin-bottom: -1.25em; min-width: 140px; }
+.capacidad { min-width: 115px; color: #64748b; font-size: .88rem; }
+.acciones-cuadrillas { justify-content: flex-start; margin-top: -8px; }
+
 button mat-icon {
   margin-right: 8px;
 }
@@ -70,6 +78,9 @@ button mat-icon {
   .fila {
     flex-direction: column;
   }
+
+  .fila-cuadrilla { align-items: stretch; }
+  .fila-cuadrilla mat-form-field { margin-bottom: 0; }
 
 }
 

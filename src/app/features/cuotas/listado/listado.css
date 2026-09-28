@@ -129,13 +129,21 @@
 }
 
 .mat-column-tipo {
-  width: 135px;
+  width: 120px;
   text-align: center;
 }
 
+.mat-column-cuadrilla {
+  width: 255px;
+}
+
 .mat-column-anio {
-  width: 70px;
+  width: 92px;
+  min-width: 92px;
   text-align: center;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
 }
 
 .mat-column-importe {
@@ -158,7 +166,7 @@
 }
 
 .mat-column-acciones {
-  width: 160px;
+  width: 145px;
   text-align: center;
 }
 

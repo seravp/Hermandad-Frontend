@@ -1,0 +1,24 @@
+.cuadrillas-card { max-width: 1500px; margin: 0 auto; padding: 28px; }
+.page-header { display:flex; justify-content:space-between; align-items:flex-start; gap:24px; margin-bottom:26px; }
+.page-header h1, .trono-titulo h2, .miembros-panel h2 { margin:0; color:#092f55; font-family:Georgia, serif; }
+.page-header h1 { font-size:2.45rem; }
+.page-header p, .miembros-panel > p, .trono-titulo p { margin:6px 0 0; color:#64748b; }
+.page-header mat-form-field { width:310px; }
+.estado-vacio { min-height:360px; display:grid; place-content:center; text-align:center; color:#64748b; gap:12px; }
+.estado-vacio mat-icon { margin:auto; width:52px; height:52px; font-size:52px; color:#d09a19; }
+.cuadrillas-layout { display:grid; grid-template-columns:minmax(280px, .8fr) minmax(600px, 1.6fr); gap:24px; align-items:start; }
+.miembros-panel, .trono-panel { border:1px solid #dbe5ef; border-radius:16px; background:#fff; box-shadow:0 8px 22px rgba(10,47,85,.06); }
+.miembros-panel { padding:20px; max-height:690px; overflow:auto; }
+.lista-miembros { display:grid; gap:10px; margin-top:18px; }
+.miembro { display:flex; align-items:center; gap:10px; padding:12px; border:1px solid #dbe5ef; border-radius:10px; background:#f8fbff; cursor:grab; }
+.miembro:active { cursor:grabbing; }
+.miembro mat-icon { color:#c88f11; }
+.miembro div { min-width:0; display:grid; gap:3px; }.miembro strong { color:#163c62; font-size:.9rem; }.miembro small { color:#718096; }
+.sin-miembros, .cargando { color:#718096; padding:20px 0; text-align:center; }
+.trono-panel { padding:22px; }.trono-titulo { display:flex; gap:12px; align-items:center; margin-bottom:22px; }.trono-titulo > mat-icon { color:#c88f11; font-size:34px; width:34px; height:34px; }
+.trono { border:8px solid #173f63; border-radius:28px 28px 16px 16px; background:linear-gradient(145deg,#f9fbfd,#edf3f8); padding:20px; box-shadow:inset 0 0 0 2px #d5a72d, 0 12px 28px rgba(12,49,77,.12); }
+.frontal, .trasera { text-align:center; padding:9px; border-radius:8px; font-weight:800; letter-spacing:.12em; font-size:.75rem; color:#fff; background:#173f63; }.trasera { margin-top:18px; background:#315c7d; }
+.posiciones { display:grid; gap:12px; padding:20px 6px 2px; }
+.posicion { min-height:76px; position:relative; display:flex; align-items:center; justify-content:center; border:1px dashed #aebfce; border-radius:10px; background:#fff; transition:.18s ease; }.posicion.cdk-drop-list-dragging { border-color:#c88f11; background:#fffaf0; }.numero { position:absolute; top:6px; left:8px; color:#7890a4; font-weight:700; font-size:.72rem; }.libre { color:#9aacba; font-size:.8rem; }.ocupante { width:100%; padding:16px 24px 8px 12px; color:#113d62; font-size:.78rem; text-align:center; }.ocupante button { position:absolute; top:0; right:0; transform:scale(.68); color:#bd2f2f; }
+@media (max-width:900px) { .cuadrillas-layout { grid-template-columns:1fr; }.miembros-panel { max-height:360px; }.page-header { flex-direction:column; }.page-header mat-form-field { width:100%; } }
+@media (max-width:520px) { .cuadrillas-card { padding:16px; }.page-header h1 { font-size:2rem; }.trono-panel, .miembros-panel { padding:14px; }.posiciones { gap:7px; padding:14px 0 0; }.posicion { min-height:72px; }.ocupante { font-size:.66rem; }.trono { padding:12px; } }

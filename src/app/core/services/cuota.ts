@@ -27,6 +27,7 @@ export class CuotaService {
     estado: string | undefined,
     anio: number | undefined,
     tipo: TipoSocio | undefined,
+    cuadrilla: string | undefined,
     page: number,
     size: number,
     sort: string,
@@ -52,6 +53,10 @@ export class CuotaService {
 
     if (tipo) {
       params = params.set('tipo', tipo);
+    }
+
+    if (cuadrilla) {
+      params = params.set('cuadrilla', cuadrilla);
     }
 
     return this.http.get<Page<Cuota>>(`${this.apiUrl}/busqueda-paginada`, { params });
@@ -103,12 +108,13 @@ export class CuotaService {
     return this.http.get<number[]>(`${environment.apiUrl}/cuotas/anios`);
   }
 
-  exportarExcel(texto = '', estado?: string, anio?: number, tipo?: TipoSocio): Observable<Blob> {
+  exportarExcel(texto = '', estado?: string, anio?: number, tipo?: TipoSocio, cuadrilla?: string): Observable<Blob> {
     let params = new HttpParams();
     if (texto.trim()) params = params.set('texto', texto);
     if (estado) params = params.set('estado', estado);
     if (anio) params = params.set('anio', anio);
     if (tipo) params = params.set('tipo', tipo);
+    if (cuadrilla) params = params.set('cuadrilla', cuadrilla);
     return this.http.get(`${this.apiUrl}/exportar-excel`, { params, responseType: 'blob' });
   }
 }

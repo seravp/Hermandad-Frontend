@@ -15,6 +15,8 @@ export class LoginComponent {
 
   password = '';
 
+  mostrarPassword = false;
+
   error = '';
 
   private authService = inject(AuthService);

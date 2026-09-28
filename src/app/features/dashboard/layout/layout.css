@@ -135,6 +135,12 @@
   font-weight: 700;
 }
 
+.mobile-menu-button {
+  display: none;
+  margin-right: 6px;
+  color: #063456;
+}
+
 .topbar-spacer {
   flex: 1 1 auto;
 }
@@ -260,9 +266,27 @@
 }
 
 @media (max-width: 800px) {
-  .topbar {
-    padding: 0 16px;
+  .sidebar {
+    width: min(280px, 86vw);
   }
+
+  .sidebar-branding {
+    min-height: 170px;
+  }
+
+  .sidebar-branding img {
+    width: 150px;
+    height: 170px;
+  }
+
+  .topbar {
+    min-height: 58px;
+    padding: 0 12px;
+  }
+
+  .mobile-menu-button { display: inline-flex; }
+
+  .topbar-brand { font-size: .98rem; }
 
   .topbar-date,
   .date-divider,
@@ -273,6 +297,11 @@
 
   .topbar-divider {
     margin: 0 10px;
+  }
+
+  .content {
+    min-height: calc(100vh - 58px);
+    padding: 14px;
   }
 }
 
