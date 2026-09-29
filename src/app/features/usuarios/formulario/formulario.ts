@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators, ValidatorFn } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +11,13 @@ import { UsuarioService } from '../../../core/services/usuario';
 import { RolUsuario, Usuario } from '../../../core/models/usuarios/usuario';
 import { UsuarioRequest } from '../../../core/models/usuarios/usuario-request';
 import { NotificationService } from '../../../shared/services/notification';
+
+export const passwordPolicy: ValidatorFn = (control) => {
+  const value = control.value as string;
+  if (!value) return null; // Required only when creating an account.
+  return value.trim().length > 0 && Array.from(value).length >= 12 &&
+    new TextEncoder().encode(value).length <= 72 ? null : { passwordPolicy: true };
+};
 
 @Component({
   selector: 'app-formulario-usuario',
@@ -43,7 +50,7 @@ export class FormularioUsuarioComponent implements OnInit {
 
   form = this.fb.group({
     username: ['', Validators.required],
-    password: ['', Validators.required],
+    password: ['', [Validators.required, passwordPolicy]],
     rol: ['CONSULTA' as RolUsuario, Validators.required],
     activo: [true, Validators.required],
   });
@@ -53,7 +60,7 @@ export class FormularioUsuarioComponent implements OnInit {
       return;
     }
 
-    this.form.controls.password.clearValidators();
+    this.form.controls.password.setValidators(passwordPolicy);
     this.form.controls.password.updateValueAndValidity();
 
     this.form.patchValue({
@@ -74,6 +81,10 @@ export class FormularioUsuarioComponent implements OnInit {
       rol: this.form.controls.rol.value,
       activo: this.form.controls.activo.value,
     };
+
+    if (this.form.controls.password.value) {
+      request.password = this.form.controls.password.value;
+    }
 
     if (!this.esEdicion) {
       request.password = this.form.controls.password.value;
@@ -99,25 +110,12 @@ export class FormularioUsuarioComponent implements OnInit {
   }
 
   private actualizar(request: UsuarioRequest): void {
-    const { password, ...datosUsuario } = request;
-
-    this.usuarioService.actualizar(this.usuario!.id, datosUsuario).subscribe({
+    this.usuarioService.actualizar(this.usuario!.id, request).subscribe({
       next: () => {
-        if (!password) {
-          this.notificationService.success('Usuario actualizado correctamente.');
-
-          this.dialogRef.close(true);
-          return;
-        }
-
-        this.usuarioService.cambiarPassword(this.usuario!.id, password).subscribe({
-          next: () => {
-            this.notificationService.success('Usuario y contraseña actualizados correctamente.');
-
-            this.dialogRef.close(true);
-          },
-          error: (error) => this.notificationService.httpError(error),
-        });
+        this.notificationService.success(request.password
+          ? 'Usuario y contraseña actualizados. Debe iniciar sesión de nuevo.'
+          : 'Usuario actualizado correctamente.');
+        this.dialogRef.close(true);
       },
       error: (error) => this.notificationService.httpError(error),
     });

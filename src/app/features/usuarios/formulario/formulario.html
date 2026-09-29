@@ -5,7 +5,7 @@
 
 <mat-dialog-content class="dialog-content">
   <form [formGroup]="form" class="formulario">
-    <form [formGroup]="form" class="formulario">
+
       <div class="espaciador-superior" aria-hidden="true"></div>
 
         <mat-form-field appearance="outline">
@@ -24,7 +24,11 @@
             {{ esEdicion ? 'Nueva contraseña (opcional)' : 'Contraseña inicial' }}
           </mat-label>
 
-          <input matInput type="password" formControlName="password">
+          <input matInput type="password" formControlName="password" autocomplete="new-password">
+          <mat-hint>Mínimo 12 caracteres. Si la cambias, deberá iniciar sesión de nuevo.</mat-hint>
+          @if (form.controls.password.hasError('passwordPolicy') && form.controls.password.touched) {
+          <mat-error>Usa al menos 12 caracteres. La contraseña no puede estar en blanco ni ser demasiado larga.</mat-error>
+          }
 
           @if (!esEdicion &&
           form.controls.password.hasError('required') &&
@@ -51,7 +55,7 @@
             <mat-option [value]="false">Desactivado</mat-option>
           </mat-select>
         </mat-form-field>
-      </form>
+
   </form>
 </mat-dialog-content>
 

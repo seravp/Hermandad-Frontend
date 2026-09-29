@@ -21,6 +21,7 @@ export class AuthService {
   guardarSesion(response: LoginResponse): void {
     localStorage.setItem('token', response.token);
     localStorage.setItem('rol', response.rol);
+    localStorage.setItem('username', response.username ?? '');
   }
 
   obtenerRol(): string | null {
@@ -36,25 +37,13 @@ export class AuthService {
   }
 
   obtenerNombreUsuario(): string {
-    const token = this.obtenerToken();
-
-    if (!token) {
-      return 'Usuario';
-    }
-
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return typeof payload.sub === 'string' && payload.sub.trim()
-        ? payload.sub
-        : 'Usuario';
-    } catch {
-      return 'Usuario';
-    }
+    if (!this.obtenerToken()) return 'Usuario';
+    return localStorage.getItem('username')?.trim() || 'Usuario';
   }
-
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('rol');
+    localStorage.removeItem('username');
   }
 
   estaAutenticado(): boolean {
