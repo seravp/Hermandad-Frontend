@@ -87,7 +87,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
 
   anioSeleccionado?: number;
 
-  tipoSeleccionado?: TipoSocio;
+  tipoSeleccionado: TipoSocio | '' = '';
   cuadrillaSeleccionada = '';
   readonly TipoSocio = TipoSocio;
   readonly cuadrillas = ['Nuestra Señora de los Dolores', 'Nuestro Padre Jesús Nazareno', 'Santo Entierro de Cristo', 'Calvario', 'Nazarenos', 'Otros'];
@@ -178,7 +178,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
         this.textoBusqueda,
         this.estadoSeleccionado || undefined,
         this.anioSeleccionado,
-        this.tipoSeleccionado,
+        this.tipoSeleccionado || undefined,
         this.cuadrillaSeleccionada || undefined,
         this.page,
         this.pageSize,
@@ -202,7 +202,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   }
 
   exportarExcel(filtrado = false): void {
-    this.cuotaService.exportarExcel(filtrado ? this.textoBusqueda : '', filtrado ? this.estadoSeleccionado || undefined : undefined, filtrado ? this.anioSeleccionado : undefined, filtrado ? this.tipoSeleccionado : undefined, filtrado ? this.cuadrillaSeleccionada || undefined : undefined).subscribe({ next: blob => { const url = URL.createObjectURL(blob); const enlace = document.createElement('a'); enlace.href = url; enlace.download = 'cuotas.xlsx'; enlace.click(); URL.revokeObjectURL(url); }, error: error => this.notificationService.httpError(error) });
+    this.cuotaService.exportarExcel(filtrado ? this.textoBusqueda : '', filtrado ? this.estadoSeleccionado || undefined : undefined, filtrado ? this.anioSeleccionado : undefined, filtrado ? this.tipoSeleccionado || undefined : undefined, filtrado ? this.cuadrillaSeleccionada || undefined : undefined).subscribe({ next: blob => { const url = URL.createObjectURL(blob); const enlace = document.createElement('a'); enlace.href = url; enlace.download = 'cuotas.xlsx'; enlace.click(); URL.revokeObjectURL(url); }, error: error => this.notificationService.httpError(error) });
   }
 
   generarCuotas(): void {

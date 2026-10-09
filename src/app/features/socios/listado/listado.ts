@@ -70,7 +70,7 @@ export class ListadoComponent implements OnInit {
   textoBusqueda = '';
 
   estadoSeleccionado = '';
-  tipoSeleccionado?: TipoSocio;
+  tipoSeleccionado: TipoSocio | '' = '';
   cuadrillaSeleccionada = '';
   readonly TipoSocio = TipoSocio;
   readonly cuadrillas = ['Nuestra Señora de los Dolores', 'Nuestro Padre Jesús Nazareno', 'Santo Entierro de Cristo', 'Calvario', 'Nazarenos', 'Otros'];
@@ -149,7 +149,7 @@ export class ListadoComponent implements OnInit {
       .buscar(
         this.textoBusqueda,
         this.estadoSeleccionado || undefined,
-        this.tipoSeleccionado,
+        this.tipoSeleccionado || undefined,
         this.cuadrillaSeleccionada || undefined,
         this.page,
         this.size,

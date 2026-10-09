@@ -13,7 +13,17 @@ mat-card {
   box-shadow: 0 8px 24px rgba(22, 58, 95, .07);
 }
 
-.cabecera { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin: 8px 4px 24px;
+}
+
+.cabecera > button {
+  flex: 0 0 auto;
+}
 .cabecera h1, .cabecera h2 { margin: 0; }
 .cabecera p { color: #666; }
 
@@ -23,6 +33,7 @@ mat-card {
 }
 
 .detalle { margin-top: 0; }
+.detalle .cabecera { margin-bottom: 18px; }
 
 /* Acciones: mismo código de color y realce que los demás listados. */
 .mat-column-acciones {

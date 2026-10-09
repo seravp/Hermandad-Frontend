@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -18,7 +18,8 @@ import { AuthService } from '../../core/services/auth';
   templateUrl: './cuadrillas.html',
   styleUrl: './cuadrillas.css',
 })
-export class CuadrillasComponent {
+export class CuadrillasComponent implements OnInit {
+  private static readonly ULTIMA_CUADRILLA_KEY = 'ultima-cuadrilla-cargada';
   private readonly socios = inject(SocioService);
   private readonly configuracion = inject(ConfiguracionService);
   private readonly notifications = inject(NotificationService);
@@ -27,9 +28,17 @@ export class CuadrillasComponent {
   readonly cuadrillas = ['Nuestra Señora de los Dolores', 'Nuestro Padre Jesús Nazareno', 'Santo Entierro de Cristo', 'Calvario', 'Nazarenos', 'Otros'];
   posiciones: number[] = [];
   columnas = 3;
-  cuadrilla = '';
+  cuadrilla = this.cuadrillas[0];
   miembros: Socio[] = [];
   cargando = false;
+
+  ngOnInit(): void {
+    const cuadrillaGuardada = localStorage.getItem(CuadrillasComponent.ULTIMA_CUADRILLA_KEY);
+    if (cuadrillaGuardada && this.cuadrillas.includes(cuadrillaGuardada)) {
+      this.cuadrilla = cuadrillaGuardada;
+    }
+    this.cambiarCuadrilla();
+  }
 
   puedeEditar(): boolean {
     return this.authService.puedeGestionarCuadrillas();
@@ -46,6 +55,7 @@ export class CuadrillasComponent {
       next: croquis => {
         this.columnas = croquis.columnas;
         this.posiciones = Array.from({ length: croquis.filas * croquis.columnas }, (_, indice) => indice + 1);
+        localStorage.setItem(CuadrillasComponent.ULTIMA_CUADRILLA_KEY, this.cuadrilla);
         this.cargar();
       },
       error: error => this.notifications.httpError(error),
