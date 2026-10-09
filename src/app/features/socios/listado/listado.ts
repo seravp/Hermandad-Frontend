@@ -295,7 +295,7 @@ export class ListadoComponent implements OnInit {
   }
 
   exportarExcel(filtrado = false): void {
-    this.socioService.exportarExcel(filtrado ? this.textoBusqueda : '', filtrado ? this.estadoSeleccionado || undefined : undefined, filtrado ? this.tipoSeleccionado : undefined, filtrado ? this.cuadrillaSeleccionada || undefined : undefined).subscribe({ next: blob => { const url = URL.createObjectURL(blob); const enlace = document.createElement('a'); enlace.href = url; enlace.download = 'socios.xlsx'; enlace.click(); URL.revokeObjectURL(url); }, error: error => this.notificationService.httpError(error) });
+    this.socioService.exportarExcel(filtrado ? this.textoBusqueda : '', filtrado ? this.estadoSeleccionado || undefined : undefined, filtrado ? this.tipoSeleccionado || undefined : undefined, filtrado ? this.cuadrillaSeleccionada || undefined : undefined).subscribe({ next: blob => { const url = URL.createObjectURL(blob); const enlace = document.createElement('a'); enlace.href = url; enlace.download = 'socios.xlsx'; enlace.click(); URL.revokeObjectURL(url); }, error: error => this.notificationService.httpError(error) });
   }
 
   seleccionarArchivoImportacion(): void {
