@@ -1,0 +1,11 @@
+.header-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+.comparativa { display: grid; grid-template-columns: minmax(210px, .8fr) 190px 2.4fr; align-items: center; gap: 18px; border: 1px solid #dde7f0; border-radius: 15px; padding: 18px 20px; background: linear-gradient(100deg, #f9fbff, #fffdf7); margin: 0 0 20px; }
+.comparativa h2 { margin: 0; color: #092f55; font-family: Georgia, serif; font-size: 1.3rem; }
+.comparativa p { color: #64748b; margin: 5px 0 0; font-size: .83rem; }
+.comparativa mat-form-field { margin-top: 18px; }
+.comparativa-kpis { display: grid; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: 10px; }
+.comparativa-kpis article { display: grid; gap: 4px; border-left: 3px solid #d5a12f; padding: 2px 0 2px 11px; }
+.comparativa-kpis span, .comparativa-kpis small { color: #64748b; font-size: .76rem; }
+.comparativa-kpis strong { color: #092f55; font-size: 1.05rem; }
+@media (max-width: 1100px) { .comparativa { grid-template-columns: 1fr 190px; } .comparativa-kpis { grid-column: 1 / -1; } }
+@media (max-width: 650px) { .header-actions { width: 100%; } .header-actions button { flex: 1; } .comparativa { grid-template-columns: 1fr; } .comparativa mat-form-field { width: 100%; margin-top: 0; } .comparativa-kpis { grid-template-columns: repeat(2, 1fr); } }

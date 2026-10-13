@@ -37,6 +37,13 @@
         </a>}
       }
 
+      @if (authService.puedeVerTesoreria()) {
+      <a mat-list-item routerLink="/tesoreria" routerLinkActive="active" (click)="cerrarMenuMovil()">
+        <mat-icon>account_balance_wallet</mat-icon>
+        <span>Tesorería</span>
+      </a>
+      }
+
       @if (authService.puedeGenerarInformes()) {
       <a mat-list-item routerLink="/informes" routerLinkActive="active" (click)="cerrarMenuMovil()">
         <mat-icon>bar_chart</mat-icon>
