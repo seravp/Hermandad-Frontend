@@ -152,11 +152,11 @@ export class ListadoComponent implements OnInit {
           URL.revokeObjectURL(url);
         }, 1000);
 
-        this.notificationService.success('Aviso de morosidad generado correctamente');
+        this.notificationService.success('Aviso de cuotas pendientes generado correctamente');
       },
 
       error: (error) => {
-        console.error('Error al generar la carta de morosidad:', error);
+        console.error('Error al generar el aviso de cuotas pendientes:', error);
 
         this.notificationService.httpError(error);
       },

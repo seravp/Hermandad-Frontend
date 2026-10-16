@@ -26,7 +26,7 @@ export class ListadoInformesComponent {
     this.informeService.generarInformeMorosos().subscribe({
       next: (pdf) => {
         this.abrirPdf(pdf);
-        this.notificationService.success('Informe de morosos generado correctamente.');
+        this.notificationService.success('Informe de cuotas pendientes generado correctamente.');
         this.finalizarGeneracion();
       },
       error: (error) => {
@@ -74,13 +74,13 @@ export class ListadoInformesComponent {
 
     const nombres = {
       socios: 'socios.xlsx',
-      morosos: 'morosos.xlsx',
+      morosos: 'cuotas-pendientes.xlsx',
       cuotas: 'cuotas.xlsx',
     };
 
     const etiquetas = {
       socios: 'Listado de socios',
-      morosos: 'Listado de morosos',
+      morosos: 'Listado de cuotas pendientes',
       cuotas: 'Listado de cuotas',
     };
 
