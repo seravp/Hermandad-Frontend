@@ -23,6 +23,7 @@ import { DialogCuotasComponent } from '../dialog-cuotas/dialog-cuotas';
 
 import { InformeService } from '../../../core/services/informe';
 import { NotificationService } from '../../../shared/services/notification';
+import { ConfirmDialogService } from '../../../shared/services/confirm-dialog';
 
 @Component({
   selector: 'app-listado',
@@ -50,11 +51,13 @@ export class ListadoComponent implements OnInit {
   private readonly cuotaService = inject(CuotaService);
   private readonly informeService = inject(InformeService);
   private readonly notificationService = inject(NotificationService);
+  private readonly confirmDialog = inject(ConfirmDialogService);
 
   morosos: Moroso[] = [];
   morososFiltrados: Moroso[] = [];
   anios: number[] = [];
   anioSeleccionado: number | undefined;
+  anulandoCuotasAntiguas = false;
 
   textoBusqueda = '';
 
@@ -160,6 +163,33 @@ export class ListadoComponent implements OnInit {
 
         this.notificationService.httpError(error);
       },
+    });
+  }
+
+  cancelarCuotasAntiguas(): void {
+    this.confirmDialog.confirm({
+      titulo: 'Cancelar cuotas antiguas',
+      icono: 'cancel_schedule_send',
+      color: 'warn',
+      colorIcono: 'warn',
+      mensaje: 'Se anularán todas las cuotas pendientes de ejercicios anteriores al actual. Esta acción no se puede deshacer.',
+      advertencia: 'Las cuotas del ejercicio actual no se modificarán.',
+      textoConfirmar: 'Cancelar cuotas antiguas',
+    }).subscribe(confirmado => {
+      if (!confirmado) return;
+      this.anulandoCuotasAntiguas = true;
+      this.morososService.anularCuotasAntiguas().subscribe({
+        next: total => {
+          this.anulandoCuotasAntiguas = false;
+          this.notificationService.success(total ? `Se han anulado ${total} cuotas antiguas.` : 'No hay cuotas antiguas pendientes que anular.');
+          this.cargarAnios();
+          this.cargarMorosos();
+        },
+        error: error => {
+          this.anulandoCuotasAntiguas = false;
+          this.notificationService.httpError(error);
+        },
+      });
     });
   }
 }

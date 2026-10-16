@@ -11,6 +11,10 @@
   margin-bottom: 28px;
 }
 
+.cabecera-pendientes { display:flex; justify-content:space-between; align-items:center; gap:16px; }
+.btn-cancelar-antiguas { color:#b42318; border-color:#e7a7a0; white-space:nowrap; }
+.btn-cancelar-antiguas mat-icon { color:#b42318; }
+
 .mat-mdc-card-title {
   font-size: 2.45rem;
   font-weight: 700;
@@ -216,6 +220,10 @@
   height: 42px;
   font-size: 42px;
   color: #2e7d32;
+}
+
+@media (max-width: 650px) {
+  .cabecera-pendientes { align-items:flex-start; flex-direction:column; }
 }
 
 

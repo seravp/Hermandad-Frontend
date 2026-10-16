@@ -1,7 +1,8 @@
 <mat-card class="tesoreria-card">
   <header class="page-header">
     <div><h1>Tesorería</h1><p>Control económico de la Hermandad: ingresos, gastos y cuotas.</p></div>
-    <div class="header-actions"><button mat-raised-button color="primary" (click)="nueva()"><mat-icon>add</mat-icon>Nuevo movimiento</button><button mat-raised-button color="primary" (click)="exportarExcel()"><mat-icon>download</mat-icon>Exportar Excel</button></div>
+    <div class="header-actions"><button mat-raised-button color="primary" (click)="nueva()"><mat-icon>add</mat-icon>Nuevo movimiento</button><button mat-raised-button color="primary" [matMenuTriggerFor]="exportMenu"><mat-icon>download</mat-icon>Exportar Excel</button></div>
+    <mat-menu #exportMenu="matMenu"><button mat-menu-item (click)="exportarExcel()"><mat-icon>calendar_today</mat-icon><span>Ejercicio seleccionado</span></button><button mat-menu-item (click)="exportarExcel(true)"><mat-icon>history</mat-icon><span>Histórico completo</span></button></mat-menu>
   </header>
 
   <section class="filtros" [formGroup]="filtros">
@@ -14,11 +15,26 @@
     <button mat-stroked-button (click)="limpiarFiltros()"><mat-icon>restart_alt</mat-icon>Limpiar</button>
   </section>
 
-  <section class="kpis">
-    <article class="kpi saldo"><mat-icon>account_balance_wallet</mat-icon><div><span>Saldo actual</span><strong>{{ resumen.saldoActual | currency:'EUR' }}</strong></div></article>
-    <article class="kpi ingresos"><mat-icon>trending_up</mat-icon><div><span>Ingresos</span><strong>{{ resumen.ingresos | currency:'EUR' }}</strong></div></article>
-    <article class="kpi gastos"><mat-icon>trending_down</mat-icon><div><span>Gastos</span><strong>{{ resumen.gastos | currency:'EUR' }}</strong></div></article>
-    <article class="kpi cuotas"><mat-icon>groups</mat-icon><div><span>Cuotas cobradas</span><strong>{{ resumen.cuotasCobradas | currency:'EUR' }}</strong></div></article>
+  <section class="resumenes" aria-label="Resumen de tesorería">
+    <section class="resumen-panel resumen-general">
+      <header class="resumen-cabecera"><div><span class="seccion-kicker"><mat-icon>history</mat-icon> General</span><h2>Histórico completo</h2><p>Todos los movimientos registrados, sin limitar por año.</p></div></header>
+      <div class="kpis">
+        <article class="kpi saldo"><mat-icon>account_balance_wallet</mat-icon><div><span>Saldo actual</span><strong>{{ resumenGeneral.saldoActual | currency:'EUR' }}</strong></div></article>
+        <article class="kpi ingresos"><mat-icon>trending_up</mat-icon><div><span>Ingresos</span><strong>{{ resumenGeneral.ingresos | currency:'EUR' }}</strong></div></article>
+        <article class="kpi gastos"><mat-icon>trending_down</mat-icon><div><span>Gastos</span><strong>{{ resumenGeneral.gastos | currency:'EUR' }}</strong></div></article>
+        <article class="kpi cuotas"><mat-icon>groups</mat-icon><div><span>Cuotas cobradas</span><strong>{{ resumenGeneral.cuotasCobradas | currency:'EUR' }}</strong></div></article>
+      </div>
+    </section>
+    <section class="resumen-panel">
+      <header class="resumen-cabecera"><div><span class="seccion-kicker"><mat-icon>calendar_today</mat-icon> Ejercicio actual</span><h2>Ejercicio {{ anioBase }}</h2><p>Resumen correspondiente al año analizado.</p></div></header>
+      <div class="kpis">
+        <article class="kpi saldo"><mat-icon>account_balance_wallet</mat-icon><div><span>Saldo actual</span><strong>{{ resumen.saldoActual | currency:'EUR' }}</strong></div></article>
+        <article class="kpi ingresos"><mat-icon>trending_up</mat-icon><div><span>Ingresos</span><strong>{{ resumen.ingresos | currency:'EUR' }}</strong></div></article>
+        <article class="kpi gastos"><mat-icon>trending_down</mat-icon><div><span>Gastos</span><strong>{{ resumen.gastos | currency:'EUR' }}</strong></div></article>
+        <article class="kpi cuotas"><mat-icon>groups</mat-icon><div><span>Cuotas cobradas</span><strong>{{ resumen.cuotasCobradas | currency:'EUR' }}</strong></div></article>
+        <article class="kpi prevision"><mat-icon>calendar_month</mat-icon><div><span>Previsión de cuotas</span><strong>{{ resumen.previsionCuotas | currency:'EUR' }}</strong></div></article>
+      </div>
+    </section>
   </section>
 
   <section class="comparativa">
@@ -31,5 +47,5 @@
     <article class="panel distribucion"><h2>Distribución de ingresos</h2>@if (resumen.distribucionIngresos.length) {<div class="donut-layout"><div class="donut" [style.background]="gradienteDistribucion()"><div class="donut-centro"><strong>{{ resumen.ingresos | currency:'EUR' }}</strong><span>Total ingresos</span></div></div><div class="categorias">@for (categoria of resumen.distribucionIngresos; track categoria.categoria; let indice = $index) {<div class="categoria"><span class="color-categoria" [style.background]="colorCategoria(indice)"></span><div><strong>{{ categoria.categoria }}</strong><small>{{ porcentajeCategoria(categoria.importe) }}</small></div><span>{{ categoria.importe | currency:'EUR' }}</span></div>}</div></div>} @else {<p class="sin-datos">Sin ingresos en el periodo seleccionado.</p>}</article>
   </section>
 
-  <section class="movimientos"><h2>Últimos movimientos</h2><div class="table-wrap"><table mat-table [dataSource]="movimientos"><ng-container matColumnDef="fecha"><th mat-header-cell *matHeaderCellDef>Fecha</th><td mat-cell *matCellDef="let m">{{ m.fecha | date:'dd/MM/yyyy' }}</td></ng-container><ng-container matColumnDef="concepto"><th mat-header-cell *matHeaderCellDef>Concepto</th><td mat-cell *matCellDef="let m">{{ m.concepto }}</td></ng-container><ng-container matColumnDef="categoria"><th mat-header-cell *matHeaderCellDef>Categoría</th><td mat-cell *matCellDef="let m">{{ m.categoria }}</td></ng-container><ng-container matColumnDef="tipo"><th mat-header-cell *matHeaderCellDef>Tipo</th><td mat-cell *matCellDef="let m"><span class="tipo-chip" [class.ingreso-chip]="m.tipo === 'INGRESO'" [class.gasto-chip]="m.tipo === 'GASTO'">{{ m.tipo }}</span></td></ng-container><ng-container matColumnDef="importe"><th mat-header-cell *matHeaderCellDef>Importe</th><td mat-cell *matCellDef="let m" [class.importe-gasto]="m.tipo === 'GASTO'">{{ m.tipo === 'GASTO' ? '-' : '' }}{{ m.importe | currency:'EUR' }}</td></ng-container><ng-container matColumnDef="formaPago"><th mat-header-cell *matHeaderCellDef>Forma de pago</th><td mat-cell *matCellDef="let m">{{ m.formaPago || '—' }}</td></ng-container><ng-container matColumnDef="acciones"><th mat-header-cell *matHeaderCellDef>Acciones</th><td mat-cell *matCellDef="let m"><button mat-icon-button matTooltip="Editar" (click)="editar(m)"><mat-icon>edit</mat-icon></button><button mat-icon-button class="delete" matTooltip="Eliminar" (click)="eliminar(m)"><mat-icon>delete</mat-icon></button></td></ng-container><tr mat-header-row *matHeaderRowDef="columnas"></tr><tr mat-row *matRowDef="let row; columns: columnas"></tr></table></div><app-listado-paginador [total]="total" [pagina]="page" [tamano]="pageSize" etiqueta="movimientos" (paginaChange)="cambiarPagina($event)" (tamanoChange)="cambiarTamanoPagina($event)"></app-listado-paginador></section>
+  <section class="movimientos"><div class="movimientos-cabecera"><h2>Últimos movimientos</h2><mat-form-field appearance="outline"><mat-label>Mostrar</mat-label><mat-select [(value)]="alcanceMovimientos" (selectionChange)="cambiarAlcanceMovimientos()"><mat-option value="EJERCICIO">Ejercicio {{ anioBase }}</mat-option><mat-option value="GENERAL">General</mat-option></mat-select></mat-form-field></div><div class="table-wrap"><table mat-table [dataSource]="movimientos"><ng-container matColumnDef="fecha"><th mat-header-cell *matHeaderCellDef>Fecha</th><td mat-cell *matCellDef="let m">{{ m.fecha | date:'dd/MM/yyyy' }}</td></ng-container><ng-container matColumnDef="concepto"><th mat-header-cell *matHeaderCellDef>Concepto</th><td mat-cell *matCellDef="let m">{{ m.concepto }}</td></ng-container><ng-container matColumnDef="categoria"><th mat-header-cell *matHeaderCellDef>Categoría</th><td mat-cell *matCellDef="let m">{{ m.categoria }}</td></ng-container><ng-container matColumnDef="tipo"><th mat-header-cell *matHeaderCellDef>Tipo</th><td mat-cell *matCellDef="let m"><span class="tipo-chip" [class.ingreso-chip]="m.tipo === 'INGRESO'" [class.gasto-chip]="m.tipo === 'GASTO'">{{ m.tipo }}</span></td></ng-container><ng-container matColumnDef="importe"><th mat-header-cell *matHeaderCellDef>Importe</th><td mat-cell *matCellDef="let m" [class.importe-gasto]="m.tipo === 'GASTO'">{{ m.tipo === 'GASTO' ? '-' : '' }}{{ m.importe | currency:'EUR' }}</td></ng-container><ng-container matColumnDef="formaPago"><th mat-header-cell *matHeaderCellDef>Forma de pago</th><td mat-cell *matCellDef="let m">{{ m.formaPago || '—' }}</td></ng-container><ng-container matColumnDef="acciones"><th mat-header-cell *matHeaderCellDef>Acciones</th><td mat-cell *matCellDef="let m"><button mat-icon-button matTooltip="Editar" (click)="editar(m)"><mat-icon>edit</mat-icon></button><button mat-icon-button class="delete" matTooltip="Eliminar" (click)="eliminar(m)"><mat-icon>delete</mat-icon></button></td></ng-container><tr mat-header-row *matHeaderRowDef="columnas"></tr><tr mat-row *matRowDef="let row; columns: columnas"></tr></table></div><app-listado-paginador [total]="total" [pagina]="page" [tamano]="pageSize" etiqueta="movimientos" (paginaChange)="cambiarPagina($event)" (tamanoChange)="cambiarTamanoPagina($event)"></app-listado-paginador></section>
 </mat-card>

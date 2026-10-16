@@ -11,13 +11,17 @@ import { Moroso } from '../models/moroso';
 export class MorososService {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl = `${environment.apiUrl}/cuotas/morosos`;
+  private readonly apiUrl = `${environment.apiUrl}/cuotas`;
 
   obtenerMorosos(anio?: number): Observable<Moroso[]> {
     if (anio === undefined) {
-      return this.http.get<Moroso[]>(this.apiUrl);
+      return this.http.get<Moroso[]>(`${this.apiUrl}/morosos`);
     }
 
-    return this.http.get<Moroso[]>(`${this.apiUrl}?anio=${anio}`);
+    return this.http.get<Moroso[]>(`${this.apiUrl}/morosos?anio=${anio}`);
+  }
+
+  anularCuotasAntiguas(): Observable<number> {
+    return this.http.put<number>(`${this.apiUrl}/anular-antiguas`, {});
   }
 }

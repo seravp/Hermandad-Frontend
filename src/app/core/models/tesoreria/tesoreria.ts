@@ -19,6 +19,7 @@ export interface ResumenTesoreria {
   ingresos: number;
   gastos: number;
   cuotasCobradas: number;
+  previsionCuotas: number;
   evolucionMensual: SerieMensualTesoreria[];
   distribucionIngresos: CategoriaTesoreria[];
 }

@@ -1,6 +1,6 @@
 <mat-card class="morosos-card">
 
-  <mat-card-header>
+  <mat-card-header class="cabecera-pendientes">
 
     <div class="header-info">
 
@@ -13,6 +13,11 @@
       </mat-card-subtitle>
 
     </div>
+
+    <button mat-stroked-button class="btn-cancelar-antiguas" type="button" [disabled]="anulandoCuotasAntiguas" (click)="cancelarCuotasAntiguas()">
+      <mat-icon>cancel_schedule_send</mat-icon>
+      {{ anulandoCuotasAntiguas ? 'Cancelando…' : 'Cancelar cuotas antiguas' }}
+    </button>
 
   </mat-card-header>
 
