@@ -4,6 +4,15 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
+export interface CartaGuardada {
+  id: number;
+  nombreArchivo: string;
+  formato: string;
+  destinatarios: string;
+  fechaGeneracion: string;
+  carpeta: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -28,6 +37,18 @@ export class InformeService {
     return this.http.get(`${this.apiUrl}/carta-moroso/${socioId}`, {
       responseType: 'blob',
     });
+  }
+
+  generarCartas(solicitud: { sociosIds: number[]; cuerpo: string; formato: 'PDF' | 'WORD'; modoGeneracion: 'UNICO' | 'SEPARADOS' }): Observable<Blob> {
+    return this.http.post(`${this.apiUrl}/cartas`, solicitud, { responseType: 'blob' });
+  }
+
+  listarCartasGuardadas(): Observable<CartaGuardada[]> {
+    return this.http.get<CartaGuardada[]>(`${this.apiUrl}/cartas/guardadas`);
+  }
+
+  descargarCartaGuardada(id: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/cartas/guardadas/${id}`, { responseType: 'blob' });
   }
 
   exportarExcelSocios(): Observable<Blob> {

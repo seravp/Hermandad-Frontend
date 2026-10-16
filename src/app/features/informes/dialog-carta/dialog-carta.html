@@ -1,0 +1,60 @@
+<h2 mat-dialog-title><mat-icon>mail</mat-icon> Generar cartas</h2>
+
+<mat-dialog-content [formGroup]="formulario">
+  <p class="introduccion">Selecciona los destinatarios, redacta el contenido y elige el formato. Puedes generar un documento conjunto o una carta independiente para cada socio.</p>
+
+  <mat-form-field appearance="outline" class="ancho-completo">
+    <mat-label>Destinatarios</mat-label>
+    <mat-select formControlName="sociosIds" multiple [disabled]="cargandoSocios">
+      @for (socio of socios; track socio.id) {
+        <mat-option [value]="socio.id">{{ socio.numeroSocio }} · {{ socio.nombre }} {{ socio.apellidos }}</mat-option>
+      }
+    </mat-select>
+    @if (formulario.controls.sociosIds.hasError('required') && formulario.controls.sociosIds.touched) {<mat-error>Selecciona al menos un socio.</mat-error>}
+  </mat-form-field>
+
+  <mat-checkbox class="seleccionar-todos" [checked]="todosSeleccionados" [indeterminate]="formulario.controls.sociosIds.value.length > 0 && !todosSeleccionados" [disabled]="cargandoSocios || socios.length === 0" (change)="cambiarSeleccionTodos($event.checked)">
+    Seleccionar todos los socios ({{ socios.length }})
+  </mat-checkbox>
+
+  <section class="editor-carta" aria-label="Cuerpo de la carta">
+    <span class="etiqueta-editor">Cuerpo de la carta</span>
+    <div class="barra-editor" role="toolbar" aria-label="Formato del texto">
+      <button mat-icon-button type="button" matTooltip="Negrita" (mousedown)="$event.preventDefault(); aplicarFormato('bold')"><mat-icon>format_bold</mat-icon></button>
+      <button mat-icon-button type="button" matTooltip="Cursiva" (mousedown)="$event.preventDefault(); aplicarFormato('italic')"><mat-icon>format_italic</mat-icon></button>
+      <button mat-icon-button type="button" matTooltip="Subrayado" (mousedown)="$event.preventDefault(); aplicarFormato('underline')"><mat-icon>format_underlined</mat-icon></button>
+      <span class="separador-editor"></span>
+      <button mat-icon-button type="button" matTooltip="Título" (mousedown)="$event.preventDefault(); aplicarFormato('formatBlock', 'h2')"><mat-icon>title</mat-icon></button>
+      <button mat-icon-button type="button" matTooltip="Lista" (mousedown)="$event.preventDefault(); aplicarFormato('insertUnorderedList')"><mat-icon>format_list_bulleted</mat-icon></button>
+      <span class="separador-editor"></span>
+      <button mat-icon-button type="button" matTooltip="Insertar imagen" (click)="selectorImagen.click()"><mat-icon>image</mat-icon></button>
+      <input #selectorImagen class="selector-imagen" type="file" accept="image/png,image/jpeg" (change)="seleccionarImagen($event)">
+    </div>
+    <div #editor class="area-editor" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Escribe aquí el contenido de la carta. Puedes pegar imágenes directamente." (input)="actualizarCuerpo($event)" (paste)="alPegar($event)" (keydown)="alPulsarTecla($event)"></div>
+    <small class="ayuda-editor">Admite formato de texto, listas e imágenes pegadas o seleccionadas (máx. 5 MB por imagen).</small>
+    @if (formulario.controls.cuerpo.hasError('required') && formulario.controls.cuerpo.touched) {<small class="error-editor">El cuerpo de la carta es obligatorio.</small>}
+  </section>
+
+  <mat-form-field appearance="outline" class="formato">
+    <mat-label>Formato</mat-label>
+    <mat-select formControlName="formato">
+      <mat-option value="PDF">PDF</mat-option>
+      <mat-option value="WORD">Word (.docx)</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  @if (formulario.controls.sociosIds.value.length > 1) {
+    <mat-form-field appearance="outline" class="modo-documentos">
+      <mat-label>Documentos para varios socios</mat-label>
+      <mat-select formControlName="modoGeneracion">
+        <mat-option value="UNICO">Un único documento</mat-option>
+        <mat-option value="SEPARADOS">Documentos separados (ZIP)</mat-option>
+      </mat-select>
+    </mat-form-field>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button type="button" (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" type="button" (click)="generar()"><mat-icon>description</mat-icon>Generar carta</button>
+</mat-dialog-actions>

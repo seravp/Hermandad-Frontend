@@ -1,0 +1,11 @@
+<h2 mat-dialog-title><mat-icon>folder_open</mat-icon> Cartas generadas</h2>
+<mat-dialog-content>
+  <p>Documentos guardados y organizados por fecha de generación.</p>
+  @if (cargando) { <p class="estado">Cargando cartas…</p> }
+  @else if (errorCarga) { <div class="estado error-carga"><p>No se han podido cargar las cartas guardadas.</p><button mat-stroked-button type="button" (click)="cargar()">Reintentar</button></div> }
+  @else if (cartas.length === 0) { <p class="estado">Aún no se ha generado ninguna carta.</p> }
+  @else { <div class="lista-cartas">@for (carta of cartas; track carta.id) {
+    <div class="carta-guardada"><mat-icon>folder</mat-icon><div><strong>{{ carta.carpeta }}</strong><span>{{ carta.destinatarios }}</span><small>{{ carta.formato }} · {{ carta.nombreArchivo }}</small></div><button mat-icon-button type="button" aria-label="Descargar carta" (click)="descargar(carta)"><mat-icon>download</mat-icon></button></div>
+  }</div> }
+</mat-dialog-content>
+<mat-dialog-actions align="end"><button mat-stroked-button type="button" (click)="cerrar()">Cerrar</button></mat-dialog-actions>

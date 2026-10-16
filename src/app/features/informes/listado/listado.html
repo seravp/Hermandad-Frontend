@@ -61,6 +61,28 @@
 
     </div>
 
+    <h2 class="seccion-titulo">Cartas</h2>
+
+    <div class="informes-grid">
+      <mat-card class="informe-item">
+        <mat-card-header>
+          <mat-icon class="icono cartas">mail</mat-icon>
+          <div>
+            <mat-card-title>Cartas personalizadas</mat-card-title>
+            <mat-card-subtitle>Genera comunicaciones formales para uno o varios socios</mat-card-subtitle>
+          </div>
+        </mat-card-header>
+        <mat-card-actions align="end" class="acciones-cartas">
+          <button mat-flat-button color="primary" [disabled]="generando !== null" (click)="abrirFormularioCartas()">
+            <mat-icon>edit_note</mat-icon> Generar carta
+          </button>
+          @if (authService.esAdmin()) {
+            <button mat-stroked-button type="button" (click)="abrirCartasGuardadas()"><mat-icon>folder_open</mat-icon>Cartas generadas</button>
+          }
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
     <h2 class="seccion-titulo">Exportación Excel</h2>
 
     <div class="informes-grid">
